@@ -4,6 +4,7 @@
   $countContent = \App\Models\Content::count();
   $countDestination = \App\Models\Destination::count();
   $countPackage = \App\Models\Package::count();
+  $countBooking = \App\Models\Booking::count();
 
 /* --}}
                                     
@@ -71,6 +72,17 @@
           <ul class="treeview-menu">
             <li id="package_list"><a href="{{ route('admin.packages') }}"><i class="fa fa-circle-o"></i> List Packages</a></li>
             <li id="package_add"><a href="{{ route('admin.package.add') }}"><i class="fa fa-circle-o"></i> Add Package</a></li>
+          </ul>
+        </li>
+
+        <li class="treeview" id="bookings">
+          <a href="#">
+            <i class="fa fa-square-o"></i>
+            <span>Bookings</span>
+            <span class="label label-primary pull-right">{{ $countBooking }}</span>
+          </a>
+          <ul class="treeview-menu">
+            <li id="booking_list"><a href="{{ route('admin.bookings') }}"><i class="fa fa-circle-o"></i> List Bookings</a></li>
           </ul>
         </li>  
         

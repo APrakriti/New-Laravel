@@ -40,6 +40,22 @@ class Booking extends Model
     }
 
     /**
+     * Get the customer that owns the booking.
+     */
+    public function customer()
+    {
+        return $this->belongsTo('App\User','user_id');
+    }
+
+    /**
+     * Get the country that owns the booking customer.
+     */
+    public function country()
+    {
+        return $this->belongsTo('App\Models\Country','country_id');
+    }
+
+    /**
      * Get the payment for the booking.
      */
     public function payment()
