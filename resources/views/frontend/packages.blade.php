@@ -22,9 +22,11 @@
                      <div class="breadcrumb-wrapper"> <a href="{{ route('home') }}" class="breadcrumb">Home</a> <a href="#!" class="breadcrumb">Last Minute Deals </a></div>
                      <div class="sub_title mgb25">
                         <h2>Last Minute Deals</h2>
-                     </div>
-                     <div class="row">
-                        @foreach($packages as $package)
+                     </div>                     
+                        @foreach ($packages->chunk(3) as $chunk)
+                        <div class="row">
+                        @foreach($chunk as $package)
+                        
                         <div class="col l4 m6 s12 mgb25">
                            <div class="trip_img">                           
                               <a href="{{ route('package.detail', $package->slug) }}">
@@ -61,6 +63,7 @@
                         <!--col end-->
                         @endforeach 
                      </div>
+                     @endforeach
                      {!! $packages->render() !!}
                      <!-- <ul class="pagination">
                         <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
