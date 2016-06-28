@@ -109,6 +109,6 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        exit; print_r($hait); exit;
+        print_r($hait); exit;
     }
 }
