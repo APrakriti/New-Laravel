@@ -301,7 +301,7 @@ opacity:0.5
 .foot-cont img:hover {opacity:0.5}
 
 .social_link {
-    margin-top:5px;
+
 }
 .social_link ul {
     margin: 0;
@@ -338,9 +338,9 @@ opacity:0.5
 .youtube i {background:#cf3427 !important}
 
 
-.accept {margin:20px 0; line-height:2}
+.accept {margin:15px 0; line-height:2}
 .accept img {width:auto; }
-.copyright {font-size:14px;}
+.copyright {font-size:12px; line-height:2}
 .pd {
     padding: 60px 0
 }

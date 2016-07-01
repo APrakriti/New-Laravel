@@ -149,7 +149,8 @@
                     <img src="{{ asset('images/accept.png') }}"/>
                 </div>
                 <div class="copyright">
-                    Copyright © 2016. iBook My Tour
+                    Copyright © 2016. iBook My Tour <br />
+                    Powered By: <a href="http://www.peacenepal.com" target="_blank">Peace Nepal DOT Com</a>
                 </div>
             </div>
         </div>
