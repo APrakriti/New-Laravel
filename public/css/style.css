@@ -66,7 +66,7 @@ a.breadcrumb {color:#1c77e8}
 .top_menu ul {}
 .top_menu ul li {margin-left:10px;}
 .top_menu ul li a {color:#2d6ad1; border:1px solid #2d6ad1; border-radius:5px; font-size:13px; padding:2px 15px;}
-
+.top_menu ul li a:hover {background:#2d6ad1; color:#fff}
 
 .top_menu {color:}
 
@@ -353,7 +353,7 @@ opacity:0.5
 .foot_link ul {margin:0; padding:0}
 .foot_link ul li {display:inline; float:left; border-right:1px solid #999; padding-right:10px; margin-right:10px; margin-bottom:10px; line-height:1}
 .foot_link ul li a {color:#000}
-.foot_link ul li:first-child {font-weight:bold; color:#000; text-transform:uppercase; border-right:none; width:60px;}
+.foot_link ul li:first-child {font-weight:bold; color:#000; text-transform:uppercase; border-right:none; }
 
 .foot_link:last-child {margin-bottom:0 !important}
 /*footer end*/
