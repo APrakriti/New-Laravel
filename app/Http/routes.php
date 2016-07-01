@@ -75,6 +75,15 @@ Route::group(['prefix'=>'admin','middleware' => 'admin','namespace' => 'Admin'],
 	Route::get('bookings',['as'=>'admin.bookings','uses'=>'BookingController@index']);
 	Route::get('booking/{id}',['as'=>'admin.booking.view','uses'=>'BookingController@detail']);
 
+	Route::get('testimonials', ['as'=>'admin.testimonials', 'uses'=>'TestimonialController@index']);
+	Route::get('testimonial/add', ['as'=>'admin.testimonial.add', 'uses'=>'TestimonialController@create']);
+	Route::post('testimonial/add', ['as'=>'admin.testimonial.store', 'uses'=>'TestimonialController@store']);
+	Route::get('testimonial/edit/{id}', ['as'=>'admin.testimonial.edit', 'uses'=>'TestimonialController@edit']);
+	Route::post('testimonial/edit/{id}', ['as'=>'admin.testimonial.update', 'uses'=>'TestimonialController@update']);
+	Route::post('testimonial/change/status', ['as'=>'admin.testimonial.changestatus', 'uses'=>'TestimonialController@changeStatus']);
+	Route::post('testimonial/delete', ['as'=>'admin.testimonial.delete', 'uses'=>'TestimonialController@destroy']);
+	Route::post('testimonial/sort/order', ['as'=>'admin.testimonial.sort.order', 'uses'=>'TestimonialController@sortOrder']);
+	
 });
 Route::get('/', ['as'=>'home', 'uses'=>'HomeController@getHomePage']);
 Route::get('home', ['as'=>'home','uses'=>'HomeController@getHomePage']);
@@ -96,7 +105,7 @@ Route::get('destination/{slug}', ['as'=>'destination.detail','uses'=>'Destinatio
 
 Route::get('login', ['as'=>'login','uses'=>'Auth\AuthController@getLogin']);
 Route::post('login', ['as'=>'check.login','uses'=>'Auth\AuthController@login']);
-Route::get('logout', ['as'=>'logout','middleware' => 'customer','uses'=>'Auth\AuthController@logout']);
+Route::get('logout/hait', ['as'=>'logout','uses'=>'Auth\AuthController@logoutt']);
 
 Route::get('register', ['as'=>'register','uses'=>'UserController@register']);
 Route::post('register', ['as'=>'register','uses'=>'UserController@registration']);
