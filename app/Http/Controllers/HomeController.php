@@ -13,6 +13,7 @@ use App\Models\Banner;
 use App\Models\Content;
 use App\Models\Destination;
 use App\Models\Package;
+use App\Models\Testimonial;
 use Validator;
 
 class HomeController extends Controller
@@ -33,15 +34,32 @@ class HomeController extends Controller
                             ->orderBy('order_position')
                             ->take(6)
                             ->get();
+        $lastMinuteDeals = Package::with('coverGallery')
+                            ->where('is_active', 1)
+                            ->where('last_minute_deal', 1)
+                            ->orderBy('order_position')
+                            ->take(4)
+                            ->get();
+        $fixedDeparturePackage = Package::with('coverGallery')
+                                ->where('is_active', 1)
+                                ->orderBy('order_position')
+                                ->first();
         $destinations = Destination::with('activePackages')
                                     ->where('is_active', 1)
                                     ->orderBy('order_position')
                                     ->take(4)->get();
         
+        $testimonials = Testimonial::where('is_active', 1)
+                                    ->orderBy('order_position')
+                                    ->take(2)->get();
+
         return view('frontend.index')
                     ->with('banners', $banners)
                     ->with('specialPackages', $specialPackages)
+                    ->with('lastMinuteDeals', $lastMinuteDeals)
+                    ->with('fixedDeparturePackage', $fixedDeparturePackage)
                     ->with('destinations', $destinations)
+                    ->with('testimonials', $testimonials)
                     ->with('title', 'I BOOK MY TRIP')
                     ->with('metaTags', 'I BOOK MY TRIP')
                     ->with('metaDescription', 'I BOOK MY TRIP');

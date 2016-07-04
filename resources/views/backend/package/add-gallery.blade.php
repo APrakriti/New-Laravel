@@ -13,15 +13,7 @@
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'
         },
-        fields: {
-            caption: {
-                validators: {
-                    notEmpty: {
-                        message: 'The gallery caption is required'
-                    }
-                }
-            },
-            
+        fields: {            
             attachment: {
               validators: {
                   file: {
@@ -64,25 +56,20 @@
               <h3 class="box-title">Add New Gallery</h3>
             </div>
             <!-- /.box-header -->
+            @include('layout.backend.alert')
             <!-- form start -->
             <form role="form" id="galleryAddForm" name="galleryAddForm" action="" method="post" enctype="multipart/form-data">
-              <div class="box-body">
-                <div class="form-group col-md-6">
-                  <label for="exampleInputGallery">Gallery caption *</label>
-                  <input type="text" class="form-control" id="caption" name="caption" value="{{ old('caption') }}" placeholder="Enter caption">
-                </div>                        
-              </div>
-              <!-- /.box-body -->
-
+              
               <div class="box-body">
                 <div class="form-group col-md-12">
                   <label for="exampleInputGallery">Attachment *</label>
                   <div class="fileupload-new thumbnail" >
                     <img src="{{ asset('uploads/noimage.jpg') }}" alt="" id="upload-preview" />
                   </div>
-                  <input type="file" name="attachment" id="attachment">
+                  <input type="file" name="attachment[]" id="attachment" multiple>
                   <p class="help-block">Valid file extensions are jpeg,jpg and png.</p>
                   <p class="help-block">Image of size 1158*819 looks better.</p>
+                  <p class="help-block">Maximum number of images should be less than 10.</p>
                   </div>                               
               </div>
 

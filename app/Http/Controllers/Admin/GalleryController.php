@@ -43,6 +43,21 @@ class GalleryController extends Controller
     }
 
     /**
+     * Display all galleries for the package
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function indextest($id)
+    {
+        $package = Package::findOrfail($id);
+        $galleries = Gallery::where('package_id', $id)->orderBy('order_position')->get();
+        return view('backend.package.galleriestest')
+                ->with('package', $package)
+                ->with('galleries', $galleries);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @param  int  $id
@@ -65,70 +80,80 @@ class GalleryController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $rules = ['caption'=>'required'];
+        $rules = ['attachment'=>'required'];
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails())
             return redirect()->back()->withInput()->withErrors($validator);
         
-        $imageFile = $request->attachment;
+        $files = $request->attachment;
         $destinationPath = 'uploads/gallery/';
         $destinationPathThumb = 'uploads/gallery/thumbs/';
         $rEFileTypes = "/^\.(jpg|jpeg|gif|png){1}$/i";
         $maximum_filesize = 1 * 1024 * 1024;
+            
+        for ($i = 0; $i < count($files); $i++) {
+            $imageFile = $files[$i];       
+            if($imageFile) {
+                $filename = $imageFile->getClientOriginalName();
+                $extension = strrchr($filename, '.');
+                $size = $imageFile->getSize();                  
+                $new_image_name = "gallery_" . time();
+                $caption = trim(strstr($filename, '.', true));
                 
-        if($imageFile) {
-            $filename = $imageFile->getClientOriginalName();
-            $extension = strrchr($filename, '.');
-            $size = $imageFile->getSize();                  
-            $new_image_name = "gallery_" . time();
-                    
-            if ($size <= $maximum_filesize && preg_match($rEFileTypes, $extension)) {
-                $attachment = $imageFile->move($destinationPath, $new_image_name.$extension);
+                if ($size <= $maximum_filesize && preg_match($rEFileTypes, $extension)) {
+                    $attachment = $imageFile->move($destinationPath, $new_image_name.$extension);
                 
-                $img = Image::make($destinationPath . $new_image_name . $extension);
-                $height = $img->height();
-                $width = $img->width();
-                $thumb_height = env('THUMB_WIDTH');
-                $thumb_width = env('THUMB_HEIGHT');
+                    $img = Image::make($destinationPath . $new_image_name . $extension);
+                    $height = $img->height();
+                    $width = $img->width();
+                    $thumb_height = env('THUMB_WIDTH');
+                    $thumb_width = env('THUMB_HEIGHT');
 
-                if($width > $height){
-                    $ratio = $width/$height;
-                    $thumb_width = $thumb_height * $ratio;
-                } else {
-                    $ratio = $height/$width;
-                    $thumb_height = $thumb_width * $ratio;
-                }
+                    if($width > $height){
+                        $ratio = $width/$height;
+                        $thumb_width = $thumb_height * $ratio;
+                    } else {
+                        $ratio = $height/$width;
+                        $thumb_height = $thumb_width * $ratio;
+                    }
                         
-                $img->resize($thumb_width, $thumb_height, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                });
-                $img->crop(env('THUMB_WIDTH'), env('THUMB_HEIGHT'));
-                $thumb_attachment = $img->save($destinationPathThumb . $new_image_name . env('THUMB_EXTENSION'));
-            } else if (preg_match($rEFileTypes, $extension) == false) {
-                Session::flash('class', 'alert alert-error');
-                Session::flash('message', 'Warning : Invalid Image File!');
-            } else if ($size > $maximum_filesize) {
-                Session::flash('class', 'alert alert-error');
-                Session::flash('message', "Warning : The size of the image shouldn't be more than 1MB!");
-            }               
+                    $img->resize($thumb_width, $thumb_height, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    });
+                    $img->crop(env('THUMB_WIDTH'), env('THUMB_HEIGHT'));
+                    $thumb_attachment = $img->save($destinationPathThumb . $new_image_name . env('THUMB_EXTENSION'));
+                } else if (preg_match($rEFileTypes, $extension) == false) {
+                    Session::flash('class', 'alert alert-error');
+                    Session::flash('message', 'Warning : Invalid Image File!');
+                } else if ($size > $maximum_filesize) {
+                    Session::flash('class', 'alert alert-error');
+                    Session::flash('message', "Warning : The size of the image shouldn't be more than 1MB!");
+                }               
+            }
+            $logo = isset($attachment) ? $new_image_name . $extension : NULL;
+            $thumb_logo = isset($thumb_attachment) ? $new_image_name . $extension : NULL;
+            if($logo){
+                $gallery = new Gallery();
+                $gallery->caption = $caption;
+                $gallery->created_by = Auth::id();
+                $gallery->is_active = $request->is_active;
+
+                if($i==0){
+                    $coverGallery = Gallery::where('is_cover', 1)
+                                ->where('package_id', $id)->first();
+                    if(!$coverGallery)
+                        $gallery->is_cover = 1;
+                }
+                
+                $gallery->attachment = $logo;
+                if($thumb_logo)
+                    $gallery->thumb_attachment = $thumb_logo;
+
+                $package = Package::findOrFail($id);
+                $package->galleries()->save($gallery);
+            }
         }
-        $logo = isset($attachment) ? $new_image_name . $extension : NULL;
-        $thumb_logo = isset($thumb_attachment) ? $new_image_name . $extension : NULL;
-
-        $gallery = new Gallery();
-        $gallery->caption = $request->caption;
-        $gallery->created_by = Auth::id();
-        $gallery->is_active = $request->is_active;
-
-        if($logo)
-            $gallery->attachment = $logo;
-        if($thumb_logo)
-            $gallery->thumb_attachment = $thumb_logo;
-
-        $package = Package::findOrFail($id);
-        $package->galleries()->save($gallery);
-
         return redirect()->route('admin.package.galleries', $id);
     }
 
@@ -335,5 +360,10 @@ class GalleryController extends Controller
             $position++;
         }
         return response()->json(['status'=>'success', 'message'=>'Your galleries are sorted successfully.'], 200);
+    }
+
+    public function storeTest(Request $request)
+    {
+        return response()->json(['message'=>$request->all()]);
     }
 }

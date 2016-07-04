@@ -1,10 +1,12 @@
 {{-- */ 
 
+  $countActivity = \App\Models\Activity::count();
   $countBanner = \App\Models\Banner::count();
   $countContent = \App\Models\Content::count();
   $countDestination = \App\Models\Destination::count();
   $countPackage = \App\Models\Package::count();
   $countBooking = \App\Models\Booking::count();
+  $countTestimonial = \App\Models\Testimonial::count();
 
 /* --}}
                                     
@@ -27,6 +29,18 @@
             <i class="fa fa-dashboard"></i> <span>Dashboard</span> 
           </a>
         </li>
+        <li class="treeview" id="activities">
+          <a href="#">
+            <i class="fa fa-square-o"></i>
+            <span>Activities</span>
+            <span class="label label-primary pull-right">{{ $countActivity }}</span>
+          </a>
+          <ul class="treeview-menu">
+            <li id="activity_list"><a href="{{ route('admin.activities') }}"><i class="fa fa-circle-o"></i> List Activities</a></li>
+            <li id="activity_add"><a href="{{ route('admin.activity.add') }}"><i class="fa fa-circle-o"></i> Add Activity</a></li>
+          </ul>
+        </li>
+
         <li class="treeview" id="banners">
           <a href="#">
             <i class="fa fa-camera"></i>
@@ -87,17 +101,17 @@
         </li>  
         
 
-        <!-- <li class="treeview" id="members">
+        <li class="treeview" id="testimonials">
           <a href="#">
             <i class="fa fa-users"></i>
-            <span>Customers</span>
-            <span class="label label-primary pull-right">1200</span>
+            <span>Testimonials</span>
+            <span class="label label-primary pull-right">{{ $countTestimonial }}</span>
           </a>
           <ul class="treeview-menu">
-            <li id="member_list"><a href="#"><i class="fa fa-circle-o"></i> List Members</a></li>
-            <li id="member_add"><a href="#"><i class="fa fa-circle-o"></i> Add Member</a></li>
+            <li id="testimonial_list"><a href="{{ route('admin.testimonials') }}"><i class="fa fa-circle-o"></i> List Testimonials</a></li>
+            <li id="testimonial_add"><a href="{{ route('admin.testimonial.add') }}"><i class="fa fa-circle-o"></i> Add Testimonial</a></li>
           </ul>
-        </li>  -->       
+        </li>        
         
         <li><a href="{{ route('admin.logout') }}"><i class="fa  fa-power-off text-aqua"></i> <span>Logout</span></a></li>
       </ul>

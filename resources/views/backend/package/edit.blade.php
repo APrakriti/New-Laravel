@@ -153,6 +153,19 @@
                   <label for="exampleInputPackage">Package Name *</label>
                   <input type="text" class="form-control" id="heading" name="heading" value="{{ $package->heading }}" placeholder="Enter package name">
                 </div>
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-body"> 
+                <div class="form-group col-md-6">
+                  <label for="exampleInputPackage">Activity</label>
+                  <select class="form-control" name="activity_id">
+                    <option value="0">Select Activity</option>
+                    @foreach($activities as $activity)
+                    <option value="{{ $activity->id }}" @if($activity->id == $package->activity_id) selected="selected" @endif>{{ $activity->heading }}</option>
+                    @endforeach
+                  </select>
+                </div> 
                 <div class="form-group col-md-6">
                   <label for="exampleInputPackage">Destination</label>
                   <select class="form-control" name="destination_id">
@@ -162,8 +175,7 @@
                     @endforeach
                   </select>
                 </div>                          
-              </div>
-              <!-- /.box-body -->
+              </div>              
 
               <div class="box-body">
                 <div class="form-group col-md-12">
@@ -258,12 +270,19 @@
 
               <div class="box-body">
                 <div class="form-group col-md-6">
+                  <label for="exampleInputPackage">Last Minute Deal</label>
+                  <select class="form-control" name="last_minute_deal">
+                    <option value="0" <?php echo ($package->last_minute_deal == '0')? 'selected="selected"' : '' ?> >No</option>
+                    <option value="1" <?php echo (($package->last_minute_deal == '1' || $package->last_minute_deal == '')? 'selected="selected"' : '') ?> >Yes</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
                   <label for="exampleInputPackage">Published</label>
                   <select class="form-control" name="is_active">
                     <option value="0" <?php echo ($package->is_active == '0')? 'selected="selected"' : '' ?> >No</option>
                     <option value="1" <?php echo (($package->is_active == '1' || $package->is_active == '')? 'selected="selected"' : '') ?> >Yes</option>
                   </select>
-                </div>                              
+                </div>                               
               </div>
 
               <div class="box-footer">

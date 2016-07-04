@@ -150,6 +150,19 @@
                   <label for="exampleInputPackage">Package Name *</label>
                   <input type="text" class="form-control" id="heading" name="heading" value="{{ old('heading') }}" placeholder="Enter package name">
                 </div>
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-body">
+                <div class="form-group col-md-6">
+                  <label for="exampleInputPackage">Activity</label>
+                  <select class="form-control" name="activity_id">
+                    <option value="0">Select Activity</option>
+                    @foreach($activities as $activity)
+                    <option value="{{ $activity->id }}">{{ $activity->heading }}</option>
+                    @endforeach
+                  </select>
+                </div> 
                 <div class="form-group col-md-6">
                   <label for="exampleInputPackage">Destination</label>
                   <select class="form-control" name="destination_id">
@@ -158,9 +171,8 @@
                     <option value="{{ $destination->id }}">{{ $destination->heading }}</option>
                     @endforeach
                   </select>
-                </div>                       
+                </div>                                       
               </div>
-              <!-- /.box-body -->
 
               <div class="box-body">
                 <div class="form-group col-md-12">
@@ -253,6 +265,13 @@
               </div>
 
               <div class="box-body">
+                <div class="form-group col-md-6">
+                  <label for="exampleInputPackage">Last Minute Deal</label>
+                  <select class="form-control" name="last_minute_deal">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                  </select>
+                </div>
                 <div class="form-group col-md-6">
                   <label for="exampleInputPackage">Published</label>
                   <select class="form-control" name="is_active">

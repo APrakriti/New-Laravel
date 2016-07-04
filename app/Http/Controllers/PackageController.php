@@ -40,9 +40,10 @@ class PackageController extends Controller
     {
         $packages = Package::with('coverGallery')
                     ->where('is_active', 1)
+                    ->where('last_minute_deal', 1)
                     ->orderBy('order_position')
                     ->paginate(env('PAGINATE'));
-        return view('frontend.deals')
+        return view('frontend.lastminutedeals')
                     ->with('packages', $packages);
     }
 

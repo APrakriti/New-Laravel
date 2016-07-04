@@ -35,7 +35,6 @@
             });
           }
         });
-
         $("#example1").on("click", ".change-status", function(){
           $object = $(this);
           var packageId = $object.attr('id');
@@ -66,8 +65,7 @@
               }
             });
           });          
-        });       
-
+        });
         $("#example1").on("click", ".make-special", function(){
           $object = $(this);
           var packageId = $object.attr('id');
@@ -87,6 +85,37 @@
               success: function(response){
                 swal("Thank You!", response.message, "success")
                 if(response.package.is_special == 1){
+                  $($object).children().removeClass('fa-minus-circle');
+                  $($object).children().addClass('fa-check-square-o');
+                } else {
+                  $($object).children().removeClass('fa-check-square-o');
+                  $($object).children().addClass('fa-minus-circle');
+                }
+              },
+              error: function(e){              
+              }
+            });
+          });          
+        });
+        $("#example1").on("click", ".make-last-minute-deal", function(){
+          $object = $(this);
+          var packageId = $object.attr('id');
+          swal({
+            title: "Are you sure to change status?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, change it!",
+            closeOnConfirm: false
+          }, function(){
+            $.ajax({
+              type: "POST",
+              url: "{{ route('admin.package.make.lastminutedeal') }}",
+              data: {package_id: packageId, _token: '{{ csrf_token() }}'},
+              success: function(response){
+                swal("Thank You!", response.message, "success")
+                if(response.package.last_minute_deal == 1){
                   $($object).children().removeClass('fa-minus-circle');
                   $($object).children().addClass('fa-check-square-o');
                 } else {
@@ -167,7 +196,7 @@
                   <th>Package Heading</th>
                   <th>Publish</th>
                   <th>Special</th>
-                  <th>Published On</th>
+                  <th>Last Minute</th>
                   <th>Options</th>
                 </tr>
                 </thead>
@@ -191,8 +220,13 @@
                       <a href="javascript:void(0)" class="make-special" id="{{ $package->id }}" title="Special"><i class="fa fa-minus-circle"></i></a>
                     @endif
                   </td>
-                  <td>{{ date_format(date_create($package->updated_at), 'M d,Y') }}</td>                  
                   <td>
+                    @if($package->last_minute_deal == 1)
+                      <a href="javascript:void(0)" class="make-last-minute-deal" id="{{ $package->id }}" title="Last Minute Deal"><i class="fa fa-check-square-o"></i></a>
+                    @else
+                      <a href="javascript:void(0)" class="make-last-minute-deal" id="{{ $package->id }}" title="Last Minute Deal"><i class="fa fa-minus-circle"></i></a>
+                    @endif
+                  </td><td>
                     <a href="{{ route('admin.package.edit', $package->id) }}"><i class="fa fa-fw fa-edit"></i>Edit</a>&nbsp;&nbsp;
                     <a href="javascript:void(0)" class="delete" id="{{ $package->id }}" title="Delete Record"><i class="fa  fa-trash-o"></i>Delete</a>
                     <a href="{{ route('admin.package.galleries', $package->id) }}" ><i class="fa  fa-fw fa-edit"></i>Gallery</a>
@@ -207,7 +241,7 @@
                   <th>Package Heading</th>
                   <th>Publish</th>
                   <th>Special</th>
-                  <th>Published On</th>
+                  <th>Last Minute</th>
                   <th>Options</th>
                 </tr>
                 </tfoot>

@@ -40,6 +40,7 @@ class CreatePackagesTable extends Migration
             $table->integer('created_by')->unsigned()->nullable()->default(null);
             $table->integer('updated_by')->unsigned()->nullable()->default(null);
             $table->enum('is_special', [0, 1])->default(0);
+            $table->enum('last_minute_deal', [0, 1])->default(0);
             $table->enum('is_active', [0, 1])->default(0);
             $table->timestamps();
             $table->softDeletes();

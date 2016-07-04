@@ -6,7 +6,7 @@
     $('.sidebar-menu li').removeClass('active');
     $('#packages').addClass('active');
 
-    $('#galleryAddForm').formValidation({
+    $('#galleryEditForm').formValidation({
         framework: 'bootstrap',
         icon: {
             valid: 'glyphicon glyphicon-ok',
@@ -49,7 +49,7 @@
         <li><a href="{{ route('admin.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="{{ route('admin.packages') }}">Packages</a></li>
         <li><a href="{{ route('admin.package.galleries', $gallery->package->id) }}">Galleries : {{ $gallery->package->heading }}</a></li>
-        <li class="active">Add New</li>
+        <li class="active">Edit Gallery</li>
       </ol>
     </section>
 
@@ -61,11 +61,11 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Add New Gallery</h3>
+              <h3 class="box-title">Edit Gallery</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" id="galleryAddForm" name="galleryAddForm" action="" method="post" enctype="multipart/form-data">
+            <form role="form" id="galleryEditForm" name="galleryEditForm" action="" method="post" enctype="multipart/form-data">
               <div class="box-body">
                 <div class="form-group col-md-6">
                   <label for="exampleInputGallery">Gallery caption *</label>

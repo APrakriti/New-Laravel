@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Models\Destination;
+use App\Models\Activity;
 use Validator;
 use Auth;
 
-class DestinationController extends Controller
+class ActivityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +20,9 @@ class DestinationController extends Controller
      */
     public function index()
     {
-        $destinations = Destination::orderBy('order_position')->get();
-        return view('backend.destination.index')
-                ->with('destinations', $destinations);
+        $activities = Activity::orderBy('order_position')->get();
+        return view('backend.activity.index')
+                ->with('activities', $activities);
     }
 
     /**
@@ -32,7 +32,7 @@ class DestinationController extends Controller
      */
     public function create()
     {
-        return view('backend.destination.add');
+        return view('backend.activity.add');
     }
 
     /**
@@ -51,7 +51,7 @@ class DestinationController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         
         $imageFile = $request->attachment;
-        $destinationPath = 'uploads/destinations/';
+        $activityPath = 'uploads/activities/';
         $rEFileTypes = "/^\.(jpg|jpeg|gif|png){1}$/i";
         $maximum_filesize = 1 * 1024 * 1024;
                 
@@ -59,10 +59,10 @@ class DestinationController extends Controller
             $filename = $imageFile->getClientOriginalName();
             $extension = strrchr($filename, '.');
             $size = $imageFile->getSize();                  
-            $new_image_name = "destination_" . time();
+            $new_image_name = "activity_" . time();
                     
             if ($size <= $maximum_filesize && preg_match($rEFileTypes, $extension)) {
-                $attachment = $imageFile->move($destinationPath, $new_image_name.$extension);
+                $attachment = $imageFile->move($activityPath, $new_image_name.$extension);
             } else if (preg_match($rEFileTypes, $extension) == false) {
                 Session::flash('class', 'alert alert-error');
                 Session::flash('message', 'Warning : Invalid Image File!');
@@ -73,22 +73,22 @@ class DestinationController extends Controller
         }
         $logo = isset($attachment) ? $new_image_name . $extension : NULL;
         
-        $destination = new Destination();
-        $destination->heading = $request->heading;
-        $destination->description = $request->description;
-        $destination->title = $request->title;
-        $destination->meta_tags = $request->meta_tags;
-        $destination->meta_description = $request->meta_description;
-        $destination->created_by = Auth::id();
-        $destination->is_active = $request->is_active;
+        $activity = new Activity();
+        $activity->heading = $request->heading;
+        $activity->description = $request->description;
+        $activity->title = $request->title;
+        $activity->meta_tags = $request->meta_tags;
+        $activity->meta_description = $request->meta_description;
+        $activity->created_by = Auth::id();
+        $activity->is_active = $request->is_active;
 
         if($logo)
-            $destination->attachment = $logo;     
-        $destination->save();
+            $activity->attachment = $logo;     
+        $activity->save();
 
-        return redirect()->route('admin.destinations')
+        return redirect()->route('admin.activities')
                         ->with('status', 'success')
-                        ->with('message', 'Destination with heading "'. $destination->heading.'" is added!');
+                        ->with('message', 'Activity with heading "'. $activity->heading.'" is added!');
     }
 
     /**
@@ -110,9 +110,9 @@ class DestinationController extends Controller
      */
     public function edit($id)
     {
-        $destination = Destination::findOrFail($id);
-        return view('backend.destination.edit')
-                ->with('destination', $destination);
+        $activity = Activity::findOrFail($id);
+        return view('backend.activity.edit')
+                ->with('activity', $activity);
     }
 
     /**
@@ -132,7 +132,7 @@ class DestinationController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         
         $imageFile = $request->attachment;
-        $destinationPath = 'uploads/destinations/';
+        $activityPath = 'uploads/activities/';
         $rEFileTypes = "/^\.(jpg|jpeg|gif|png){1}$/i";
         $maximum_filesize = 1 * 1024 * 1024;
                 
@@ -140,10 +140,10 @@ class DestinationController extends Controller
             $filename = $imageFile->getClientOriginalName();
             $extension = strrchr($filename, '.');
             $size = $imageFile->getSize();                  
-            $new_image_name = "destination_" . time();
+            $new_image_name = "activity_" . time();
                     
             if ($size <= $maximum_filesize && preg_match($rEFileTypes, $extension)) {
-                $attachment = $imageFile->move($destinationPath, $new_image_name.$extension);
+                $attachment = $imageFile->move($activityPath, $new_image_name.$extension);
             } else if (preg_match($rEFileTypes, $extension) == false) {
                 Session::flash('class', 'alert alert-error');
                 Session::flash('message', 'Warning : Invalid Image File!');
@@ -154,47 +154,47 @@ class DestinationController extends Controller
         }
         $logo = isset($attachment) ? $new_image_name . $extension : NULL;
         
-        $destination = Destination::find($id);
-        $destination->heading = $request->heading;
-        $destination->description = $request->description;
-        $destination->title = $request->title;
-        $destination->meta_tags = $request->meta_tags;
-        $destination->meta_description = $request->meta_description;
-        $destination->updated_by = Auth::id();
-        $destination->is_active = $request->is_active;
+        $activity = Activity::find($id);
+        $activity->heading = $request->heading;
+        $activity->description = $request->description;
+        $activity->title = $request->title;
+        $activity->meta_tags = $request->meta_tags;
+        $activity->meta_description = $request->meta_description;
+        $activity->updated_by = Auth::id();
+        $activity->is_active = $request->is_active;
 
         if($logo){
-            if(file_exists('uploads/destinations/'.$destination->attachment) && $destination->attachment!='')
-                unlink('uploads/destinations/'.$destination->attachment);
-            $destination->attachment = $logo;     
+            if(file_exists('uploads/activities/'.$activity->attachment) && $activity->attachment!='')
+                unlink('uploads/activities/'.$activity->attachment);
+            $activity->attachment = $logo;     
         }    
-        $destination->save();
+        $activity->save();
 
-        return redirect()->route('admin.destinations')
+        return redirect()->route('admin.activities')
                         ->with('status', 'success')
-                        ->with('message', 'Destination with heading "'. $destination->heading.'" is updated!');
+                        ->with('message', 'Activity with heading "'. $activity->heading.'" is updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
     {
-        $rules = ['destination_id'=>'required|exists:destinations,id'];
-        $validator = Validator::make($request->only('destination_id'), $rules);
+        $rules = ['activity_id'=>'required|exists:activities,id'];
+        $validator = Validator::make($request->only('activity_id'), $rules);
         if($validator->fails())
             return response()->json(['status'=>'error', 'message'=>$validator->errors()->all()], 422);
         
-        $destination = Destination::find($request->destination_id);
-        if(file_exists("uploads/destinations/".$destination->attachment) && $destination->attachment!=''){
-            rename('uploads/destinations/'. $destination->attachment, 'uploads/destinations/trash/'. $destination->attachment);
+        $activity = Activity::find($request->activity_id);
+        if(file_exists("uploads/activities/".$activity->attachment) && $activity->attachment!=''){
+            rename('uploads/activities/'. $activity->attachment, 'uploads/activities/trash/'. $activity->attachment);
         }
-        $destination->delete();
-        $message = 'Your destination is deleted successfully.';
-        return response()->json(['status'=>'ok', 'message'=>$message, 'destination'=>$destination], 200);
+        $activity->delete();
+        $message = 'Your activity is deleted successfully.';
+        return response()->json(['status'=>'ok', 'message'=>$message, 'activity'=>$activity], 200);
     }
 
     /**
@@ -205,23 +205,23 @@ class DestinationController extends Controller
      */
     public function changeStatus(Request $request)
     {
-        $rules = ['destination_id'=>'required|exists:destinations,id'];
-        $validator = Validator::make($request->only('destination_id'), $rules);
+        $rules = ['activity_id'=>'required|exists:activities,id'];
+        $validator = Validator::make($request->only('activity_id'), $rules);
         if($validator->fails())
             return response()->json(['status'=>'error', 'message'=>$validator->errors()->all()], 422);
         
-        $destination = Destination::find($request->destination_id);
+        $activity = Activity::find($request->activity_id);
         $message = '';
-        if($destination->is_active == 0){
-            $destination->is_active = 1;
-            $message = 'Your destination is published successfully.';
+        if($activity->is_active == 0){
+            $activity->is_active = 1;
+            $message = 'Your activity is published successfully.';
         } else {
-            $destination->is_active = 0;
-            $message = 'Your destination is unpublished successfully.';
+            $activity->is_active = 0;
+            $message = 'Your activity is unpublished successfully.';
         }
-        $destination->save();
+        $activity->save();
 
-        return response()->json(['status'=>'ok', 'message'=>$message, 'destination'=>$destination], 200);
+        return response()->json(['status'=>'ok', 'message'=>$message, 'activity'=>$activity], 200);
     }
 
     /**
@@ -232,19 +232,19 @@ class DestinationController extends Controller
      */
     public function destroyAttachment(Request $request)
     {
-        $rules = ['destination_id'=>'required|exists:destinations,id'];
-        $validator = Validator::make($request->only('destination_id'), $rules);
+        $rules = ['activity_id'=>'required|exists:activities,id'];
+        $validator = Validator::make($request->only('activity_id'), $rules);
         if($validator->fails())
             return response()->json(['status'=>'error', 'message'=>$validator->errors()->all()], 422);
         
-        $destination = Destination::find($request->destination_id);
-        if(file_exists("uploads/destinations/".$destination->attachment) && $destination->attachment!=''){
-            unlink('uploads/destinations/'. $destination->attachment);
+        $activity = Activity::find($request->activity_id);
+        if(file_exists("uploads/activities/".$activity->attachment) && $activity->attachment!=''){
+            unlink('uploads/activities/'. $activity->attachment);
         }
-        $destination->attachment = null;
-        $destination->save();
-        $message = 'Your destination attachment is deleted successfully.';
-        return response()->json(['status'=>'ok', 'message'=>$message, 'destination'=>$destination], 200);
+        $activity->attachment = null;
+        $activity->save();
+        $message = 'Your activity attachment is deleted successfully.';
+        return response()->json(['status'=>'ok', 'message'=>$message, 'activity'=>$activity], 200);
     }
 
     /**
@@ -255,19 +255,19 @@ class DestinationController extends Controller
      */
     public function sortOrder(Request $request)
     {
-        $rules = ['destinations'=>'required'];
-        $validator = Validator::make($request->only('destinations'), $rules);
+        $rules = ['activities'=>'required'];
+        $validator = Validator::make($request->only('activities'), $rules);
         if($validator->fails())
             return response()->json(['status'=>'error', 'message'=>$validator->errors()->all()], 422);
         
-        $destinations = explode('&',str_replace('destination[]=','',$request->destinations));
+        $activities = explode('&',str_replace('activity[]=','',$request->activities));
         $position = 1;
-        foreach ($destinations as $destinationId) {
-            $destination                 = Destination::find($destinationId);
-            $destination->order_position = $position;
-            $destination->save();
+        foreach ($activities as $activityId) {
+            $activity                 = Activity::find($activityId);
+            $activity->order_position = $position;
+            $activity->save();
             $position++;
         }
-        return response()->json(['status'=>'success', 'message'=>'Your destinations are sorted successfully.'], 200);
+        return response()->json(['status'=>'success', 'message'=>'Your activities are sorted successfully.'], 200);
     }
 }

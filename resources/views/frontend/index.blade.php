@@ -264,7 +264,7 @@
                 @endif
                 <div class="trip_title">
                   <a href="{{ route('package.detail', $package->slug) }}">
-                    @if($package->trip_duration) {{ $package->trip_duration }} Days @endif {{ $package->heading }}
+                    {{ $package->heading }}
                   </a>
                 </div>
                 <div class="trip_desc">
@@ -310,23 +310,33 @@
           <div class="sub_title h2block">
             <h2>Fixed Departure</h2>
           </div>
+          @foreach($fixedDeparturePackage->coverGallery as $gallery)
+          @endforeach
           <div class="fixed">
             <div class="trip_img">
-              <a href=""><img src="images/fixed1.jpg"/></a>
+              <a href="{{ route('package.detail', $fixedDeparturePackage->slug) }}">
+              @if(file_exists('uploads/gallery/'.$gallery->attachment) && $gallery->attachment != '')
+                <img src="{{ asset('uploads/gallery/'.$gallery->attachment) }}"/>
+              @else
+                <img src="{{ asset('images/fixed1.jpg') }}"/>
+              @endif
+              </a>
             </div>
             <div class="trip_brief">
-              <div class="trip_price">$1500<br/>
-                <span>$2300</span>
+              <div class="trip_price">${{ $fixedDeparturePackage->previous_price }}<br/>
+                <span>${{ $fixedDeparturePackage->starting_price }}</span>
               </div>
               <div class="trip_title">
-                <a href="">8 Days Dhampus Australian Camp Trek</a>
+                <a href="{{ route('package.detail', $fixedDeparturePackage->slug) }}">{{ $fixedDeparturePackage->heading }}</a>
               </div>
               <div class="trip_fact_brief">
                 <div class="row">
-                  <div class="col l4 m6 s6">Duration: 7 Days</div>
-                  <div class="col l8 m6 s6">
+                @if($fixedDeparturePackage->trip_duration)
+                  <div class="col l4 m6 s6">Duration: {{ $fixedDeparturePackage->trip_duration}} Days</div>
+                @endif
+                  <!-- <div class="col l8 m6 s6">
                     Rating: <img src="images/rating.png"/>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -377,105 +387,42 @@
           </div>
           <div class="last_minute">
             <div class="row">
+              @foreach($lastMinuteDeals as $index=>$package)
+                @foreach($package->coverGallery as $gallery)
+                @endforeach 
               <div class="col l3 m3 s3">
                 <div class="trip_img">
-                  <a href=""><img src="images/last1.jpg"/></a>
+                  <a href="{{ route('package.detail', $package->slug) }}">
+                    @if(file_exists('uploads/gallery/'.$gallery->attachment) && $gallery->attachment != '')
+                    <img src="{{ asset('uploads/gallery/'.$gallery->attachment) }}"/>
+                    @else
+                    <img src="{{ asset('images/last1.jpg') }}"/>
+                    @endif
+                  </a>
                 </div>
               </div>
               <div class="col l9 m9 s9 pdl0">
                 <div class="trip_brief">
                   <div class="trip_title">
-                    <a href="">8 Days Dhampus Australian Camp Trek</a>
+                    <a href="{{ route('package.detail', $package->slug) }}">{{ $package->heading }}</a>
                   </div>
                   <div class="trip_fact_brief">
                     <div class="row">
-                      <div class="col l6 m6 s6">Duration: 7 Days</div>
-                      <div class="col l6 m6 s6">
-                        Rating: <img src="images/rating.png"/>
-                      </div>
+                    @if($package->trip_duration)
+                      <div class="col l6 m6 s6">Duration: {{ $package->trip_duration }} Days</div>
+                    @endif 
                     </div>
                   </div>
                   <div class="details">
-                    <a href="#">View Details</a>
+                    <a href="{{ route('package.detail', $package->slug) }}">View Details</a>
                   </div>
                 </div>
               </div>
               <div class="clear"></div>
+              @if($index != 3)
               <div class="lastdivider"></div>
-              <div class="col l3 m3 s3">
-                <div class="trip_img">
-                  <a href=""><img src="images/last2.jpg"/></a>
-                </div>
-              </div>
-              <div class="col l9 m9 s9 pdl0">
-                <div class="trip_brief">
-                  <div class="trip_title">
-                    <a href="">8 Days Adventure Nepal Tour with Rafting</a>
-                  </div>
-                  <div class="trip_fact_brief">
-                    <div class="row">
-                      <div class="col l6 m6 s6">Duration: 7 Days</div>
-                      <div class="col l6 m6 s6">
-                        Rating: <img src="images/rating.png"/>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="details">
-                    <a href="#">View Details</a>
-                  </div>
-                </div>
-              </div>
-              <div class="clear"></div>
-              <div class="lastdivider"></div>
-              <div class="col l3 m3 s3">
-                <div class="trip_img">
-                  <a href=""><img src="images/last3.jpg"/></a>
-                </div>
-              </div>
-              <div class="col l9 m9 s9 pdl0">
-                <div class="trip_brief">
-                  <div class="trip_title">
-                    <a href="">18 Days Annapurna Circuit with Tilicho Lake</a>
-                  </div>
-                  <div class="trip_fact_brief">
-                    <div class="row">
-                      <div class="col l6 m6 s6">Duration: 7 Days</div>
-                      <div class="col l6 m6 s6">
-                        Rating: <img src="images/rating.png"/>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="details">
-                    <a href="#">View Details</a>
-                  </div>
-                </div>
-              </div>
-              <div class="clear"></div>
-              <div class="lastdivider"></div>
-              <div class="col l3 m3 s3">
-                <div class="trip_img">
-                  <a href=""><img src="images/last4.jpg"/></a>
-                </div>
-              </div>
-              <div class="col l9 m9 s9 pdl0">
-                <div class="trip_brief">
-                  <div class="trip_title">
-                    <a href="">8 Days Nepal Bird Watching Tour</a>
-                  </div>
-                  <div class="trip_fact_brief">
-                    <div class="row">
-                      <div class="col l6 m6 s6">Duration: 7 Days</div>
-                      <div class="col l6 m6 s6">
-                        Rating: <img src="images/rating.png"/>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="details">
-                    <a href="#">View Details</a>
-                  </div>
-                </div>
-              </div>
-              <div class="clear"></div>
+              @endif
+              @endforeach              
             </div>
           </div>
         </div>
@@ -534,20 +481,24 @@
           <h2>What happy guests say about us?</h2>
         </div>
         <div class="row">
+        @foreach($testimonials as $index=>$testimonial)
           <div class="col l3 m3 s3">
             <div class="testimonials_img">
-              <img src="images/test1.jpg"/>
+            @if(file_exists('uploads/testimonials/'.$testimonial->attachment) && $testimonial->attachment != '')
+              <img src="{{ asset('uploads/testimonials/'.$testimonial->attachment) }}"/>
+            @endif
             </div>
           </div>
           <div class="col l9 m9 s9">
-            <strong>Maria Parker</strong>
-            <br/>“I would really just like to say thanks!!! This is exactly what I needed, we all needed.
-              I came away form the class really recognizing that I really need to take time for myself more often.
-              I actually like the foods that I’m eating now, and the way they make me feel is very special..... more
+            <strong>{!! $testimonial->name !!}</strong>
+            <br/>" {!! $testimonial->description !!} "
           </div>
+          @if($index != 1)
           <div class="clear"></div>
           <div class="testdivider"></div>
-          <div class="col l3 m3 s3">
+          @endif
+          @endforeach
+          <!-- <div class="col l3 m3 s3">
             <div class="testimonials_img">
               <img src="images/test2.jpg"/>
             </div>
@@ -557,11 +508,11 @@
               <br/>“I would really just like to say thanks!!! This is exactly what I needed, we all needed.
               I came away form the class recognizing that I really need to take time for myself more often.
               I actually like the foods that I’m eating now, and the way they make me feel is very special..... more
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="col l6 m12 delay-05s  fadeInRight wow animated">
-        <a href="#car_rent_tab"><img src="images/hotel.jpg"/></a>
+        <a href="#car_rent_tab"><img src="{{ asset('images/hotel.jpg') }}"/></a>
       </div>
     </div>
   </div>

@@ -60,7 +60,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Edit Testimonial : {!! $testimonial->heading !!}</h3>
+              <h3 class="box-title">Edit Testimonial : {!! $testimonial->name !!}</h3>
             </div>
             <!-- /.box-header -->
             @include('layout.backend.alert')

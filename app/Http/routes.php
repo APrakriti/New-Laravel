@@ -22,6 +22,16 @@ Route::group(['prefix'=>'admin','middleware' => 'admin','namespace' => 'Admin'],
 	Route::get('logout', ['as'=>'admin.logout', 'uses'=>'UserController@logout']);
 	Route::get('dashboard', ['as'=>'admin.dashboard','uses'=>'AdminController@index']);
 	
+	Route::get('activities', ['as'=>'admin.activities', 'uses'=>'ActivityController@index']);
+	Route::get('activity/add', ['as'=>'admin.activity.add', 'uses'=>'ActivityController@create']);
+	Route::post('activity/add', ['as'=>'admin.activity.store', 'uses'=>'ActivityController@store']);
+	Route::get('activity/edit/{id}', ['as'=>'admin.activity.edit', 'uses'=>'ActivityController@edit']);
+	Route::post('activity/edit/{id}', ['as'=>'admin.activity.update', 'uses'=>'ActivityController@update']);
+	Route::post('activity/change-status', ['as'=>'admin.activity.changestatus', 'uses'=>'ActivityController@changeStatus']);
+	Route::post('activity/delete', ['as'=>'admin.activity.delete', 'uses'=>'ActivityController@destroy']);
+	Route::post('activity/delete/attachment', ['as'=>'admin.activity.delete.attachment', 'uses'=>'ActivityController@destroyAttachment']);
+	Route::post('activity/sort/order', ['as'=>'admin.activity.sort.order', 'uses'=>'ActivityController@sortOrder']);
+	
 	Route::get('banners', ['as'=>'admin.banners', 'uses'=>'BannerController@index']);
 	Route::get('banner/add', ['as'=>'admin.banner.add', 'uses'=>'BannerController@create']);
 	Route::post('banner/add', ['as'=>'admin.banner.store', 'uses'=>'BannerController@store']);
@@ -58,6 +68,7 @@ Route::group(['prefix'=>'admin','middleware' => 'admin','namespace' => 'Admin'],
 	Route::post('package/edit/{id}', ['as'=>'admin.package.update', 'uses'=>'PackageController@update']);
 	Route::post('package/change/status', ['as'=>'admin.package.changestatus', 'uses'=>'PackageController@changeStatus']);
 	Route::post('package/make/special', ['as'=>'admin.package.make.special', 'uses'=>'PackageController@makeSpecial']);
+	Route::post('package/make/lastminutedeal', ['as'=>'admin.package.make.lastminutedeal', 'uses'=>'PackageController@makeLastMinuteDeal']);
 	Route::post('package/delete', ['as'=>'admin.package.delete', 'uses'=>'PackageController@destroy']);
 	Route::post('package/sort/order', ['as'=>'admin.package.sort.order', 'uses'=>'PackageController@sortOrder']);
 	
@@ -72,6 +83,9 @@ Route::group(['prefix'=>'admin','middleware' => 'admin','namespace' => 'Admin'],
 	Route::post('gallery/delete', ['as'=>'admin.package.gallery.delete', 'uses'=>'GalleryController@destroy']);
 	Route::post('gallery/sort/order', ['as'=>'admin.package.gallery.sort.order', 'uses'=>'GalleryController@sortOrder']);
 
+	Route::get('package/{id}/galleriestest', ['as'=>'admin.package.galleries.test', 'uses'=>'GalleryController@indextest']);
+	Route::post('package/gallery/addtest', ['as'=>'admin.package.galleries.add', 'uses'=>'GalleryController@storeTest']);
+	
 	Route::get('bookings',['as'=>'admin.bookings','uses'=>'BookingController@index']);
 	Route::get('booking/{id}',['as'=>'admin.booking.view','uses'=>'BookingController@detail']);
 

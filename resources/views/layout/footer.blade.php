@@ -9,9 +9,9 @@
                   @foreach($destinations as $destination)
                   <div class="foot_link">
                      <ul>
-                        <li><a href="#">{{ $destination->heading }}:</a></li>
+                        <li><a href="{{ route('destination.detail', $destination->slug) }}">{{ $destination->heading }}:</a></li>
                         @foreach($destination->footerPackages as $package)
-                        <li><a href="#">{{ $package->heading }}</a></li>
+                        <li><a href="{{ route('package.detail', $package->slug) }}">{{ $package->heading }}</a></li>
                         @endforeach
                     </ul>
                      <div class="clear"></div>

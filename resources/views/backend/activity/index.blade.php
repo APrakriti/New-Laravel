@@ -4,12 +4,13 @@
     <script type="text/javascript">
       $(document).ready(function(){
         $('.sidebar-menu li').removeClass('active');
-        $('#packages').addClass('active');
+        $('#activities').addClass('active');
+        $('#activity_list').addClass('active');
 
         $('table tbody').sortable({
           update: function (event, ui) {
             var $object = $(this);
-            var galleries = $(this).sortable('serialize');
+            var activities = $(this).sortable('serialize');
             var count = parseInt($object.children().first().children('td:nth-child(2)').html());
             $object.children('tr').each(function() {              
               var sn = parseInt($(this).children('td:nth-child(2)').html());
@@ -23,8 +24,8 @@
             });
             $.ajax({
               type: "POST",
-              url: "{{ route('admin.package.gallery.sort.order') }}",
-              data: {galleries:galleries,_token:'{{ csrf_token() }}'},
+              url: "{{ route('admin.activity.sort.order') }}",
+              data: {activities:activities,_token:'{{ csrf_token() }}'},
               success: function(response){
                 swal("Thank You!", response.message, "success")
               },
@@ -37,14 +38,14 @@
 
         $('.change-status').click(function(){
           $object = $(this);
-          var galleryId = $object.attr('id');
+          var activityId = $object.attr('id');
           $.ajax({
             type: "POST",
-            url: "{{ route('admin.package.gallery.changestatus') }}",
-            data: {gallery_id: galleryId, _token: '{{ csrf_token() }}'},
+            url: "{{ route('admin.activity.changestatus') }}",
+            data: {activity_id: activityId, _token: '{{ csrf_token() }}'},
             success: function(response){
-              swal("Updated!", response.message, "success")
-              if(response.gallery.is_active == 1){
+              swal("Thank You!", response.message, "success")
+              if(response.activity.is_active == 1){
                 $($object).children().removeClass('fa-minus-circle');
                 $($object).children().addClass('fa-check-square-o');
               } else {
@@ -58,27 +59,9 @@
           });
         });
 
-        $('.make-cover').click(function(){
-          $object = $(this);
-          var galleryId = $object.attr('id');
-          $.ajax({
-            type: "POST",
-            url: "{{ route('admin.package.gallery.makecover') }}",
-            data: {gallery_id: galleryId, _token: '{{ csrf_token() }}'},
-            success: function(response){
-              swal("Updated!", response.message, "success")
-              $(".table").find(".make-cover").children().removeClass('fa-check-square-o').addClass('fa-minus-circle');
-              $($object).children().removeClass('fa-minus-circle');
-              $($object).children().addClass('fa-check-square-o');
-            },
-            error: function(e){
-              
-            }
-          });
-        });
         $('.delete').click(function(){
           $object = $(this);
-          var galleryId = $object.attr('id');
+          var activityId = $object.attr('id');
           swal({
             title: "Are you sure?",
             text: "You will not be able to recover this record!",
@@ -90,8 +73,8 @@
           }, function(){
             $.ajax({
               type: "POST",
-              url: "{{ route('admin.package.gallery.delete') }}",
-              data: {gallery_id: galleryId, _token: '{{ csrf_token() }}'},
+              url: "{{ route('admin.activity.delete') }}",
+              data: {activity_id: activityId, _token: '{{ csrf_token() }}'},
               success: function(response){
                 swal("Deleted!", response.message, "success");
                 var oTable = $('#example1').dataTable();
@@ -113,13 +96,12 @@
 
 <section class="content-header">
       <h1>
-        Package Galleries
+        Activities
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="{{ route('admin.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ route('admin.packages') }}"><i class="fa"></i> Packages</a></li>
-        <li class="active">Galleries : {{ $package->heading }} </li>
+        <li class="active">Activities</li>
       </ol>
     </section>
 
@@ -130,7 +112,7 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">
-              <a href="{{ route('admin.package.gallery.add', $package->id) }}" class="btn btn-block btn-primary"><span class="glyphicon glyphicon-plus"></span> Add New</a>
+              <a href="{{ route('admin.activity.add') }}" class="btn btn-block btn-primary"><span class="glyphicon glyphicon-plus"></span> Add New</a>
               </h3>
             </div>
             <!-- /.box-header -->
@@ -142,43 +124,29 @@
                 <tr>
                   <th></th>
                   <th>S N</th>
-                  <th>Caption</th>                  
-                  <th>Attachment</th>
+                  <th>Activity Heading</th>
                   <th>Publish</th>
-                  <th>Cover Image</th>
+                  <th>Published On</th>
                   <th>Options</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($galleries as $index=>$gallery)
-                <tr id="gallery_{{ $gallery->id }}">
+                @foreach($activities as $index=>$activity)
+                <tr id="activity_{{ $activity->id }}">
                   <td><i class="fa fa-arrows"></i></td>
                   <td>{{ $index+1 }}</td>
-                  <td>{{ $gallery->caption }}</td>                  
+                  <td>{{ $activity->heading }}</td>                  
                   <td>
-                    @if(file_exists('uploads/gallery/'.$gallery->attachment) && $gallery->attachment!='')
-                      <img src="{{ asset('uploads/gallery/'.$gallery->attachment) }}" style="width: 200px; height: 120px;">
+                    @if($activity->is_active == 1)
+                      <a href="javascript:void(0)" class="change-status" id="{{ $activity->id }}" title="Change Status"><i class="fa fa-check-square-o"></i></a>
                     @else
-                      <img src="{{ asset('uploads/noimage.jpg') }}" style="width: 200px; height: 120px;">
+                      <a href="javascript:void(0)" class="change-status" id="{{ $activity->id }}" title="Change Status"><i class="fa fa-minus-circle"></i></a>
                     @endif
                   </td>
+                  <td>{{ date_format(date_create($activity->updated_at), 'M d,Y') }}</td>                  
                   <td>
-                    @if($gallery->is_active == 1)
-                      <a href="javascript:void(0)" class="change-status" id="{{ $gallery->id }}" title="Change Status"><i class="fa fa-check-square-o"></i></a>
-                    @else
-                      <a href="javascript:void(0)" class="change-status" id="{{ $gallery->id }}" title="Change Status"><i class="fa fa-minus-circle"></i></a>
-                    @endif
-                  </td>
-                  <td>
-                    @if($gallery->is_cover == 1)
-                      <a href="javascript:void(0)" class="make-cover" id="{{ $gallery->id }}" title="Make Cover"><i class="fa fa-check-square-o"></i></a>
-                    @else
-                      <a href="javascript:void(0)" class="make-cover" id="{{ $gallery->id }}" title="Make Cover"><i class="fa fa-minus-circle"></i></a>
-                    @endif
-                  </td>
-                  <td>
-                    <a href="{{ route('admin.package.gallery.edit', $gallery->id) }}"><i class="fa fa-fw fa-edit"></i>Edit</a>&nbsp;&nbsp;
-                    <a href="javascript:void(0)" class="delete" id="{{ $gallery->id }}" title="Delete Record"><i class="fa  fa-trash-o"></i>Delete</a>
+                    <a href="{{ route('admin.activity.edit', $activity->id) }}"><i class="fa fa-fw fa-edit"></i>Edit</a>&nbsp;&nbsp;
+                    <a href="javascript:void(0)" class="delete" id="{{ $activity->id }}" title="Delete Record"><i class="fa  fa-trash-o"></i>Delete</a>
                   </td>
                 </tr>
                 @endforeach                
@@ -187,10 +155,9 @@
                 <tr>
                   <th></th>
                   <th>S N</th>
-                  <th>Caption</th>                  
-                  <th>Attachment</th>
+                  <th>Activity Heading</th>
                   <th>Publish</th>
-                  <th>Cover Image</th>
+                  <th>Published On</th>
                   <th>Options</th>
                 </tr>
                 </tfoot>

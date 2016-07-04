@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Activity;
 use App\Models\Destination;
 use App\Models\Package;
 use Validator;
@@ -34,8 +35,10 @@ class PackageController extends Controller
      */
     public function create()
     {
+        $activities = Activity::select('id', 'heading')->get();
         $destinations = Destination::select('id', 'heading')->get();
         return view('backend.package.add')
+                ->with('activities', $activities)
                 ->with('destinations', $destinations);
     }
 
@@ -47,7 +50,8 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = ['destination_id'=>'required | exists:destinations,id',
+        $rules = ['activity_id'=>'required | exists:activities,id',
+                    'destination_id'=>'required | exists:destinations,id',
                     'heading'=>'required',
                     'description'=>'required',
                     'itineraries'=>'required',
@@ -61,6 +65,7 @@ class PackageController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         
         $package = new Package();
+        $package->activity_id = $request->input('activity_id', 1);
         $package->destination_id = $request->input('destination_id', 1);
         $package->heading = $request->heading;
         $package->description = $request->description;
@@ -79,6 +84,7 @@ class PackageController extends Controller
         $package->previous_price = $request->previous_price;
         $package->starting_price = $request->starting_price;        
         $package->created_by = Auth::id();
+        $package->last_minute_deal = $request->last_minute_deal;
         $package->is_active = $request->is_active;
         $package->save();
 
@@ -107,9 +113,11 @@ class PackageController extends Controller
     public function edit($id)
     {
         $package = Package::findOrFail($id);
+        $activities = Activity::select('id', 'heading')->get();
         $destinations = Destination::select('id', 'heading')->get();
         return view('backend.package.edit')
                 ->with('package', $package)
+                ->with('activities', $activities)
                 ->with('destinations', $destinations);
     }
 
@@ -122,7 +130,8 @@ class PackageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rules = ['destination_id'=>'required | exists:destinations,id',
+        $rules = ['activity_id'=>'required | exists:activities,id',
+                    'destination_id'=>'required | exists:destinations,id',
                     'heading'=>'required',
                     'description'=>'required',
                     'itineraries'=>'required',
@@ -136,6 +145,7 @@ class PackageController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         
         $package = Package::find($id);
+        $package->activity_id = $request->input('activity_id');
         $package->destination_id = $request->input('destination_id');
         $package->heading = $request->heading;
         $package->description = $request->description;
@@ -154,6 +164,7 @@ class PackageController extends Controller
         $package->previous_price = $request->previous_price;
         $package->starting_price = $request->starting_price;
         $package->updated_by = Auth::id();
+        $package->last_minute_deal = $request->last_minute_deal;           
         $package->is_active = $request->is_active;           
         $package->save();
 
@@ -232,6 +243,33 @@ class PackageController extends Controller
         } else {
             $package->is_special = 0;
             $message = 'Your package is removed from special successfully.';
+        }
+        $package->save();
+
+        return response()->json(['status'=>'ok', 'message'=>$message, 'package'=>$package], 200);
+    }
+
+    /**
+     * Make last minute deal of the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function makeLastMinuteDeal(Request $request)
+    {
+        $rules = ['package_id'=>'required|exists:packages,id'];
+        $validator = Validator::make($request->only('package_id'), $rules);
+        if($validator->fails())
+            return response()->json(['status'=>'error', 'message'=>$validator->errors()->all()], 422);
+        
+        $package = Package::find($request->package_id);
+        $message = '';
+        if($package->last_minute_deal == 0){
+            $package->last_minute_deal = 1;
+            $message = 'Your package is added to last minute deal successfully.';
+        } else {
+            $package->last_minute_deal = 0;
+            $message = 'Your package is removed from last minute deal successfully.';
         }
         $package->save();
 
