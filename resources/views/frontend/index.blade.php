@@ -275,9 +275,9 @@
                     @if($package->trip_duration)
                       <div class="col l6 m6 s6">Duration: {{ $package->trip_duration }} Days</div>
                     @endif
-                    <!-- <div class="col l6 m6 s6">
-                      Rating: <img src="images/rating.png"/>
-                    </div> -->
+                    <div class="col l6 m6 s6">
+                      Activity: {{ $package->activity->heading }}
+                    </div>
                   </div>
                 </div>
                 <div class="trip_btns">

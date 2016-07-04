@@ -44,6 +44,14 @@ class Package extends Model implements SluggableInterface
     ];
 
     /**
+     * Get the activity that owns the package.
+     */
+    public function activity()
+    {
+        return $this->belongsTo('App\Models\Activity','activity_id');
+    }
+
+    /**
      * Get the destination that owns the package.
      */
     public function destination()
