@@ -2,18 +2,17 @@
                         @foreach ($packages->chunk(3) as $chunk)
                         <div class="row">
                         @foreach($chunk as $package)
-                        
                         <div class="col l4 m6 s12 mgb25">
                            <div class="trip_img">                           
                               <a href="{{ route('package.detail', $package->slug) }}">
                                  @if(count($package->coverGallery) > 0)
-                                 @foreach($package->coverGallery as $gallery)
-                                 @endforeach 
-                                 @if(file_exists('uploads/gallery/thumbs/'.$gallery->thumb_attachment) && $gallery->thumb_attachment != '')
-                                 <img src="{{ asset('uploads/gallery/thumbs/'.$gallery->thumb_attachment) }}"/>
-                                 @else
-                                 <img src="{{ asset('images/special1.jpg') }}"/>
-                                 @endif
+                                    @foreach($package->coverGallery as $gallery)
+                                    @endforeach 
+                                    @if(file_exists('uploads/gallery/thumbs/'.$gallery->thumb_attachment) && $gallery->thumb_attachment != '')
+                                    <img src="{{ asset('uploads/gallery/thumbs/'.$gallery->thumb_attachment) }}"/>
+                                    @else
+                                    <img src="{{ asset('images/special1.jpg') }}"/>
+                                    @endif
                                  @else
                                  <img src="{{ asset('images/special1.jpg') }}"/>
                                  @endif

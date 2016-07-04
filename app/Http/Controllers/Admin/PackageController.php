@@ -88,7 +88,7 @@ class PackageController extends Controller
         $package->is_active = $request->is_active;
         $package->save();
 
-        return redirect()->route('admin.packages')
+        return redirect()->route('admin.package.gallery.add', $package->id)
                         ->with('status', 'success')
                         ->with('message', 'Package with heading "'. $package->heading.'" is added!');
     }

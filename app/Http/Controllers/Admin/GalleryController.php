@@ -132,7 +132,7 @@ class GalleryController extends Controller
                 }               
             }
             $logo = isset($attachment) ? $new_image_name . $extension : NULL;
-            $thumb_logo = isset($thumb_attachment) ? $new_image_name . $extension : NULL;
+            $thumb_logo = isset($thumb_attachment) ? $new_image_name . env('THUMB_EXTENSION') : NULL;
             if($logo){
                 $gallery = new Gallery();
                 $gallery->caption = $caption;
@@ -240,7 +240,7 @@ class GalleryController extends Controller
             }               
         }
         $logo = isset($attachment) ? $new_image_name . $extension : NULL;
-        $thumb_logo = isset($thumb_attachment) ? $new_image_name . $extension : NULL;
+        $thumb_logo = isset($thumb_attachment) ? $new_image_name . env('THUMB_EXTENSION') : NULL;
 
         $gallery = Gallery::with('package')->findOrFail($id);
         $gallery->caption = $request->caption;
