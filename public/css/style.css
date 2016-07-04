@@ -66,7 +66,7 @@ a.breadcrumb {color:#1c77e8}
 .top_menu ul {}
 .top_menu ul li {margin-left:10px;}
 .top_menu ul li a {color:#2d6ad1; border:1px solid #2d6ad1; border-radius:5px; font-size:13px; padding:2px 15px;}
-
+.top_menu ul li a:hover {background:#2d6ad1; color:#fff}
 
 .top_menu {color:}
 
@@ -149,7 +149,9 @@ nav .brand-logo {margin-top:10px;}
 .pdt0 {padding-top:0 !important}
 
 .destination {}
-
+.destination_block img:hover {
+opacity:0.5
+	}
 .testimonials {font-size:15px;}
 
 .ad_wrap {}
@@ -196,7 +198,15 @@ nav .brand-logo {margin-top:10px;}
 .trip_title {font-weight:bold; font-size:18px; margin-bottom:5px;}
 .trip_title a { color:#000;}
 .trip_desc {}
-.trip_img {line-height:0}
+.trip_img {line-height:0; overflow:hidden}
+.trip_img a img:hover {
+
+	transform: scale(1.1, 1.1);
+	-ms-transform: scale(1.1, 1.1);
+	-moz-transform: scale(1.1, 1.1);
+	-webkit-transform: scale(1.1, 1.1);
+	-o-transform: scale(1.1, 1.1);
+	}
 .trip_btns {margin-top:15px;}
 .trip_price {background:#ea5b37; height:100px; width:100px; border-radius:50%; border:2px solid #fff; color:#fff; position:absolute; right:30px; margin-top:-105px; text-align:center; font-size:22px; font-weight:bold; line-height:1; padding-top:28px;}
 .trip_price span {font-size:16px; text-decoration:line-through}
@@ -291,7 +301,7 @@ nav .brand-logo {margin-top:10px;}
 .foot-cont img:hover {opacity:0.5}
 
 .social_link {
-    margin-top:5px;
+
 }
 .social_link ul {
     margin: 0;
@@ -328,9 +338,9 @@ nav .brand-logo {margin-top:10px;}
 .youtube i {background:#cf3427 !important}
 
 
-.accept {margin:20px 0; line-height:2}
+.accept {margin:15px 0; line-height:2}
 .accept img {width:auto; }
-.copyright {font-size:14px;}
+.copyright {font-size:12px; line-height:2}
 .pd {
     padding: 60px 0
 }
@@ -343,7 +353,7 @@ nav .brand-logo {margin-top:10px;}
 .foot_link ul {margin:0; padding:0}
 .foot_link ul li {display:inline; float:left; border-right:1px solid #999; padding-right:10px; margin-right:10px; margin-bottom:10px; line-height:1}
 .foot_link ul li a {color:#000}
-.foot_link ul li:first-child {font-weight:bold; color:#000; text-transform:uppercase; border-right:none; width:60px;}
+.foot_link ul li:first-child {font-weight:bold; color:#000; text-transform:uppercase; border-right:none; }
 
 .foot_link:last-child {margin-bottom:0 !important}
 /*footer end*/
