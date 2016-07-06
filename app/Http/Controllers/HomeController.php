@@ -186,6 +186,41 @@ class HomeController extends Controller
 
     public function carRentInquiry(Request $request)
     {
-        return response()->json(['message'=>$request->all(), 'type'=>'error'], 422);
+        $rules = [
+                'full_name'=>'required',
+                'email_address'=>'required | email',
+                ];
+        $validator = Validator::make($request->all(), $rules);
+
+        if($validator->fails())
+            return response()->json(['message'=>$validator->errors()->all(), 'type'=>'error'], 422);
+
+        $receiverEmail  = env('ADMIN_EMAIL');
+            
+        $subject     = "car rent Inquiry form submitted.";
+            
+        $content     = '<table cellspacing="0" cellpadding="0" width="100%">';
+        $content    .= '<tr><td><p>Dear <strong>admin,</strong> <br />';
+        $content    .= '<br />A visitor <strong>' . $request->full_name . '</strong> has given hotel inquiry with following details.</td>';
+        $content    .= '</table>';
+            
+        $content    .= '<table cellspacing="0" cellpadding="0" width="100%" border="0" style="border-collapse:collapse;margin-top: 20px;">';                
+        $content    .= '<tr><td width="150">Full Name :</td><td>' . $request->full_name .'</td></tr>';
+        $content    .= '<tr style="margin-top: 10px;"><td width="150">Address :</td><td>' . $request->address .'</td></tr>';
+        $content    .= '<tr style="margin-top: 10px;"><td width="150">Email Address :</td><td>' . $request->email_address .'</td></tr>';
+        $content    .= '<tr style="margin-top: 10px;"><td width="150">Phone Number :</td><td>' . $request->phone_number .'</td></tr>';
+        $content    .= '<tr style="margin-top: 10px;"><td width="150">Pick Up :</td><td>' . $request->pick_up .'</td></tr>';           
+        $content    .= '<tr style="margin-top: 10px;"><td width="150">Drop Out :</td><td>' . $request->drop_out .'</td></tr>';           
+        $content    .= '</table>';
+            
+        $content    .= '<table cellspacing="0" cellpadding="0" width="100%" style="border-collapse:collapse;margin-top: 20px;">';
+        $content    .= '<tr><td><p>Kind Regards,</strong> <br />';
+        $content    .= env('SITE_NAME') .'</td>';
+        $content    .= '</table>';
+
+        // $this->dispatch(new SendEmail($receiverEmail, $subject, $content));
+        $email = Helper::sendEmail($receiverEmail, $subject, $content);
+
+        return response()->json(['message'=>$request->all(), 'type'=>'success'], 200);
     }    
 }

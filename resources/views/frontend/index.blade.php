@@ -9,7 +9,8 @@
   <script src="{{ asset('owl-carousel/owl.carousel.js') }}"></script>
   <link href="{{ asset('owl-carousel/owl.carousel.css') }}" rel="stylesheet">
   <link href="{{ asset('owl-carousel/owl.theme.css') }}" rel="stylesheet">
-
+  <script src="{{ asset('bower_components/sweetalert/dist/sweetalert.min.js') }}"></script>
+  <link href="{{ asset('bower_components/sweetalert/dist/sweetalert.css') }}" rel="stylesheet" type="text/css">
   <script>
     $(document).ready(function() {
      
@@ -38,7 +39,6 @@
       });
 
       $('#hotelInquiry').submit(function(e){
-        debugger;
         e.preventDefault();
         $object = $(this);
         var data = $object.serialize();
@@ -48,44 +48,85 @@
         var phone_number = $object.find('.phone_number').val();
         var number_of_rooms = $object.find('.number_of_rooms').find(":selected").val();
         var number_of_person = $object.find('.number_of_person').find(":selected").val();
-        debugger;
-        $.ajax({
-          type: "POST",
-          url: "{{ route('submit.hotel.inquiry') }}",
-          data: {full_name:full_name,
+        swal({
+          title: "Make Inquiry!",
+          text: "Are you sure to make inquiry?",
+          type: "info",
+          showCancelButton: true,
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true,
+        }, function(){
+          $.ajax({
+            type: "POST",
+            url: "{{ route('submit.hotel.inquiry') }}",
+            data: {full_name:full_name,
                   address:address,
                   email_address:email_address,
                   phone_number:phone_number,
                   number_of_rooms:number_of_rooms,
                   number_of_person:number_of_person,
                   _token:'{{ csrf_token() }}'},
-          success: function(response){
-            debugger;
-          },
-          error: function(error){
-            debugger
-          },
-        });
+            success: function(response){
+              $("#hotelInquiry")[0].reset();
+              setTimeout(
+                function(){              
+                  swal("Your inquiry is submitted successfully.");
+                },20);
+            },
+            error: function(error){
+              setTimeout(
+                function(){              
+                  swal("Your inquiry is not submitted.");
+                },20);
+            },
+          });          
+        });        
       });
 
       $('#carRentInquiry').submit(function(e){
-        debugger;
         e.preventDefault();
         $object = $(this);
         var data = $object.serialize();
-        $.ajax({
-          type: "POST",
-          url: "{{ route('submit.carrent.inquiry') }}",
-          data: {data:data,_token:'{{ csrf_token() }}'},
-          success: function(response){
-            debugger;
-          },
-          error: function(error){
-            debugger
-          },
-        });
-      });
-     
+        var full_name = $object.find('.full_name').val();
+        var address = $object.find('.address').val();
+        var email_address = $object.find('.email_address').val();
+        var phone_number = $object.find('.phone_number').val();
+        var pick_up = $object.find('.pick_up').val();
+        var drop_out = $object.find('.drop_out').val();
+        swal({
+          title: "Make Inquiry!",
+          text: "Are you sure to make inquiry?",
+          type: "info",
+          showCancelButton: true,
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true,
+        }, function(){
+          $.ajax({
+            type: "POST",
+            url: "{{ route('submit.carrent.inquiry') }}",
+            data: {full_name:full_name,
+                  address:address,
+                  email_address:email_address,
+                  phone_number:phone_number,
+                  pick_up:pick_up,
+                  drop_out:drop_out,
+                  _token:'{{ csrf_token() }}'},
+            success: function(response){
+              $("#carRentInquiry")[0].reset();
+              setTimeout(
+                function(){              
+                  swal("Your inquiry is submitted successfully.");
+                },20);
+            },
+            error: function(error){
+              setTimeout(
+                function(){              
+                  swal("Your inquiry is not submitted.");
+                },20);
+            },
+          });          
+        });        
+      });     
     });
   </script>
 @endsection
@@ -259,22 +300,22 @@
           <form name="carRentInquiry" id="carRentInquiry" action="" method="post">
             <div class="row">
               <div class="col l6 m6 s6">
-                <input type="text" name="full_name" class="default_field bdr0" value="" placeholder="Full Name" />
+                <input type="text" name="full_name" class="full_name default_field bdr0" value="" placeholder="Full Name" />
               </div>
               <div class="col l6 m6 s6">
-                <input type="text" name="address" class="default_field bdr0" value="" placeholder="Address" />
+                <input type="text" name="address" class="address default_field bdr0" value="" placeholder="Address" />
               </div>
               <div class="col l6 m6 s6">
-                <input type="text" name="phone_number" class="default_field bdr0" value="" placeholder="Phone" />
+                <input type="text" name="phone_number" class="phone_number default_field bdr0" value="" placeholder="Phone" />
               </div>
               <div class="col l6 m6 s6">
-                <input type="email" name="email_address" class="default_field bdr0" value="" placeholder="Email Address" />
+                <input type="email" name="email_address" class="email_address default_field bdr0" value="" placeholder="Email Address" />
               </div>
               <div class="col l6 m6 s6">
-                <input type="text" name="pick_up" class="default_field bdr0" value="" placeholder="Pick Up" />
+                <input type="text" name="pick_up" class="pick_up default_field bdr0" value="" placeholder="Pick Up" />
               </div>
               <div class="col l6 m6 s6">
-                <input type="text" name="drop_out" class="default_field bdr0" value="" placeholder="Drop Out" />
+                <input type="text" name="drop_out" class="drop_out default_field bdr0" value="" placeholder="Drop Out" />
               </div>
                <div class="clear"></div>
                <div class="col l6 m6 s6">
