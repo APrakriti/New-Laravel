@@ -35,7 +35,56 @@
       })
       $(".stop").click(function(){
         owl.trigger('owl.stop');
-      })
+      });
+
+      $('#hotelInquiry').submit(function(e){
+        debugger;
+        e.preventDefault();
+        $object = $(this);
+        var data = $object.serialize();
+        var full_name = $object.find('.full_name').val();
+        var address = $object.find('.address').val();
+        var email_address = $object.find('.email_address').val();
+        var phone_number = $object.find('.phone_number').val();
+        var number_of_rooms = $object.find('.number_of_rooms').find(":selected").val();
+        var number_of_person = $object.find('.number_of_person').find(":selected").val();
+        debugger;
+        $.ajax({
+          type: "POST",
+          url: "{{ route('submit.hotel.inquiry') }}",
+          data: {full_name:full_name,
+                  address:address,
+                  email_address:email_address,
+                  phone_number:phone_number,
+                  number_of_rooms:number_of_rooms,
+                  number_of_person:number_of_person,
+                  _token:'{{ csrf_token() }}'},
+          success: function(response){
+            debugger;
+          },
+          error: function(error){
+            debugger
+          },
+        });
+      });
+
+      $('#carRentInquiry').submit(function(e){
+        debugger;
+        e.preventDefault();
+        $object = $(this);
+        var data = $object.serialize();
+        $.ajax({
+          type: "POST",
+          url: "{{ route('submit.carrent.inquiry') }}",
+          data: {data:data,_token:'{{ csrf_token() }}'},
+          success: function(response){
+            debugger;
+          },
+          error: function(error){
+            debugger
+          },
+        });
+      });
      
     });
   </script>
@@ -52,7 +101,7 @@
                Enjoy the Grand trip
                <br/>
                <h3>
-                  Ghorepani Poonhilll Trek
+                  {{ $banner->heading }}
                </h3>
             </div>
          </li>
@@ -67,12 +116,12 @@
             Travel & Tour
             </a>
          </li>
-         <li class="tab ">
+         <li class="tab">
             <a  href="#hotel_tab">
             Hotel
             </a>
          </li>
-         <li class="tab ">
+         <li class="tab">
             <a href="#car_rent_tab">
             Car Rent
             </a>
@@ -82,72 +131,59 @@
       </div>
       <div id="travel_tab" >
          <div class="tab_search_content">
+          <form action="{{ route('search.post') }}" id="searchForm" method="post" >
             <div class="row">
                <div class="col l6 m6 s6">
-                  <select class="default_field bdr0"  >
+                  <select class="default_field bdr0" name="destination_id">
                      <option value="">
                         Select Destintion
                      </option>
-                     <option  value="1">
-                        Nepal
+                     @foreach($allDestinations as $id=>$heading)
+                     <option  value="{{ $id }}">
+                        {{ $heading }}
                      </option>
-                     <option value="2">
-                        Tibet
-                     </option>
-                     <option value="3">
-                        India
-                     </option>
-                     <option value="4">
-                        Bhutan
-                     </option>
+                     @endforeach                     
                   </select>
                </div>
                <div class="col l6 m6 s6">
-                  <select class="default_field bdr0"  >
+                  <select class="default_field bdr0" name="activity_id">
                      <option value="" >
                         Select Activity
                      </option>
-                     <option  value="1">
-                        Trekking
+                     @foreach($allActivities as $id=>$heading)
+                     <option  value="{{ $id }}">
+                        {{ $heading }}
                      </option>
-                     <option value="2">
-                        Bird Watching
-                     </option>
-                     <option value="3">
-                        Rafting
-                     </option>
-                     <option value="4">
-                        Culture Tour
-                     </option>
+                     @endforeach                     
                   </select>
                </div>
                <div class="col l6 m6 s6">
-                  <select class="default_field bdr0"  >
+                  <select class="default_field bdr0" name="duration">
                      <option value="" >
                         Select Duration
                      </option>
-                     <option  value="1">
+                     <option  value="1-5">
                         1-5 Days
                      </option>
-                     <option value="2">
+                     <option value="6-10">
                         6 - 10 Days
                      </option>
-                     <option value="3">
-                        11 - 15 Days"
+                     <option value="11-15">
+                        11 - 15 Days
                      </option>
-                     <option value="4">16 - 20 Days</option>
+                     <option value="16-20">16 - 20 Days</option>
                   </select>
                </div>
                <div class="col l6 m6 s6">
-                  <select class="default_field bdr0">
+                  <select class="default_field bdr0" name="price">
                      <option value="" >Select Price</option>
-                     <option value="1">$100 - $500</option>
-                     <option value="2">$500 - $1000</option>
-                     <option value="3">$1000 - $1500</option>
-                     <option value="4">$1500 - $2000</option>
+                     <option value="100 - 500">$100 - $500</option>
+                     <option value="500 - 1000">$500 - $1000</option>
+                     <option value="1000 - 1500">$1000 - $1500</option>
+                     <option value="1500 - 2000">$1500 - $2000</option>
                   </select>
                </div>
-               <div class="col l6 m6 s6">
+               <!-- <div class="col l6 m6 s6">
                   <select class="default_field bdr0">
                      <option value="" >Select Rating</option>
                      <option value="1">1 Star</option>
@@ -155,22 +191,34 @@
                      <option value="3">3 Star</option>
                      <option value="4">4 Star</option>
                   </select>
-               </div>
+               </div> -->
                <div class="clear"></div>
-               <div class="col l6 m6 s6"><button class="btn btnfull">Search</button></div>
+               <div class="col l6 m6 s6">
+                <button class="btn btnfull" name="search" >Search</button>
+              </div>
             </div>
             <!--row end-->
+            </form>
          </div>
       </div>
       <div id="hotel_tab">
          <div class="tab_search_content">
+          <form name="hotelInquiry" id="hotelInquiry" action="" method="post">
             <div class="row">
-               <div class="col l6 m6 s6"><input type="text" class="default_field bdr0" value="Full Name" /></div>
-               <div class="col l6 m6 s6"><input type="text" class="default_field bdr0" value="Address "/></div>
-               <div class="col l6 m6 s6"><input type="text" class="default_field bdr0" value="Phone" /></div>
-               <div class="col l6 m6 s6"><input type="email" class="default_field bdr0" value="Email " /></div>
                <div class="col l6 m6 s6">
-                  <select class="default_field bdr0"  >
+                <input type="text" name="full_name" class="default_field bdr0 full_name" value="" placeholder="Full Name" />
+              </div>
+              <div class="col l6 m6 s6">
+                <input type="text" name="address" class="default_field bdr0 address" value="" placeholder="Address" />
+              </div>
+              <div class="col l6 m6 s6">
+                <input type="text" name="phone_number" class="default_field bdr0 phone_number" value="" placeholder="Phone" />
+              </div>
+              <div class="col l6 m6 s6">
+                <input type="email" name="email_address" class="default_field bdr0 email_address" value="" placeholder="Email Address" />
+              </div>
+              <div class="col l6 m6 s6">
+                  <select class="default_field bdr0 number_of_rooms" name="number_of_rooms">
                      <option value="" >No of Rooms</option>
                      <option value="1">1 </option>
                      <option value="2">2 </option>
@@ -181,7 +229,7 @@
                   </select>
                </div>
                <div class="col l6 m6 s6">
-                  <select class="default_field bdr0">
+                  <select class="default_field bdr0 number_of_person" name="number_of_person">
                      <option value="">No of Person </option>
                      <option value="1">1 </option>
                      <option value="2">2 </option>
@@ -197,24 +245,44 @@
                   </select>
                </div>
                <div class="clear"></div>
-               <div class="col l6 m6 s6"><button class="btn btnfull">Make Inquiry</button></div>
+               <div class="col l6 m6 s6">
+                <button class="btn btnfull" type="submit">Make Inquiry</button>
+              </div>
             </div>
             <!--row end-->
+          </form>
+
          </div>
       </div>
       <div id="car_rent_tab">
          <div class="tab_search_content">
+          <form name="carRentInquiry" id="carRentInquiry" action="" method="post">
             <div class="row">
-               <div class="col l6 m6 s6"><input type="text" class="default_field bdr0" value="Full Name" /></div>
-               <div class="col l6 m6 s6"><input type="text" class="default_field bdr0" value="Address " /></div>
-               <div class="col l6 m6 s6"><input type="text" class="default_field bdr0" value="Phone" /></div>
-               <div class="col l6 m6 s6"><input type="email" class="default_field bdr0" value="Email " /></div>
-               <div class="col l6 m6 s6"><input type="text" class="default_field bdr0" value="Pick Up" /></div>
-               <div class="col l6 m6 s6"><input type="text" class="default_field bdr0" value="Drop Out" /></div>
+              <div class="col l6 m6 s6">
+                <input type="text" name="full_name" class="default_field bdr0" value="" placeholder="Full Name" />
+              </div>
+              <div class="col l6 m6 s6">
+                <input type="text" name="address" class="default_field bdr0" value="" placeholder="Address" />
+              </div>
+              <div class="col l6 m6 s6">
+                <input type="text" name="phone_number" class="default_field bdr0" value="" placeholder="Phone" />
+              </div>
+              <div class="col l6 m6 s6">
+                <input type="email" name="email_address" class="default_field bdr0" value="" placeholder="Email Address" />
+              </div>
+              <div class="col l6 m6 s6">
+                <input type="text" name="pick_up" class="default_field bdr0" value="" placeholder="Pick Up" />
+              </div>
+              <div class="col l6 m6 s6">
+                <input type="text" name="drop_out" class="default_field bdr0" value="" placeholder="Drop Out" />
+              </div>
                <div class="clear"></div>
-               <div class="col l6 m6 s6"><button class="btn btnfull">Make Inquiry</button></div>
+               <div class="col l6 m6 s6">
+                <button class="btn btnfull" type="submit">Make Inquiry</button>
+              </div>
             </div>
             <!--row end-->
+          </form>
          </div>
       </div>
       <div class="clear">

@@ -105,6 +105,10 @@ Route::get('contact', ['as'=>'contact','uses'=>'HomeController@getContactPage'])
 Route::post('contact', ['as'=>'contact.submit','uses'=>'HomeController@submitContactPage']);
 Route::get('page/{slug}', ['as'=>'content.detail','uses'=>'HomeController@content']);
 
+Route::post('search', ['as'=>'search.post','uses'=>'PackageController@search']);
+Route::post('submit/hotel/inquiry', ['as'=>'submit.hotel.inquiry','uses'=>'HomeController@hotelInquiry']);
+Route::post('submit/carRent/inquiry', ['as'=>'submit.carrent.inquiry','uses'=>'HomeController@carRentInquiry']);
+
 Route::get('packages', ['as'=>'packages','uses'=>'PackageController@index']);
 Route::get('lastminutedeals', ['as'=>'last.minute.deals','uses'=>'PackageController@deals']);
 Route::get('package/{slug}', ['as'=>'package.detail','uses'=>'PackageController@show']);
@@ -124,3 +128,8 @@ Route::get('logout/hait', ['as'=>'logout','uses'=>'Auth\AuthController@logoutt']
 Route::get('register', ['as'=>'register','uses'=>'UserController@register']);
 Route::post('register', ['as'=>'register','uses'=>'UserController@registration']);
 Route::get('verify/{token}', ['as'=>'verify','uses'=>'UserController@verify']);
+
+
+// Route::any('{query}',function() { 
+// 	return redirect('/');
+// })->where('query', '.*');

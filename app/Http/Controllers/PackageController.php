@@ -163,4 +163,29 @@ class PackageController extends Controller
             return view('frontend.404');
         } 
     }
+
+    public function search(Request $request)
+    {
+        $package = Package::where('is_active', 1);
+        if($request->destination_id)
+            $package->where('destination_id', $request->destination_id);
+        if($request->activity_id)
+            $package->where('activity_id', $request->activity_id);
+        if($request->duration){
+            $duration = explode('-',$request->duration);
+            $package->whereBetween('trip_duration', $duration);
+        }
+        if($request->price){
+            $price = explode('-',$request->price);
+            $package->whereBetween('starting_price', $price);
+        }
+        $packages = $package->paginate(env('PAGINATE'));
+
+        return view('frontend.searchpackages')
+                    ->with('packages', $packages)
+                    ->with('title', 'I BOOK MY TRIP')
+                    ->with('metaTags', 'I BOOK MY TRIP')
+                    ->with('metaDescription', 'I BOOK MY TRIP');
+
+    } 
 }

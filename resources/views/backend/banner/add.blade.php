@@ -69,8 +69,8 @@
             <form role="form" id="bannerAddForm" name="bannerAddForm" action="" method="post" enctype="multipart/form-data">
               <div class="box-body">
                 <div class="form-group col-md-6">
-                  <label for="exampleInputBanner">Banner Name *</label>
-                  <input type="text" class="form-control" id="heading" name="heading" value="{{ old('heading') }}" placeholder="Enter banner name">
+                  <label for="exampleInputBanner">Banner Caption *</label>
+                  <input type="text" class="form-control" id="heading" name="heading" value="{{ old('heading') }}" placeholder="Enter banner caption">
                 </div>                        
               </div>
               <!-- /.box-body -->
