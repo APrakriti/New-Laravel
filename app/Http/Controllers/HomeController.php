@@ -7,15 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Jobs\SendEmail;
 use App\Classes\Helper;
-
 use App\Models\Activity;
 use App\Models\Banner;
 use App\Models\Content;
 use App\Models\Destination;
 use App\Models\Package;
 use App\Models\Testimonial;
+
 use Validator;
 
 class HomeController extends Controller
@@ -125,7 +124,7 @@ class HomeController extends Controller
             $content    .= env('SITE_NAME') .'</td>';
             $content    .= '</table>';
 
-            $this->dispatch(new SendEmail($receiverEmail, $subject, $content));
+            $email = Helper::sendEmail($receiverEmail, $subject, $content);
 
         return redirect()->route('contact')
                         ->with('status', 'success')
@@ -178,7 +177,6 @@ class HomeController extends Controller
         $content    .= env('SITE_NAME') .'</td>';
         $content    .= '</table>';
 
-        // $this->dispatch(new SendEmail($receiverEmail, $subject, $content));
         $email = Helper::sendEmail($receiverEmail, $subject, $content);
 
         return response()->json(['message'=>$request->all(), 'type'=>'success'], 200);
@@ -218,7 +216,6 @@ class HomeController extends Controller
         $content    .= env('SITE_NAME') .'</td>';
         $content    .= '</table>';
 
-        // $this->dispatch(new SendEmail($receiverEmail, $subject, $content));
         $email = Helper::sendEmail($receiverEmail, $subject, $content);
 
         return response()->json(['message'=>$request->all(), 'type'=>'success'], 200);
