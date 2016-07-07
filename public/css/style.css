@@ -365,6 +365,8 @@ opacity:0.5
 
 /*for default*/
 
+.pagination li.active {color:#fff}
+
 .floatright {float:right}
 .testdivider {
     background-color: #e0e0e0;
