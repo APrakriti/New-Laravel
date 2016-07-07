@@ -168,6 +168,9 @@ opacity:0.5
 	font-weight:bold; margin:0;
 	
 }
+
+.trip_title {height:36px; overflow:hidden}
+.trip_fact_brief {height:25px; overflow:hidden}
 .h2block {background:#fff; padding:15px 20px;}
 .fixed_dep {}
 .fixed {position:relative; margin-bottom:30px;}
@@ -363,6 +366,11 @@ opacity:0.5
 
 /*for default*/
 
+
+*::-moz-placeholder {color:#000 !important}
+
+.pagination li.active {color:#fff}
+
 .floatright {float:right}
 .testdivider {
     background-color: #e0e0e0;
@@ -555,6 +563,7 @@ text-align:center
 .search_tab_wrapper .tabs .tab a {font-size:12px; padding:0 10px;}
 
 .tabs .tab a {font-size:12px; padding:0 10px;}
+.fixed .trip_img {max-height:330px;}
 .fixed .trip_brief {position:relative}
 .fixed .trip_price {margin-top:-120px;}
 
