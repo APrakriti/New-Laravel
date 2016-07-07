@@ -9,10 +9,12 @@
                   @foreach($destinations as $destination)
                   <div class="foot_link">
                      <ul>
+                     @if(count($destination->footerPackages) > 0)
                         <li><a href="{{ route('destination.detail', $destination->slug) }}">{{ $destination->heading }}:</a></li>
                         @foreach($destination->footerPackages as $package)
                         <li><a href="{{ route('package.detail', $package->slug) }}">{{ $package->heading }}</a></li>
                         @endforeach
+                     @endif
                     </ul>
                      <div class="clear"></div>
                   </div>

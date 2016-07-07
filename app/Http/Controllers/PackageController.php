@@ -123,7 +123,7 @@ class PackageController extends Controller
                 'arrival_date'=>'required',
                 'first_name'=>'required',
                 'country_id'=>'required|exists:countries,id',
-                'number_of_traveller'=>'required',
+                'number_of_traveller'=>'required|min:1',
                 'contact_number'=>'required|max:16',
             ];
 
@@ -140,7 +140,7 @@ class PackageController extends Controller
             $booking = new Booking();
             $booking->package_id = $request->input('package_id', $package->id);
             $booking->user_id = Auth::user()->id;
-            $booking->amount = $package->starting_price;
+            $booking->amount = $package->starting_price * $request->number_of_traveller;
             $booking->arrival_date = $request->arrival_date;
             $booking->departure_date = $request->departure_date;
             $booking->number_of_traveller = $request->number_of_traveller;

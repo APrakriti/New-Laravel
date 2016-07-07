@@ -41,7 +41,10 @@
                         @endforeach 
                      </div>
                      @endforeach
-                     {!! $packages->render() !!}
+                     
+                     @if(\Route::getCurrentRoute()->getName() != 'search.post')
+                        {!! $packages->render() !!}
+                     @endif
                      <!-- <ul class="pagination">
                         <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
                         <li class="active"><a href="#!">1</a></li>
