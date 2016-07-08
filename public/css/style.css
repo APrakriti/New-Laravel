@@ -216,6 +216,7 @@ opacity:0.5
 .trip_fact_brief {font-weight:bold; font-size:14px; margin:5px 0;}
 .trip_fact_brief img {width:auto}
 
+.fixed .trip_img {max-height:330px !important; }
 
 /*inner page*/
 
@@ -571,7 +572,7 @@ text-align:center
 .search_tab_wrapper .tabs .tab a {font-size:12px; padding:0 10px;}
 
 .tabs .tab a {font-size:12px; padding:0 10px;}
-.fixed .trip_img {max-height:330px; }
+
 .fixed .trip_brief {position:relative}
 .fixed .trip_price {margin-top:-120px;}
 
