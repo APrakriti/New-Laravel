@@ -125,6 +125,7 @@
                   <th></th>
                   <th>S N</th>
                   <th>Destination Heading</th>
+                  <th>Packages</th>
                   <th>Publish</th>
                   <th>Published On</th>
                   <th>Options</th>
@@ -135,7 +136,16 @@
                 <tr id="destination_{{ $destination->id }}">
                   <td><i class="fa fa-arrows"></i></td>
                   <td>{{ $index+1 }}</td>
-                  <td>{{ $destination->heading }}</td>                  
+                  <td>{{ $destination->heading }}</td>
+                  <td>
+                  @if($destination->packages->count() > 0)                  
+                  <a href="{{ route('admin.packages', $destination->id) }}">
+                    {{ $destination->packages->count() }}
+                    </a>
+                  @else
+                    {{ $destination->packages->count() }}
+                  @endif
+                  </td>                
                   <td>
                     @if($destination->is_active == 1)
                       <a href="javascript:void(0)" class="change-status" id="{{ $destination->id }}" title="Change Status"><i class="fa fa-check-square-o"></i></a>
@@ -156,6 +166,7 @@
                   <th></th>
                   <th>S N</th>
                   <th>Destination Heading</th>
+                  <th>Packages</th>
                   <th>Publish</th>
                   <th>Published On</th>
                   <th>Options</th>

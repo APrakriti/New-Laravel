@@ -12,6 +12,7 @@ use App\Models\Gallery;
 use Validator;
 use Auth;
 use Image;
+use Session;
 
 class GalleryController extends Controller
 {
@@ -97,7 +98,7 @@ class GalleryController extends Controller
                 $filename = $imageFile->getClientOriginalName();
                 $extension = strrchr($filename, '.');
                 $size = $imageFile->getSize();                  
-                $new_image_name = "gallery_" . time();
+                $new_image_name = "gallery_". $i . time();
                 $caption = trim(strstr($filename, '.', true));
                 
                 if ($size <= $maximum_filesize && preg_match($rEFileTypes, $extension)) {
@@ -144,6 +145,7 @@ class GalleryController extends Controller
                                 ->where('package_id', $id)->first();
                     if(!$coverGallery)
                         $gallery->is_cover = 1;
+                        $gallery->is_active = 1;
                 }
                 
                 $gallery->attachment = $logo;
@@ -274,9 +276,12 @@ class GalleryController extends Controller
         $rules = ['gallery_id'=>'required|exists:package_gallery,id'];
         $validator = Validator::make($request->only('gallery_id'), $rules);
         if($validator->fails())
-            return response()->json(['status'=>'error', 'message'=>$validator->errors()->all()], 422);
-        
+            return response()->json(['status'=>'error', 'message'=>'Gallery does not exists.'], 422);
+
         $gallery = Gallery::find($request->gallery_id);
+        if($gallery->is_cover == 1)
+            return response()->json(['status'=>'error', 'message'=>'You can not delete the cover image.'], 422);
+
         if(file_exists('uploads/gallery/'.$gallery->attachment) && $gallery->attachment!='')
             unlink('uploads/gallery/'.$gallery->attachment);
             

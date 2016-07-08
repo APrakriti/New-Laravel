@@ -98,8 +98,9 @@
                 var nRow = $($object).parents('tr')[0];
                 oTable.fnDeleteRow(nRow);
               },
-              error: function(e){
-                
+              error: function(error){
+                debugger;
+                swal("Error!", error.responseJSON.message, "error");
               }
             });
           });

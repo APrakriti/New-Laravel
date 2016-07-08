@@ -49,7 +49,7 @@ class Destination extends Model implements SluggableInterface
     public function packages()
     {
         return $this->hasMany('App\Models\Package', 'destination_id');
-    }
+    }    
 
     /**
      * Get the active packages for the destination.

@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use Validator;
 use Auth;
+use Session;
 
 class ActivityController extends Controller
 {

@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Content;
 use Validator;
 use Auth;
+use Session;
 
 class ContentController extends Controller
 {

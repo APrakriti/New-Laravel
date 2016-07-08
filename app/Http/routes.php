@@ -61,7 +61,7 @@ Route::group(['prefix'=>'admin','middleware' => 'admin','namespace' => 'Admin'],
 	Route::post('destination/delete/attachment', ['as'=>'admin.destination.delete.attachment', 'uses'=>'DestinationController@destroyAttachment']);
 	Route::post('destination/sort/order', ['as'=>'admin.destination.sort.order', 'uses'=>'DestinationController@sortOrder']);
 	
-	Route::get('packages', ['as'=>'admin.packages', 'uses'=>'PackageController@index']);
+	Route::get('packages/{id?}', ['as'=>'admin.packages', 'uses'=>'PackageController@index']);
 	Route::get('package/add', ['as'=>'admin.package.add', 'uses'=>'PackageController@create']);
 	Route::post('package/add', ['as'=>'admin.package.store', 'uses'=>'PackageController@store']);
 	Route::get('package/edit/{id}', ['as'=>'admin.package.edit', 'uses'=>'PackageController@edit']);
