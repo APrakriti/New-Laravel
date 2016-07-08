@@ -10,10 +10,11 @@
 #owl-demo .item{
   
 
-  color: #333; text-align:center; margin:0 10px;
+  color: #333; text-align:center; margin:0 10px; 
 
 }
 
+.item{max-height:400px; }
 .next {
 	background:url(../images/next.png) no-repeat !important;
 	width:27px !important;

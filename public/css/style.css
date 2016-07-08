@@ -198,7 +198,7 @@ opacity:0.5
 .testimonials_img img {border-radius:50%; padding:2px; box-shadow:0 2px 3px #666}
 
 .trip_brief {background:#eae9e9; padding:20px; text-align:left; position:relative}
-.trip_title {font-weight:bold; font-size:18px; margin-bottom:5px;}
+.trip_title {font-weight:bold; font-size:17px; margin-bottom:5px;}
 .trip_title a { color:#000;}
 .trip_desc {}
 .trip_img {line-height:0; overflow:hidden}
@@ -234,9 +234,16 @@ opacity:0.5
 
 .form_wrap {padding:45px; background:#f6f6f6; text-align:left; margin-bottom:15px; border:1px solid #ddd}
 
+#includes ul li {
+    list-style-type: square;
+    margin-bottom: 5px;
+    margin-left: 15px;
+}
+#includes ul {margin:0 0 30px 0}
+
 .trip_detail_sidebar {padding-left:30px !important;}
 .box {background:#f2f2f2; margin-bottom:25px; padding:20px;}
-.trip_slide {margin-bottom:15px;}
+.trip_slide {margin-bottom:20px;}
 .trip_highlight_wrap {margin-bottom:15px; background:#ea5b37 ; padding:15px; color:#fff}
 .detail_price { text-align:center; line-height:1.2; margin-bottom:10px;}
 .booknow { text-align:center}
@@ -248,7 +255,8 @@ opacity:0.5
 .inner_head {font-size:20px; color:#000; margin-bottom:15px;}
 .tripfact_list {}
 .tripfact_list ul {margin:0}
-.tripfact_list ul li {margin-bottom:20px; color:#000}
+.tripfact_list ul li {margin-bottom:15px; color:#000}
+.tripfact_list ul li:last-child {margin-bottom:0}
 .tripfact_list ul li span {color:#666; margin-right:10px;}
 .tripfact_list ul li img {width:auto; float:left; margin-right:5px;}
 
