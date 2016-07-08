@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Destination;
 use Validator;
 use Auth;
+use Session;
 
 class DestinationController extends Controller
 {
@@ -20,7 +21,8 @@ class DestinationController extends Controller
      */
     public function index()
     {
-        $destinations = Destination::orderBy('order_position')->get();
+        $destinations = Destination::with('packages')
+                        ->orderBy('order_position')->get();
         return view('backend.destination.index')
                 ->with('destinations', $destinations);
     }

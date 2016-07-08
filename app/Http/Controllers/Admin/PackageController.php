@@ -21,10 +21,18 @@ class PackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($destinationId = null)
     {
-        $packages = Package::orderBy('order_position')->get();
+        $destination = [];
+        if($destinationId){
+            $packages = Package::where('destination_id', $destinationId)
+                        ->orderBy('order_position')->get();
+            $destination = Destination::findOrFail($destinationId);
+        } else {         
+            $packages = Package::orderBy('order_position')->get();
+        }
         return view('backend.package.index')
+                ->with('destination', $destination)
                 ->with('packages', $packages);
     }
 

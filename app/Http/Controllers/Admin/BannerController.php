@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use Validator;
 use Auth;
+use Session;
 
 class BannerController extends Controller
 {
