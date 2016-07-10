@@ -14,7 +14,7 @@
 
 }
 
-.item{max-height:400px; }
+.trip_slide .item{max-height:400px; }
 .next {
 	background:url(../images/next.png) no-repeat !important;
 	width:27px !important;
