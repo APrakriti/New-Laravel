@@ -350,14 +350,18 @@
             <a class=" next"></a>
           </div>
           <div id="owl-demo" class="owl-carousel owl-theme">
-            @foreach($specialPackages as $package)
-            @foreach($package->coverGallery as $gallery)
-            @endforeach      
+            @foreach($specialPackages as $package)                 
             <div class="item ">
-              <div class="trip_img">
+              <div class="trip_img">                 
                 <a href="{{ route('package.detail', $package->slug) }}">
-                  @if(file_exists('uploads/gallery/'.$gallery->attachment) && $gallery->attachment != '')
-                  <img src="{{ asset('uploads/gallery/'.$gallery->attachment) }}"/>
+                  @if(count($package->coverGallery) > 0)
+                    @foreach($package->coverGallery as $gallery)
+                    @endforeach
+                    @if(file_exists('uploads/gallery/'.$gallery->attachment) && $gallery->attachment != '')
+                    <img src="{{ asset('uploads/gallery/'.$gallery->attachment) }}"/>
+                    @else
+                    <img src="{{ asset('images/special1.jpg') }}"/>
+                    @endif
                   @else
                   <img src="{{ asset('images/special1.jpg') }}"/>
                   @endif
@@ -418,14 +422,18 @@
         <div class="fixed_dep">
           <div class="sub_title h2block">
             <h2>Fixed Departure</h2>
-          </div>
-          @foreach($fixedDeparturePackage->coverGallery as $gallery)
-          @endforeach
+          </div>          
           <div class="fixed">
             <div class="trip_img">
               <a href="{{ route('package.detail', $fixedDeparturePackage->slug) }}">
-              @if(file_exists('uploads/gallery/'.$gallery->attachment) && $gallery->attachment != '')
-                <img src="{{ asset('uploads/gallery/'.$gallery->attachment) }}"/>
+              @if(count($fixedDeparturePackage->coverGallery) > 0)
+                @foreach($fixedDeparturePackage->coverGallery as $gallery)
+                @endforeach
+                @if(file_exists('uploads/gallery/'.$gallery->attachment) && $gallery->attachment != '')
+                  <img src="{{ asset('uploads/gallery/'.$gallery->attachment) }}"/>
+                @else
+                  <img src="{{ asset('images/fixed1.jpg') }}"/>
+                @endif
               @else
                 <img src="{{ asset('images/fixed1.jpg') }}"/>
               @endif
@@ -497,13 +505,17 @@
           <div class="last_minute">
             <div class="row">
               @foreach($lastMinuteDeals as $index=>$package)
-                @foreach($package->coverGallery as $gallery)
-                @endforeach 
               <div class="col l3 m3 s3">
                 <div class="trip_img">
                   <a href="{{ route('package.detail', $package->slug) }}">
-                    @if(file_exists('uploads/gallery/'.$gallery->attachment) && $gallery->attachment != '')
-                    <img src="{{ asset('uploads/gallery/'.$gallery->attachment) }}"/>
+                    @if(count($package->coverGallery) > 0)
+                      @foreach($package->coverGallery as $gallery)
+                      @endforeach 
+                      @if(file_exists('uploads/gallery/'.$gallery->attachment) && $gallery->attachment != '')
+                      <img src="{{ asset('uploads/gallery/'.$gallery->attachment) }}"/>
+                      @else
+                      <img src="{{ asset('images/last1.jpg') }}"/>
+                      @endif
                     @else
                     <img src="{{ asset('images/last1.jpg') }}"/>
                     @endif
