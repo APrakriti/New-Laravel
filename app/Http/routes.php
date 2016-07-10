@@ -123,7 +123,7 @@ Route::get('destination/{slug}', ['as'=>'destination.detail','uses'=>'Destinatio
 
 Route::get('login', ['as'=>'login','uses'=>'Auth\AuthController@getLogin']);
 Route::post('login', ['as'=>'check.login','uses'=>'Auth\AuthController@login']);
-Route::get('logout/hait', ['as'=>'logout','uses'=>'Auth\AuthController@logoutt']);
+Route::get('logout', ['as'=>'logout','uses'=>'Auth\AuthController@getLogout']);
 
 Route::get('register', ['as'=>'register','uses'=>'UserController@register']);
 Route::post('register', ['as'=>'register','uses'=>'UserController@registration']);

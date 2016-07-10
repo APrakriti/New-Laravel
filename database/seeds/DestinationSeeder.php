@@ -19,6 +19,7 @@ class DestinationSeeder extends Seeder
 	        DB::table('destinations')->insert([
 	            'heading' => $faker->country,
 	            'slug' => $faker->slug,
+                'description' => $faker->realText($maxNbChars = 500, $indexSize = 2),
 	            'title' => $faker->country,
 	            'meta_tags' => $faker->country,
 	            'meta_description' => $faker->country,

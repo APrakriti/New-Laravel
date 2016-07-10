@@ -34,7 +34,7 @@
                      <div class="row">
                         <div class="col l3 m2 s12">&nbsp;</div>
                         <div class="col l6 m8 s12">
-                           <form action="" method="post" id="loginForm">
+                           <form action="{{ route('check.login') }}" method="post" id="loginForm">
                            <div class="form_wrap">
                               @include('layout.alert')
                               <div class="input-field">
