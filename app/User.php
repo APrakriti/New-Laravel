@@ -36,4 +36,12 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    /**
+     * Get the logs for the user.
+     */
+    public function logs()
+    {
+        return $this->hasMany('App\Models\Log','user_id');
+    }
 }

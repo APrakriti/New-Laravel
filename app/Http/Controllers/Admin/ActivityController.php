@@ -12,6 +12,8 @@ use Validator;
 use Auth;
 use Session;
 
+use App\Events\LogCreated;
+
 class ActivityController extends Controller
 {
     /**
@@ -20,7 +22,7 @@ class ActivityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    { 
         $activities = Activity::orderBy('order_position')->get();
         return view('backend.activity.index')
                 ->with('activities', $activities);
@@ -87,9 +89,13 @@ class ActivityController extends Controller
             $activity->attachment = $logo;     
         $activity->save();
 
+        $user = Auth::user();
+        $message = 'Activity with heading "'. $activity->heading.'" is added.';
+        event(new LogCreated($user, $message));
+
         return redirect()->route('admin.activities')
                         ->with('status', 'success')
-                        ->with('message', 'Activity with heading "'. $activity->heading.'" is added!');
+                        ->with('message', $message);
     }
 
     /**
@@ -171,9 +177,13 @@ class ActivityController extends Controller
         }    
         $activity->save();
 
+        $user = Auth::user();
+        $message = 'Activity with heading "'. $activity->heading.'" is updated.';
+        event(new LogCreated($user, $message));
+
         return redirect()->route('admin.activities')
                         ->with('status', 'success')
-                        ->with('message', 'Activity with heading "'. $activity->heading.'" is updated!');
+                        ->with('message', $message);
     }
 
     /**
@@ -194,6 +204,11 @@ class ActivityController extends Controller
             rename('uploads/activities/'. $activity->attachment, 'uploads/activities/trash/'. $activity->attachment);
         }
         $activity->delete();
+
+        $user = Auth::user();
+        $message = 'Activity with heading "'. $activity->heading.'" is deleted.';
+        event(new LogCreated($user, $message));
+
         $message = 'Your activity is deleted successfully.';
         return response()->json(['status'=>'ok', 'message'=>$message, 'activity'=>$activity], 200);
     }
@@ -215,12 +230,15 @@ class ActivityController extends Controller
         $message = '';
         if($activity->is_active == 0){
             $activity->is_active = 1;
-            $message = 'Your activity is published successfully.';
+            $message = 'Activity with heading "'.$activity->heading.'" is published.';
         } else {
             $activity->is_active = 0;
-            $message = 'Your activity is unpublished successfully.';
+            $message = 'Activity with heading "'.$activity->heading.'" is unpublished.';
         }
         $activity->save();
+
+        $user = Auth::user();
+        event(new LogCreated($user, $message));
 
         return response()->json(['status'=>'ok', 'message'=>$message, 'activity'=>$activity], 200);
     }
@@ -244,6 +262,11 @@ class ActivityController extends Controller
         }
         $activity->attachment = null;
         $activity->save();
+
+        $user = Auth::user();
+        $message = 'Attachment of activity with heading "'. $activity->heading .'" is deleted.';
+        event(new LogCreated($user, $message));
+        
         $message = 'Your activity attachment is deleted successfully.';
         return response()->json(['status'=>'ok', 'message'=>$message, 'activity'=>$activity], 200);
     }
@@ -269,6 +292,10 @@ class ActivityController extends Controller
             $activity->save();
             $position++;
         }
+        $user = Auth::user();
+        $message = 'Activities are sorted.';
+        event(new LogCreated($user, $message));
+
         return response()->json(['status'=>'success', 'message'=>'Your activities are sorted successfully.'], 200);
     }
 }

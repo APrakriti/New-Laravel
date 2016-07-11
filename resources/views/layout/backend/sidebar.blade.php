@@ -29,6 +29,8 @@
             <i class="fa fa-dashboard"></i> <span>Dashboard</span> 
           </a>
         </li>
+        
+        @if(Access::hasAccess('activities'))
         <li class="treeview" id="activities">
           <a href="#">
             <i class="fa fa-square-o"></i>
@@ -40,7 +42,9 @@
             <li id="activity_add"><a href="{{ route('admin.activity.add') }}"><i class="fa fa-circle-o"></i> Add Activity</a></li>
           </ul>
         </li>
-
+        @endif
+        
+        @if(Access::hasAccess('banners'))
         <li class="treeview" id="banners">
           <a href="#">
             <i class="fa fa-camera"></i>
@@ -52,7 +56,9 @@
             <li id="banner_add"><a href="{{ route('admin.banner.add') }}"><i class="fa fa-circle-o"></i> Add Banner</a></li>
           </ul>
         </li>
-
+        @endif
+        
+        @if(Access::hasAccess('contents'))
         <li class="treeview" id="contents">
           <a href="#">
             <i class="fa fa-square-o"></i>
@@ -64,7 +70,9 @@
             <li id="content_add"><a href="{{ route('admin.content.add') }}"><i class="fa fa-circle-o"></i> Add Content</a></li>
           </ul>
         </li>
-
+        @endif
+        
+        @if(Access::hasAccess('destinations'))
         <li class="treeview" id="destinations">
           <a href="#">
             <i class="fa fa-square-o"></i>
@@ -76,7 +84,9 @@
             <li id="destination_add"><a href="{{ route('admin.destination.add') }}"><i class="fa fa-circle-o"></i> Add Destination</a></li>
           </ul>
         </li>
-
+        @endif
+        
+        @if(Access::hasAccess('packages'))
         <li class="treeview" id="packages">
           <a href="#">
             <i class="fa fa-square-o"></i>
@@ -88,7 +98,9 @@
             <li id="package_add"><a href="{{ route('admin.package.add') }}"><i class="fa fa-circle-o"></i> Add Package</a></li>
           </ul>
         </li>
-
+        @endif
+        
+        @if(Access::hasAccess('bookings'))
         <li class="treeview" id="bookings">
           <a href="#">
             <i class="fa fa-square-o"></i>
@@ -98,9 +110,10 @@
           <ul class="treeview-menu">
             <li id="booking_list"><a href="{{ route('admin.bookings') }}"><i class="fa fa-circle-o"></i> List Bookings</a></li>
           </ul>
-        </li>  
+        </li>
+        @endif
         
-
+        @if(Access::hasAccess('testimonials'))
         <li class="treeview" id="testimonials">
           <a href="#">
             <i class="fa fa-users"></i>
@@ -111,7 +124,8 @@
             <li id="testimonial_list"><a href="{{ route('admin.testimonials') }}"><i class="fa fa-circle-o"></i> List Testimonials</a></li>
             <li id="testimonial_add"><a href="{{ route('admin.testimonial.add') }}"><i class="fa fa-circle-o"></i> Add Testimonial</a></li>
           </ul>
-        </li>        
+        </li>
+        @endif 
         
         <li><a href="{{ route('admin.logout') }}"><i class="fa  fa-power-off text-aqua"></i> <span>Logout</span></a></li>
       </ul>
