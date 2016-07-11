@@ -11,7 +11,9 @@ class Permission
     {
         $flag = false;
         $modules = session()->get('access_modules');
-        $flag = in_array($slug, $modules);        
+        if($modules){
+        	$flag = in_array($slug, $modules);
+        }
         return $flag;
     }
 }
