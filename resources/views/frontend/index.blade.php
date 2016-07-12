@@ -633,7 +633,7 @@
         </div>
       </div>
       <div class="col l6 m12 delay-05s  fadeInRight wow animated">
-        <a href="#car_rent_tab"><img src="{{ asset('images/hotel.jpg') }}"/></a>
+        <a href="#hotel_tab"><img src="{{ asset('images/hotel.jpg') }}"/></a>
       </div>
     </div>
   </div>
