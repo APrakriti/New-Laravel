@@ -28,7 +28,7 @@ img {
 }
 
 a:hover {
-    color: #ea5b37;
+    color: #f1491e;
     text-decoration: none;
     transition: all .3s ease 0s
     -webkit-transition: all .3s ease 0s;
@@ -97,7 +97,7 @@ nav .brand-logo {margin-top:10px;}
 .title h1 {
 	font-size:48px;
 	margin-bottom:45px;
-	color:#ea5b37;
+	color:#f1491e;
 	font-weight:bold; margin:0; margin-bottom:5px;
 	
 }
@@ -174,7 +174,7 @@ opacity:0.5
 .sub_title h2 {
 	font-size:24px;
 	
-	color:#ea5b37;
+	color:#f1491e;
 	font-weight:bold; margin:0;
 	
 }
@@ -221,7 +221,7 @@ opacity:0.5
 	-o-transform: scale(1.1, 1.1);
 	}
 .trip_btns {margin-top:15px;}
-.trip_price {background:#ea5b37; height:100px; width:100px; border-radius:50%; border:2px solid #fff; color:#fff; position:absolute; right:30px; margin-top:-105px; text-align:center; font-size:22px; font-weight:bold; line-height:1; padding-top:28px;}
+.trip_price {background:#f1491e; height:100px; width:100px; border-radius:50%; border:2px solid #fff; color:#fff; position:absolute; right:30px; margin-top:-105px; text-align:center; font-size:22px; font-weight:bold; line-height:1; padding-top:28px;}
 .trip_price span {font-size:16px; text-decoration:line-through}
 .trip_fact_brief {font-weight:bold; font-size:14px; margin:5px 0;}
 .trip_fact_brief img {width:auto}
@@ -240,7 +240,7 @@ opacity:0.5
 .breadcrumb {font-size:14px;}
 .breadcrumb::before {font-size:20px; line-height:1.2}
 .pagination li.active {
-    background-color: #ea5b37 ;
+    background-color: #f1491e ;
 }
 
 .form_wrap {padding:45px; background:#f6f6f6; text-align:left; margin-bottom:15px; border:1px solid #ddd}
@@ -255,7 +255,7 @@ opacity:0.5
 .trip_detail_sidebar {padding-left:30px !important;}
 .box {background:#f2f2f2; margin-bottom:25px; padding:20px;}
 .trip_slide {margin-bottom:20px;}
-.trip_highlight_wrap {margin-bottom:15px; background:#ea5b37 ; padding:15px; color:#fff}
+.trip_highlight_wrap {margin-bottom:15px; background:#f1491e ; padding:15px; color:#fff}
 .detail_price { text-align:center; line-height:1.2; margin-bottom:10px;}
 .booknow { text-align:center}
 .detail_price span {  font-size:32px; font-weight:bold; margin-left:10px;}
@@ -351,7 +351,7 @@ opacity:0.5
     transition: all .3s ease 0s
 }
 .social_link ul li a i:hover {
-     background:#fff !important; color:#ea5b37 
+     background:#fff !important; color:#f1491e 
 }
 
 .twitter a i {background:#00aced !important}
