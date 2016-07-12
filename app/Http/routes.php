@@ -112,7 +112,7 @@ Route::get('contact', ['as'=>'contact','uses'=>'HomeController@getContactPage'])
 Route::post('contact', ['as'=>'contact.submit','uses'=>'HomeController@submitContactPage']);
 Route::get('page/{slug}', ['as'=>'content.detail','uses'=>'HomeController@content']);
 
-Route::post('search', ['as'=>'search.post','uses'=>'PackageController@search']);
+Route::get('search', ['as'=>'search','uses'=>'PackageController@search']);
 Route::post('submit/hotel/inquiry', ['as'=>'submit.hotel.inquiry','uses'=>'HomeController@hotelInquiry']);
 Route::post('submit/carRent/inquiry', ['as'=>'submit.carrent.inquiry','uses'=>'HomeController@carRentInquiry']);
 

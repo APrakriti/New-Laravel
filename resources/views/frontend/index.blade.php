@@ -172,7 +172,7 @@
       </div>
       <div id="travel_tab" >
          <div class="tab_search_content">
-          <form action="{{ route('search.post') }}" id="searchForm" method="post" >
+          <form action="{{ route('search') }}" id="searchForm" method="get" >
             <div class="row">
                <div class="col l6 m6 s6">
                   <select class="default_field bdr0" name="destination_id">
@@ -235,7 +235,7 @@
                </div> -->
                <div class="clear"></div>
                <div class="col l6 m6 s6">
-                <button class="btn btnfull" name="search" >Search</button>
+                <button class="btn btnfull" name="search" value="search">Search</button>
               </div>
             </div>
             <!--row end-->
@@ -388,9 +388,11 @@
                     @if($package->trip_duration)
                       <div class="col l6 m6 s6">Duration: {{ $package->trip_duration }} Days</div>
                     @endif
+                    @if($package->activity)
                     <div class="col l6 m6 s6">
                       Activity: {{ $package->activity->heading }}
                     </div>
+                    @endif
                   </div>
                 </div>
                 <div class="trip_btns">
@@ -451,9 +453,11 @@
                 @if($fixedDeparturePackage->trip_duration)
                   <div class="col l4 m6 s6">Duration: {{ $fixedDeparturePackage->trip_duration}} Days</div>
                 @endif
-                  <!-- <div class="col l8 m6 s6">
-                    Rating: <img src="images/rating.png"/>
-                  </div> -->
+                @if($fixedDeparturePackage->activity)
+                  <div class="col l8 m6 s6">
+                    Activity: {{ $fixedDeparturePackage->activity->heading }}
+                  </div>
+                @endif
                 </div>
               </div>
             </div>
@@ -532,6 +536,9 @@
                     @if($package->trip_duration)
                       <div class="col l6 m6 s6">Duration: {{ $package->trip_duration }} Days</div>
                     @endif 
+                    @if($package->activity)
+                      <div class="col l6 m6 s6">Activity: {{ $package->activity->heading }}</div>
+                    @endif
                     </div>
                   </div>
                   <div class="details">

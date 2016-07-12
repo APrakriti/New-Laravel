@@ -38,16 +38,7 @@
                                  <ul>
                                     @foreach($packages as $package)
                                     <li><a href="{{ route('package.detail', $package->slug) }}">{{ $package->heading }}</a></li>
-                                    @endforeach
-                                    <!-- <li><a href="services/domain-registration.html">Around Manaslu Larkya La Trek </a></li>
-                                    <li><a href="services/ecommerce.html">Everest Panorama Thyangboche Trek</a></li>
-                                    <li><a href="services/facebook-application.html">Ganesh Himal Panorama Trek  </a></li>
-                                    <li><a href="services/graphics-and-logo-design.html">Annapurna Panchase Hill Trek </a></li>
-                                    <li><a href="services/application-development.html">Annapurna Circuit Thorang La</a></li>
-                                    <li><a href="services/branding-and-identity.html">Annapurna Panchase Hill Trek</a></li>
-                                    <li><a href="services/domain-registration.html">Around Manaslu Larkya La Trek </a></li>
-                                    <li><a href="services/ecommerce.html">Everest Panorama Thyangboche Trek</a></li>
-                                  -->
+                                    @endforeach                                    
                                  </ul>
                                  <div class="clear"></div>
                               </div>
