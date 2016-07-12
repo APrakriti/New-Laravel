@@ -259,7 +259,7 @@
                 <input type="email" name="email_address" class="default_field bdr0 email_address" value="" placeholder="Email Address" />
               </div>
               <div class="col l6 m6 s6">
-                  <select class="default_field bdr0 number_of_rooms" name="number_of_rooms">
+                  <select class="browser-default bdr0 number_of_rooms" name="number_of_rooms">
                      <option value="" >No of Rooms</option>
                      <option value="1">1 </option>
                      <option value="2">2 </option>
@@ -270,7 +270,7 @@
                   </select>
                </div>
                <div class="col l6 m6 s6">
-                  <select class="default_field bdr0 number_of_person" name="number_of_person">
+                  <select class="browser-default bdr0 number_of_person" name="number_of_person">
                      <option value="">No of Person </option>
                      <option value="1">1 </option>
                      <option value="2">2 </option>
