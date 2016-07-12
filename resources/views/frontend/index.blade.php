@@ -175,7 +175,7 @@
           <form action="{{ route('search') }}" id="searchForm" method="get" >
             <div class="row">
                <div class="col l6 m6 s6">
-                  <select class="default_field bdr0" name="destination_id">
+                  <select class="browser-default  bdr0" name="destination_id">
                      <option value="">
                         Select Destintion
                      </option>
@@ -187,7 +187,7 @@
                   </select>
                </div>
                <div class="col l6 m6 s6">
-                  <select class="default_field bdr0" name="activity_id">
+                  <select class="browser-default  bdr0" name="activity_id">
                      <option value="" >
                         Select Activity
                      </option>
@@ -199,7 +199,7 @@
                   </select>
                </div>
                <div class="col l6 m6 s6">
-                  <select class="default_field bdr0" name="duration">
+                  <select class="browser-default  bdr0" name="duration">
                      <option value="" >
                         Select Duration
                      </option>
@@ -216,7 +216,7 @@
                   </select>
                </div>
                <div class="col l6 m6 s6">
-                  <select class="default_field bdr0" name="price">
+                  <select class="browser-default  bdr0" name="price">
                      <option value="" >Select Price</option>
                      <option value="100 - 500">$100 - $500</option>
                      <option value="500 - 1000">$500 - $1000</option>
@@ -259,7 +259,7 @@
                 <input type="email" name="email_address" class="default_field bdr0 email_address" value="" placeholder="Email Address" />
               </div>
               <div class="col l6 m6 s6">
-                  <select class="default_field bdr0 number_of_rooms" name="number_of_rooms">
+                  <select class="browser-default bdr0 number_of_rooms" name="number_of_rooms">
                      <option value="" >No of Rooms</option>
                      <option value="1">1 </option>
                      <option value="2">2 </option>
@@ -270,7 +270,7 @@
                   </select>
                </div>
                <div class="col l6 m6 s6">
-                  <select class="default_field bdr0 number_of_person" name="number_of_person">
+                  <select class="browser-default bdr0 number_of_person" name="number_of_person">
                      <option value="">No of Person </option>
                      <option value="1">1 </option>
                      <option value="2">2 </option>
