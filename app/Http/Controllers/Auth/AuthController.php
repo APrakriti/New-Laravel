@@ -81,15 +81,17 @@ class AuthController extends Controller
         
         if($validator->fails())
             return redirect()->back()->withErrors($validator);
-        $auth = Auth::attempt(array(
+        
+        if(Auth::attempt([
                     'is_active' => 1,
                     'role_id' => 3,
                     'email' => $request->username,
-                    'password' => $request->password));
-        if($auth)
-            return redirect()->route('home');
-
-        return redirect()->back()->withInput();
+                    'password' => $request->password
+                ])){
+            return redirect()->route('home');            
+        } else {
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -107,8 +109,9 @@ class AuthController extends Controller
      *
      * @return Redirect
      */
-    public function logout()
+    public function getLogout()
     {
-        print_r($hait); exit;
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

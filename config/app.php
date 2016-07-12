@@ -150,6 +150,11 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Netshell\Paypal\PaypalServiceProvider::class,
 
+        /*
+         * Custom Service Providers...
+         */
+        App\Providers\AccessServiceProvider::class,
+
     ],
 
     /*
@@ -202,6 +207,11 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Paypal' => Netshell\Paypal\Facades\Paypal::class,
+
+        /*
+         * Custom Facades ...
+         */
+        'Access' => App\Facades\AccessFacade::class,
     ],
 
 ];

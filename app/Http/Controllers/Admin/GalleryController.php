@@ -366,9 +366,4 @@ class GalleryController extends Controller
         }
         return response()->json(['status'=>'success', 'message'=>'Your galleries are sorted successfully.'], 200);
     }
-
-    public function storeTest(Request $request)
-    {
-        return response()->json(['message'=>$request->all()]);
-    }
 }
