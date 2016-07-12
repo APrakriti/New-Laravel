@@ -103,10 +103,10 @@ nav .brand-logo {margin-top:10px;}
 }
 .title  span {font-size:18px; color:#666}
 
-.search_bar {background:#80bd3c; padding-bottom:15px;}
+.search_bar {background:#6ba728; padding-bottom:15px;}
 .search_tab_wrapper {position:absolute;z-index:200; margin-top:-430px; margin-left:80px; background:rgba(0, 0, 0, 0.4); width:500px}
 .search_tab_wrapper .tabs .tab a { color:#000; font-weight:bold; font-size:16px;}
-.search_tab_wrapper .tabs .tab a.active {background:#80bd3c; color:#fff}
+.search_tab_wrapper .tabs .tab a.active {background:#6ba728; color:#fff}
 .search_tab_wrapper .tabs .tab a:hover {color:#000}
 
 .tab_search_content { padding:30px; min-height:270px; }
@@ -283,7 +283,7 @@ opacity:0.5
 .list {}
 .list ul {padding:0; margin:0}
 .list ul li {display:block; }
-.list ul li a { padding:12px 0; border-top:1px solid #ccc; display:block}
+.list ul li a { padding:12px 0; border-top:1px solid #ccc; display:block; text-align:left}
 
 .trip_tab_wrap {}
 .tab_wrapper .tabs {
@@ -304,7 +304,7 @@ opacity:0.5
 
 /*footer start*/
 .footer_wrap {
-    background: #80bd3c;
+    background: #6ba728;
     color:#fff;
   text-align:left; padding:45px 0 ;
 }
@@ -374,7 +374,7 @@ opacity:0.5
 .foot_link {margin-bottom:15px; font-size:14px;}
 .foot_link ul {margin:0; padding:0}
 .foot_link ul li {display:inline; float:left; border-right:1px solid #999; padding-right:10px; margin-right:10px; margin-bottom:10px; line-height:1}
-.foot_link ul li a {color:#000}
+.foot_link ul li a {color:#000; font-size:13px;}
 .foot_link ul li:first-child {font-weight:bold; color:#000; text-transform:uppercase; border-right:none; }
 
 .foot_link:last-child {margin-bottom:0 !important}
@@ -443,7 +443,7 @@ i.right {margin-left:auto}
     background: #42a5f5
 }
 
-.green {background:#80bd3c !important}
+.green {background:#6ba728!important}
 .material-tooltip {
     padding: 10px 15px
 }

@@ -96,7 +96,7 @@
                                     <option value="{{ $country->id }}">{{ $country->country_name }}</option>
                                     @endforeach
                                  </select>
-                                 <label for="">Country</label>
+                                 
                               </div>
                            </div>
                         </div>
