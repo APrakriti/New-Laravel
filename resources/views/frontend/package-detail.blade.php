@@ -134,38 +134,40 @@
                               <div class="inner_head">Trip Facts</div>
                               <div class="tripfact_list">
                                  <ul>
+                                    @if($package->trip_duration)
                                     <li>
                                        <img src="{{ asset('images/trip_icons/length_icon.png') }}">
                                        <span>Trip Duration :</span> {{ $package->trip_duration }} Days
                                     </li>
+                                    @endif
                                     @if($package->team_leader)
                                     <li>
                                        <img src="{{ asset('images/trip_icons/lead_icon.png') }}">
                                        <span>Team Leader :</span> {{ $package->team_leader }}
                                     </li>
                                     @endif
-                                    <li>
-                                       <img src="{{ asset('images/trip_icons/food_icon.png') }}">
-                                       <span>Food :</span> No Meals Included
-                                    </li>
+                                    @if($package->activity)
                                     <li>
                                        <img src="{{ asset('images/trip_icons/grade_icon.png') }}">
-                                       <span>Trip Grade :</span> 4 star
+                                       <span>Activity :</span> {{ $package->activity->heading }}
                                     </li>
+                                    @endif
                                     @if($package->accommodation)
                                     <li>
                                        <img src="{{ asset('images/trip_icons/acc_icon.png') }}">
                                        <span>Accommodation :</span> {{ $package->accommodation }}
                                     </li>
                                     @endif
+                                    @if($package->start && $package->end)
                                     <li>
                                        <img src="{{ asset('images/trip_icons/start_icon.png') }}">
-                                       <span>Start - End :</span> Kathmandu - Pokhara 
+                                       <span>Start - End :</span> {{ $package->start }} - {{ $package->end }} 
                                     </li>
-                                    <li>
+                                    @endif
+                                    <!-- <li>
                                        <img src="{{ asset('images/trip_icons/location_icon.png') }}">
                                        <span>Trip Destination :</span> License Holder
-                                    </li>
+                                    </li> -->
                                     @if($package->group_size)
                                     <li>
                                        <img src="{{ asset('images/trip_icons/group_icon.png') }}">

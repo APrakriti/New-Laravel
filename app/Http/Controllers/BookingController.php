@@ -58,16 +58,24 @@ class BookingController extends Controller
             if($validator->fails())
                 return redirect()->back()->withInput()->withErrors($validator);
             
-            $relatedPackages = Package::where('is_active', 1)
-                                ->where('id', '<>', $package->id)
-                                ->orderBy('order_position')
-                                ->take(10)
-                                ->get(); 
             if(!$package->starting_price > 0){
               return redirect()->back()
                         ->with('status', 'error')  
                         ->with('message', 'This package can not be booked.');  
             }
+
+            // $captcha = $request->input('g-recaptcha-response');
+            // $recaptchaSecret = env('RECAPTCHA_SECRET_KEY');
+            // $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . $recaptchaSecret . "&response=" . $captcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
+            // $response = json_decode($response);
+            
+            // if ($response->success == false) {
+            //     return redirect()->back()
+            //          ->withInput()
+            //          ->with('status', 'error')
+            //          ->with('message', 'Invalid captcha verification.');
+            // }          
+            
             $booking = new Booking();
             $booking->package_id = $request->input('package_id', $package->id);
             $booking->user_id = Auth::user()->id;

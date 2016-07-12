@@ -36,6 +36,8 @@ class CreatePackagesTable extends Migration
             $table->date('joining_date')->nullable()->default(null);
             $table->float('previous_price')->nullable()->default(null);
             $table->float('starting_price')->nullable()->default(null);
+            $table->string('start')->nullable()->default(null);
+            $table->string('end')->nullable()->default(null);
             $table->integer('order_position')->unsigned()->nullable()->default(null);
             $table->integer('created_by')->unsigned()->nullable()->default(null);
             $table->integer('updated_by')->unsigned()->nullable()->default(null);

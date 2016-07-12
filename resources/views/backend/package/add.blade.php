@@ -70,24 +70,31 @@
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-            package_type: {
+            activity_id: {
                 validators: {
                     notEmpty: {
-                        message: 'The package type is not selected'
+                        message: 'The activity is not selected.'
+                    }
+                }
+            },
+            destination_id: {
+                validators: {
+                    notEmpty: {
+                        message: 'The destination is not selected.'
                     }
                 }
             },
             heading: {
                 validators: {
                     notEmpty: {
-                        message: 'The package name is required'
+                        message: 'The package name is required.'
                     }
                 }
             },
             description: {
                     validators: {
                         notEmpty: {
-                            message: 'The description is required and cannot be empty'
+                            message: 'The description is required.'
                         },
                     }
                 },
@@ -95,7 +102,21 @@
             title: {
                 validators: {
                     notEmpty: {
-                        message: 'The package title is required'
+                        message: 'The package title is required.'
+                    }
+                }
+            },
+            trip_duration: {
+                validators: {
+                    notEmpty: {
+                        message: 'The duration is required.'
+                    }
+                }
+            },
+            starting_price: {
+                validators: {
+                    notEmpty: {
+                        message: 'The starting price is required.'
                     }
                 }
             },
@@ -106,7 +127,7 @@
                       extension: 'jpeg,jpg,png',
                       type: 'image/jpeg,image/png',
                       maxSize: 1048576,   // 1024 * 1024
-                      message: 'The selected file is not valid'
+                      message: 'The selected file is not valid.'
                   }
               }
             },          
@@ -157,7 +178,7 @@
                 <div class="form-group col-md-6">
                   <label for="exampleInputPackage">Activity</label>
                   <select class="form-control" name="activity_id">
-                    <option value="0">Select Activity</option>
+                    <option value="">Select Activity</option>
                     @foreach($activities as $activity)
                     <option value="{{ $activity->id }}">{{ $activity->heading }}</option>
                     @endforeach
@@ -166,7 +187,7 @@
                 <div class="form-group col-md-6">
                   <label for="exampleInputPackage">Destination</label>
                   <select class="form-control" name="destination_id">
-                    <option value="0">Select Destination</option>
+                    <option value="">Select Destination</option>
                     @foreach($destinations as $destination)
                     <option value="{{ $destination->id }}">{{ $destination->heading }}</option>
                     @endforeach
@@ -261,6 +282,17 @@
                 <div class="form-group col-md-6">
                   <label for="exampleInputPackage">Starting Price </label>
                   <input type="number" class="form-control" id="starting_price" name="starting_price" value="{{ old('starting_price') }}" placeholder="Enter starting price">
+                </div>                               
+              </div>
+
+              <div class="box-body">
+                <div class="form-group col-md-6">
+                  <label for="exampleInputPackage">Start From</label>
+                  <input type="text" class="form-control" id="start" name="start" value="{{ old('start') }}" placeholder="Enter start location">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="exampleInputPackage">End To </label>
+                  <input type="text" class="form-control" id="end" name="end" value="{{ old('end') }}" placeholder="Enter end location">
                 </div>                               
               </div>
 

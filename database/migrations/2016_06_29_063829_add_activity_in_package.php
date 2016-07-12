@@ -14,6 +14,7 @@ class AddActivityInPackage extends Migration
     {
         Schema::table('packages', function ($table) {
             $table->integer('activity_id')->unsigned()->after('destination_id')->nullable()->default(null);
+            
             $table->foreign('activity_id')->references('id')->on('activities');
         });
     }

@@ -91,6 +91,8 @@ class PackageController extends Controller
         $package->accommodation = $request->accommodation;
         $package->previous_price = $request->previous_price;
         $package->starting_price = $request->starting_price;        
+        $package->start = $request->start;        
+        $package->end = $request->end;        
         $package->created_by = Auth::id();
         $package->last_minute_deal = $request->last_minute_deal;
         $package->is_active = $request->is_active;
@@ -171,6 +173,8 @@ class PackageController extends Controller
         $package->accommodation = $request->accommodation;
         $package->previous_price = $request->previous_price;
         $package->starting_price = $request->starting_price;
+        $package->start = $request->start;        
+        $package->end = $request->end;
         $package->updated_by = Auth::id();
         $package->last_minute_deal = $request->last_minute_deal;           
         $package->is_active = $request->is_active;           

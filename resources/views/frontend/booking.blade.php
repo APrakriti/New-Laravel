@@ -5,7 +5,7 @@
 @section('meta_description', $package->meta_description)
 
 @section('footer_js')
-   
+   <script src='https://www.google.com/recaptcha/api.js'></script>
 @endsection
 
 @section('dynamicdata')
@@ -99,20 +99,29 @@
                                  <label for="">Country</label>
                               </div>
                            </div>
+                        </div>
+                        <div class="row">
                            <div class="col l6 m6 s12">
-                              <div class="input-field  ">
+                              <div class="input-field">
                                  <input id="" name="contact_number" type="text" value="{{ old('contact_number') }}" class="validate">
                                  <label for="">Contact No.</label>
                               </div>
                            </div>
                            <div class="col l6 m6 s12">
-                              <div class="input-field  ">
+                              <div class="input-field">
                                  <input id="email" name="email_address" type="email" value="{{ old('email_address') }}" class="validate">
                                  <label for="email">Email</label>
                               </div>
-                           </div>
+                           </div> 
                         </div>
                         <!--row end-->
+                        <!-- <div class="row">
+                           <div class="col l6 m6 s12">
+                              <div class="input-field  ">
+                                 <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+                              </div>
+                           </div>
+                        </div> -->
                         <div> <button class="btn ">Book Now</button></div>
                         <div class="clear"></div>
                      </div>

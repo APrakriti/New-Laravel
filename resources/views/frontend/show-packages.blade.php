@@ -28,8 +28,10 @@
                                     @if($package->trip_duration)
                                     <div class="col l6 m6 s6">Duration: {{ $package->trip_duration }} Days</div>
                                     @endif
-                                 <!--    <div class="col l6 m6 s6">Rating: <img src="images/rating.png"></div>
-                                  --></div>
+                                    @if($package->activity)
+                                    <div class="col l6 m6 s6">Activity: {{ $package->activity->heading }}</div>
+                                    @endif
+                                 </div>
                               </div>
                               <div class="trip_btns">
                                  <a href="{{ route('package.detail', $package->slug) }}" class="btn green">Details</a>
@@ -40,11 +42,10 @@
                         <!--col end-->
                         @endforeach 
                      </div>
-                     @endforeach
+                     @endforeach                     
                      
-                     @if(\Route::getCurrentRoute()->getName() != 'search.post')
-                        {!! $packages->render() !!}
-                     @endif
+                     {!! $packages->appends(Input::except('page'))->render(); !!}
+
                      <!-- <ul class="pagination">
                         <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
                         <li class="active"><a href="#!">1</a></li>

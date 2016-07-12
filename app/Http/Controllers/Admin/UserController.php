@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Role;
 use Validator;
 use Auth;
 
@@ -27,8 +28,16 @@ class UserController extends Controller
         $auth = Auth::attempt(array(
                     'email' => $request->username,
                     'password' => $request->password));
-        if($auth)
+        if($auth){
+            $role = Role::with('modules')->find(Auth::user()->role_id);
+            $access_modules = [];
+            foreach ($role->modules as $key => $module) {
+                $access_modules[] = $module->slug;
+            }
+            $request->session()->put('access_modules', $access_modules);
+
             return redirect()->route('admin.dashboard');
+        }
 
         return redirect()->back()->withInput();
     }
