@@ -14,10 +14,10 @@ class CountrySeeder extends Seeder
     {
         Model::unguard();
 
-        $roles = [
+        $countries = [
 	            ['country_name' => 'Afghanistan', 'country_code' => 'AF'],
 	        ];
 		
-		DB::table('countries')->insert($roles);
+		DB::table('countries')->insert($countries);
     }
 }

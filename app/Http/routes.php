@@ -87,6 +87,13 @@ Route::group(['prefix'=>'admin','middleware' => 'admin','namespace' => 'Admin'],
 	Route::get('bookings',['middleware' => 'access:bookings','as'=>'admin.bookings','uses'=>'BookingController@index']);
 	Route::get('booking/{id}',['middleware' => 'access:bookings','as'=>'admin.booking.view','uses'=>'BookingController@detail']);
 
+	Route::get('pages', ['as'=>'admin.pages', 'uses'=>'PageController@index']);
+	Route::get('page/add', ['as'=>'admin.page.add', 'uses'=>'PageController@create']);
+	Route::post('page/add', ['as'=>'admin.page.store', 'uses'=>'PageController@store']);
+	Route::get('page/edit/{id}', ['as'=>'admin.page.edit', 'uses'=>'PageController@edit']);
+	Route::post('page/edit/{id}', ['as'=>'admin.page.update', 'uses'=>'PageController@update']);
+	Route::post('page/delete', ['as'=>'admin.page.delete', 'uses'=>'PageController@destroy']);
+	
 	Route::get('roles', ['as'=>'admin.roles', 'uses'=>'RoleController@index']);
 	Route::get('role/add', ['as'=>'admin.role.add', 'uses'=>'RoleController@create']);
 	Route::post('role/add', ['as'=>'admin.role.store', 'uses'=>'RoleController@store']);
