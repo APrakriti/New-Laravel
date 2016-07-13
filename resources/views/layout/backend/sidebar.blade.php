@@ -8,6 +8,7 @@
   $countBooking = \App\Models\Booking::count();
   $countTestimonial = \App\Models\Testimonial::count();
   $countNews = \App\Models\News::count();
+  $countAlbums = \App\Models\Album::count();
 
 /* --}}
                                     
@@ -41,6 +42,20 @@
           <ul class="treeview-menu">
             <li id="activity_list"><a href="{{ route('admin.activities') }}"><i class="fa fa-circle-o"></i> List Activities</a></li>
             <li id="activity_add"><a href="{{ route('admin.activity.add') }}"><i class="fa fa-circle-o"></i> Add Activity</a></li>
+          </ul>
+        </li>
+        @endif
+
+        @if(Access::hasAccess('albums'))
+        <li class="treeview" id="albums">
+          <a href="#">
+            <i class="fa fa-camera"></i>
+            <span>Albums</span>
+            <span class="label label-primary pull-right">{{ $countActivity }}</span>
+          </a>
+          <ul class="treeview-menu">
+            <li id="album_list"><a href="{{ route('admin.albums') }}"><i class="fa fa-circle-o"></i> List Albums</a></li>
+            <li id="album_add"><a href="{{ route('admin.album.add') }}"><i class="fa fa-circle-o"></i> Add Album</a></li>
           </ul>
         </li>
         @endif

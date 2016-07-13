@@ -17,34 +17,19 @@ use Session;
 class AlbumGalleryController extends Controller
 {
     /**
-     * Display all galleries for the package
+     * Display all galleries for the album
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function index($id)
     {
-        $package = Package::findOrfail($id);
-        $galleries = AlbumGallery::where('package_id', $id)->orderBy('order_position')->get();
-        return view('backend.package.galleries')
-                ->with('package', $package)
+        $album = Album::findOrfail($id);
+        $galleries = AlbumGallery::where('album_id', $id)->orderBy('order_position')->get();
+        return view('backend.album.galleries')
+                ->with('album', $album)
                 ->with('galleries', $galleries);
-    }
-
-    /**
-     * Display all galleries for the package
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function indextest($id)
-    {
-        $package = Package::findOrfail($id);
-        $galleries = AlbumGallery::where('package_id', $id)->orderBy('order_position')->get();
-        return view('backend.package.galleriestest')
-                ->with('package', $package)
-                ->with('galleries', $galleries);
-    }
+    }    
 
     /**
      * Show the form for creating a new resource.
@@ -54,10 +39,10 @@ class AlbumGalleryController extends Controller
      */
     public function create($id)
     {
-        $package = Package::findOrFail($id);
+        $album = Album::findOrFail($id);
         
-        return view('backend.package.add-gallery')
-                ->with('package', $package);
+        return view('backend.album.add-gallery')
+                ->with('album', $album);
     }
 
     /**
@@ -75,7 +60,7 @@ class AlbumGalleryController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         
         $files = $request->attachment;
-        $destinationPath = 'uploads/gallery/';
+        $destinationPath = 'uploads/albums/galleries/';
         $destinationPathThumb = 'uploads/gallery/thumbs/';
         $rEFileTypes = "/^\.(jpg|jpeg|gif|png){1}$/i";
         $maximum_filesize = 1 * 1024 * 1024;
@@ -126,25 +111,16 @@ class AlbumGalleryController extends Controller
                 $gallery = new AlbumGallery();
                 $gallery->caption = $caption;
                 $gallery->created_by = Auth::id();
-                $gallery->is_active = $request->is_active;
-
-                if($i==0){
-                    $coverAlbumGallery = AlbumGallery::where('is_cover', 1)
-                                ->where('package_id', $id)->first();
-                    if(!$coverAlbumGallery)
-                        $gallery->is_cover = 1;
-                        $gallery->is_active = 1;
-                }
-                
+                $gallery->is_active = $request->is_active;            
                 $gallery->attachment = $logo;
                 if($thumb_logo)
                     $gallery->thumb_attachment = $thumb_logo;
 
-                $package = Package::findOrFail($id);
-                $package->galleries()->save($gallery);
+                $album = Album::findOrFail($id);
+                $album->galleries()->save($gallery);
             }
         }
-        return redirect()->route('admin.package.galleries', $id);
+        return redirect()->route('admin.album.galleries', $id);
     }
 
     /**
@@ -168,7 +144,7 @@ class AlbumGalleryController extends Controller
     {
         $gallery = AlbumGallery::findOrFail($id);
         
-        return view('backend.package.edit-gallery')
+        return view('backend.album.edit-gallery')
                 ->with('gallery', $gallery);
     }
 
@@ -187,8 +163,8 @@ class AlbumGalleryController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         
         $imageFile = $request->attachment;
-        $destinationPath = 'uploads/gallery/';
-        $destinationPathThumb = 'uploads/gallery/thumbs/';
+        $destinationPath = 'uploads/albums/galleries/';
+        $destinationPathThumb = 'uploads/albums/galleries/thumbs/';
         $rEFileTypes = "/^\.(jpg|jpeg|gif|png){1}$/i";
         $maximum_filesize = 1 * 1024 * 1024;
                 
@@ -232,7 +208,7 @@ class AlbumGalleryController extends Controller
         $logo = isset($attachment) ? $new_image_name . $extension : NULL;
         $thumb_logo = isset($thumb_attachment) ? $new_image_name . env('THUMB_EXTENSION') : NULL;
 
-        $gallery = AlbumGallery::with('package')->findOrFail($id);
+        $gallery = AlbumGallery::with('album')->findOrFail($id);
         $gallery->caption = $request->caption;
         $gallery->updated_by = Auth::id();
         $gallery->is_active = $request->is_active;
@@ -250,7 +226,7 @@ class AlbumGalleryController extends Controller
 
         $gallery->save();
         
-        return redirect()->route('admin.package.galleries', $gallery->package->id);
+        return redirect()->route('admin.album.galleries', $gallery->album->id);
     }
 
     /**
@@ -261,7 +237,7 @@ class AlbumGalleryController extends Controller
      */
     public function destroy(Request $request)
     {
-        $rules = ['gallery_id'=>'required|exists:package_gallery,id'];
+        $rules = ['gallery_id'=>'required|exists:album_galleries,id'];
         $validator = Validator::make($request->only('gallery_id'), $rules);
         if($validator->fails())
             return response()->json(['status'=>'error', 'message'=>'AlbumGallery does not exists.'], 422);
@@ -270,8 +246,8 @@ class AlbumGalleryController extends Controller
         if($gallery->is_cover == 1)
             return response()->json(['status'=>'error', 'message'=>'You can not delete the cover image.'], 422);
 
-        if(file_exists('uploads/gallery/'.$gallery->attachment) && $gallery->attachment!='')
-            unlink('uploads/gallery/'.$gallery->attachment);
+        if(file_exists('uploads/albums/galleries/'.$gallery->attachment) && $gallery->attachment!='')
+            unlink('uploads/albums/galleries/'.$gallery->attachment);
             
         $gallery->delete();
         $message = 'Your gallery is deleted successfully.';
@@ -286,7 +262,7 @@ class AlbumGalleryController extends Controller
      */
     public function changeStatus(Request $request)
     {
-        $rules = ['gallery_id'=>'required|exists:package_gallery,id'];
+        $rules = ['gallery_id'=>'required|exists:album_galleries,id'];
         $validator = Validator::make($request->only('gallery_id'), $rules);
         if($validator->fails())
             return response()->json(['status'=>'error', 'message'=>$validator->errors()->all()], 422);
@@ -302,32 +278,6 @@ class AlbumGalleryController extends Controller
         }
         $gallery->save();
 
-        return response()->json(['status'=>'ok', 'message'=>$message, 'gallery'=>$gallery], 200);
-    }
-
-     /**
-     * Change cover of the gallery resource from storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function makeCover(Request $request)
-    {
-        $rules = ['gallery_id'=>'required|exists:package_gallery,id'];
-        $validator = Validator::make($request->only('gallery_id'), $rules);
-        if($validator->fails())
-            return response()->json(['status'=>'error', 'message'=>$validator->errors()->all()], 422);
-        
-        $gallery = AlbumGallery::findOrFail($request->gallery_id);
-        $package = Package::findOrFail($gallery->package_id);
-        $package->galleries()->update(['is_cover' => 0]);
-        
-        $gallery = AlbumGallery::find($request->gallery_id);
-        $gallery->is_cover = 1;         
-        $gallery->is_active = 1;         
-        $gallery->save();
-        $message = 'Your gallery is made as cover successfully.';
-        
         return response()->json(['status'=>'ok', 'message'=>$message, 'gallery'=>$gallery], 200);
     }
 
