@@ -7,6 +7,7 @@
   $countPackage = \App\Models\Package::count();
   $countBooking = \App\Models\Booking::count();
   $countTestimonial = \App\Models\Testimonial::count();
+  $countNews = \App\Models\News::count();
 
 /* --}}
                                     
@@ -68,6 +69,20 @@
           <ul class="treeview-menu">
             <li id="content_list"><a href="{{ route('admin.contents') }}"><i class="fa fa-circle-o"></i> List Contents</a></li>
             <li id="content_add"><a href="{{ route('admin.content.add') }}"><i class="fa fa-circle-o"></i> Add Content</a></li>
+          </ul>
+        </li>
+        @endif
+
+        @if(Access::hasAccess('news'))
+        <li class="treeview" id="news">
+          <a href="#">
+            <i class="fa fa-square-o"></i>
+            <span>News</span>
+            <span class="label label-primary pull-right">{{ $countNews }}</span>
+          </a>
+          <ul class="treeview-menu">
+            <li id="news_list"><a href="{{ route('admin.news') }}"><i class="fa fa-circle-o"></i> List News</a></li>
+            <li id="news_add"><a href="{{ route('admin.news.add') }}"><i class="fa fa-circle-o"></i> Add News</a></li>
           </ul>
         </li>
         @endif

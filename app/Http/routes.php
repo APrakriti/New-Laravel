@@ -33,6 +33,25 @@ Route::group(['prefix'=>'admin','middleware' => 'admin','namespace' => 'Admin'],
 	Route::post('activity/delete/attachment', ['middleware' => 'access:activities','as'=>'admin.activity.delete.attachment', 'uses'=>'ActivityController@destroyAttachment']);
 	Route::post('activity/sort/order', ['middleware' => 'access:activities','as'=>'admin.activity.sort.order', 'uses'=>'ActivityController@sortOrder']);
 	
+	Route::get('albums/{id?}', ['middleware' => 'access:albums','as'=>'admin.albums', 'uses'=>'AlbumController@index']);
+	Route::get('album/add', ['middleware' => 'access:albums','as'=>'admin.album.add', 'uses'=>'AlbumController@create']);
+	Route::post('album/add', ['middleware' => 'access:albums','as'=>'admin.album.store', 'uses'=>'AlbumController@store']);
+	Route::get('album/edit/{id}', ['middleware' => 'access:albums','as'=>'admin.album.edit', 'uses'=>'AlbumController@edit']);
+	Route::post('album/edit/{id}', ['middleware' => 'access:albums','as'=>'admin.album.update', 'uses'=>'AlbumController@update']);
+	Route::post('album/change/status', ['middleware' => 'access:albums','as'=>'admin.album.changestatus', 'uses'=>'AlbumController@changeStatus']);
+	Route::post('album/delete', ['middleware' => 'access:albums','as'=>'admin.album.delete', 'uses'=>'AlbumController@destroy']);
+	Route::post('album/sort/order', ['middleware' => 'access:albums','as'=>'admin.album.sort.order', 'uses'=>'AlbumController@sortOrder']);
+	
+	Route::get('album/{id}/galleries', ['middleware' => 'access:albums','as'=>'admin.album.galleries', 'uses'=>'AlbumGalleryController@index']);
+	Route::get('album/{id}/gallery/add', ['middleware' => 'access:albums','as'=>'admin.album.gallery.add', 'uses'=>'AlbumGalleryController@create']);
+	Route::post('album/{id}/gallery/add', ['middleware' => 'access:albums','as'=>'admin.album.gallery.store', 'uses'=>'AlbumGalleryController@store']);
+	Route::get('album/gallery/edit/{id}', ['middleware' => 'access:albums','as'=>'admin.album.gallery.edit', 'uses'=>'AlbumGalleryController@edit']);
+	Route::post('album/gallery/edit/{id}', ['middleware' => 'access:albums','as'=>'admin.album.gallery.update', 'uses'=>'AlbumGalleryController@update']);
+	Route::post('album/gallery/change/status', ['middleware' => 'access:albums','as'=>'admin.album.gallery.changestatus', 'uses'=>'AlbumGalleryController@changeStatus']);
+	Route::post('album/gallery/make/cover', ['middleware' => 'access:albums','as'=>'admin.album.gallery.makecover', 'uses'=>'AlbumGalleryController@makeCover']);
+	Route::post('album/gallery/delete', ['middleware' => 'access:albums','as'=>'admin.album.gallery.delete', 'uses'=>'AlbumGalleryController@destroy']);
+	Route::post('album/gallery/sort/order', ['middleware' => 'access:albums','as'=>'admin.album.gallery.sort.order', 'uses'=>'AlbumGalleryController@sortOrder']);
+
 	Route::get('banners', ['middleware' => 'access:banners','as'=>'admin.banners', 'uses'=>'BannerController@index']);
 	Route::get('banner/add', ['middleware' => 'access:banners','as'=>'admin.banner.add', 'uses'=>'BannerController@create']);
 	Route::post('banner/add', ['middleware' => 'access:banners','as'=>'admin.banner.store', 'uses'=>'BannerController@store']);
@@ -61,6 +80,15 @@ Route::group(['prefix'=>'admin','middleware' => 'admin','namespace' => 'Admin'],
 	Route::post('destination/delete', ['middleware' => 'access:destinations','as'=>'admin.destination.delete', 'uses'=>'DestinationController@destroy']);
 	Route::post('destination/delete/attachment', ['middleware' => 'access:destinations','as'=>'admin.destination.delete.attachment', 'uses'=>'DestinationController@destroyAttachment']);
 	Route::post('destination/sort/order', ['middleware' => 'access:destinations','as'=>'admin.destination.sort.order', 'uses'=>'DestinationController@sortOrder']);
+	
+	Route::get('news', ['middleware' => 'access:news','as'=>'admin.news', 'uses'=>'NewsController@index']);
+	Route::get('news/add', ['middleware' => 'access:news','as'=>'admin.news.add', 'uses'=>'NewsController@create']);
+	Route::post('news/add', ['middleware' => 'access:news','as'=>'admin.news.store', 'uses'=>'NewsController@store']);
+	Route::get('news/edit/{id}', ['middleware' => 'access:news','as'=>'admin.news.edit', 'uses'=>'NewsController@edit']);
+	Route::post('news/edit/{id}', ['middleware' => 'access:news','as'=>'admin.news.update', 'uses'=>'NewsController@update']);
+	Route::post('news/change/status', ['middleware' => 'access:news','as'=>'admin.news.changestatus', 'uses'=>'NewsController@changeStatus']);
+	Route::post('news/delete', ['middleware' => 'access:news','as'=>'admin.news.delete', 'uses'=>'NewsController@destroy']);
+	Route::post('news/delete/attachment', ['middleware' => 'access:news','as'=>'admin.news.delete.attachment', 'uses'=>'NewsController@destroyAttachment']);
 	
 	Route::get('packages/{id?}', ['middleware' => 'access:packages','as'=>'admin.packages', 'uses'=>'PackageController@index']);
 	Route::get('package/add', ['middleware' => 'access:packages','as'=>'admin.package.add', 'uses'=>'PackageController@create']);

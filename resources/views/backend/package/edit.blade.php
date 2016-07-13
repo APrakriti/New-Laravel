@@ -57,10 +57,23 @@
         });
         $(".textarea").wysihtml5();
       });
+
+    function readURLL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('#upload-preview-banner').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
   $(document).ready(function() {
     $('.sidebar-menu li').removeClass('active');
     $('#packages').addClass('active');
-    
+    $("#banner_attachment").change(function(){
+        readURLL(this);
+    });
     $('#packageEditForm').formValidation({
         framework: 'bootstrap',
         icon: {
@@ -120,7 +133,7 @@
                 }
             },
             
-            attachment: {
+            banner_attachment: {
               validators: {
                   file: {
                       extension: 'jpeg,jpg,png',
@@ -129,7 +142,17 @@
                       message: 'The selected file is not valid.'
                   }
               }
-            },         
+            },
+            googlemap_attachment: {
+              validators: {
+                  file: {
+                      extension: 'jpeg,jpg,png',
+                      type: 'image/jpeg,image/png',
+                      maxSize: 1048576,   // 1024 * 1024
+                      message: 'The selected file is not valid.'
+                  }
+              }
+            },        
         }
     });
   });
@@ -298,7 +321,37 @@
                   <label for="exampleInputPackage">End To </label>
                   <input type="text" class="form-control" id="end" name="end" value="{{ $package->end }}" placeholder="Enter end location">
                 </div>                               
-              </div>           
+              </div>
+
+              <div class="box-body">
+                <div class="form-group col-md-12">
+                  <label for="exampleInputBanner">Banner Attachment *</label>
+                  <div class="fileupload-new thumbnail" >
+                    @if(file_exists('uploads/packages/'.$package->banner_attachment) && $package->banner_attachment!='')
+                    <img src="{{ asset('uploads/packages/'.$package->banner_attachment) }}" alt="" id="upload-preview-banner" />
+                    @else
+                    <img src="{{ asset('uploads/noimage.jpg') }}" alt="" id="upload-preview-banner" />
+                    @endif
+                  </div>
+                  <input type="file" name="banner_attachment" id="banner_attachment">
+                  <p class="help-block">Valid file extensions are jpeg,jpg and png.</p>
+                  </div>                               
+              </div>
+
+              <div class="box-body">
+                <div class="form-group col-md-12">
+                  <label for="exampleInputBanner">Google Map *</label>
+                  <div class="fileupload-new thumbnail" >
+                    @if(file_exists('uploads/packages/'.$package->googlemap_attachment) && $package->googlemap_attachment!='')
+                    <img src="{{ asset('uploads/packages/'.$package->googlemap_attachment) }}" alt="" id="upload-preview" />
+                    @else
+                    <img src="{{ asset('uploads/noimage.jpg') }}" alt="" id="upload-preview" />
+                    @endif
+                  </div>
+                  <input type="file" name="googlemap_attachment" id="attachment">
+                  <p class="help-block">Valid file extensions are jpeg,jpg and png.</p>
+                  </div>                               
+              </div>         
 
               <div class="box-body">
                 <div class="form-group col-md-6">

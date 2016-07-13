@@ -42,7 +42,11 @@
 
 @section('dynamicdata')
       <section class="inner_banner">
-         <img src="{{ asset('images/inner_banner.jpg') }}">
+         @if(file_exists('uploads/packages/'.$package->banner_attachment) && $package->banner_attachment != '')
+         <img src="{{ asset('uploads/packages/'.$package->banner_attachment) }}" alt="{{ $package->heading }}">
+         @else
+         <img src="{{ asset('images/inner_banner.jpg') }}" alt="{{ $package->heading }}">
+         @endif
       </section>
       <!--slideshow end-->
       <section class="body_content_wrap">
@@ -106,7 +110,9 @@
                               <ul class="tabs">
                                  <li class="tab "><a class="active" href="#itidetails">Itinerary Details</a></li>
                                  <li class="tab "><a href="#includes">Includes / Excludes</a></li>
+                                 @if(file_exists('uploads/packages/'.$package->googlemap_attachment) && $package->googlemap_attachment != '')
                                  <li class="tab "><a href="#map">Map</a></li>
+                                 @endif
                               </ul>
                               <div class="clear"></div>
                               <div id="itidetails">
@@ -122,9 +128,11 @@
                                  <div>{!! $package->excludes !!}</div>
                                  @endif
                               </div>
-                              <div id="map" >
-                                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d153698.42456958807!2d83.94638890730103!3d28.814849572979853!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39be3d8cb604d6e1%3A0x428cc66273ddacaf!2sThorong+La!5e0!3m2!1sen!2snp!4v1461301754293" width="100%" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
+                              @if(file_exists('uploads/packages/'.$package->googlemap_attachment) && $package->googlemap_attachment != '')
+                              <div id="map">
+                                 <img src="{{ asset('uploads/packages/'.$package->googlemap_attachment) }}" alt="{{ $package->heading }}">
                               </div>
+                              @endif
                               <div class="clear"></div>
                            </div>
                         </div>

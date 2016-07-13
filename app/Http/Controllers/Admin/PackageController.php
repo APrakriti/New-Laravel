@@ -96,6 +96,53 @@ class PackageController extends Controller
         $package->created_by = Auth::id();
         $package->last_minute_deal = $request->last_minute_deal;
         $package->is_active = $request->is_active;
+        
+        $bannerFile = $request->banner_attachment;
+        $googlemapFile = $request->googlemap_attachment;
+        $destinationPath = 'uploads/packages/';
+        $rEFileTypes = "/^\.(jpg|jpeg|gif|png){1}$/i";
+        $maximum_filesize = 1 * 1024 * 1024;
+                
+        if($bannerFile) {
+            $filename = $bannerFile->getClientOriginalName();
+            $extension = strrchr($filename, '.');
+            $size = $bannerFile->getSize();                  
+            $new_image_name = "package_banner_" . time();
+                    
+            if ($size <= $maximum_filesize && preg_match($rEFileTypes, $extension)) {
+                $bannerAttachment = $bannerFile->move($destinationPath, $new_image_name.$extension);
+            } else if (preg_match($rEFileTypes, $extension) == false) {
+                Session::flash('class', 'alert alert-error');
+                Session::flash('message', 'Warning : Invalid Image File!');
+            } else if ($size > $maximum_filesize) {
+                Session::flash('class', 'alert alert-error');
+                Session::flash('message', "Warning : The size of the image shouldn't be more than 1MB!");
+            }               
+        }
+        $banner = isset($bannerAttachment) ? $new_image_name . $extension : NULL;
+        if($banner)
+            $package->banner_attachment = $banner;     
+        
+        if($googlemapFile) {
+            $filename = $googlemapFile->getClientOriginalName();
+            $extension = strrchr($filename, '.');
+            $size = $googlemapFile->getSize();                  
+            $new_image_name = "package_map_" . time();
+                    
+            if ($size <= $maximum_filesize && preg_match($rEFileTypes, $extension)) {
+                $mapAttachment = $googlemapFile->move($destinationPath, $new_image_name.$extension);
+            } else if (preg_match($rEFileTypes, $extension) == false) {
+                Session::flash('class', 'alert alert-error');
+                Session::flash('message', 'Warning : Invalid Image File!');
+            } else if ($size > $maximum_filesize) {
+                Session::flash('class', 'alert alert-error');
+                Session::flash('message', "Warning : The size of the image shouldn't be more than 1MB!");
+            }               
+        }
+        $map = isset($mapAttachment) ? $new_image_name . $extension : NULL;
+        if($map)
+            $package->googlemap_attachment = $map;     
+        
         $package->save();
 
         return redirect()->route('admin.package.gallery.add', $package->id)
@@ -178,6 +225,59 @@ class PackageController extends Controller
         $package->updated_by = Auth::id();
         $package->last_minute_deal = $request->last_minute_deal;           
         $package->is_active = $request->is_active;           
+        
+        $bannerFile = $request->banner_attachment;
+        $googlemapFile = $request->googlemap_attachment;
+        $destinationPath = 'uploads/packages/';
+        $rEFileTypes = "/^\.(jpg|jpeg|gif|png){1}$/i";
+        $maximum_filesize = 1 * 1024 * 1024;
+                
+        if($bannerFile) {
+            $filename = $bannerFile->getClientOriginalName();
+            $extension = strrchr($filename, '.');
+            $size = $bannerFile->getSize();                  
+            $new_image_name = "package_banner_" . time();
+                    
+            if ($size <= $maximum_filesize && preg_match($rEFileTypes, $extension)) {
+                $bannerAttachment = $bannerFile->move($destinationPath, $new_image_name.$extension);
+            } else if (preg_match($rEFileTypes, $extension) == false) {
+                Session::flash('class', 'alert alert-error');
+                Session::flash('message', 'Warning : Invalid Image File!');
+            } else if ($size > $maximum_filesize) {
+                Session::flash('class', 'alert alert-error');
+                Session::flash('message', "Warning : The size of the image shouldn't be more than 1MB!");
+            }               
+        }
+        $banner = isset($bannerAttachment) ? $new_image_name . $extension : NULL;
+        if($banner){
+            if(file_exists('uploads/packages/'.$package->banner_attachment) && $package->banner_attachment!='')
+                unlink('uploads/packages/'.$package->banner_attachment);
+            $package->banner_attachment = $banner;     
+        }
+        
+        if($googlemapFile) {
+            $filename = $googlemapFile->getClientOriginalName();
+            $extension = strrchr($filename, '.');
+            $size = $googlemapFile->getSize();                  
+            $new_image_name = "package_map_" . time();
+                    
+            if ($size <= $maximum_filesize && preg_match($rEFileTypes, $extension)) {
+                $mapAttachment = $googlemapFile->move($destinationPath, $new_image_name.$extension);
+            } else if (preg_match($rEFileTypes, $extension) == false) {
+                Session::flash('class', 'alert alert-error');
+                Session::flash('message', 'Warning : Invalid Image File!');
+            } else if ($size > $maximum_filesize) {
+                Session::flash('class', 'alert alert-error');
+                Session::flash('message', "Warning : The size of the image shouldn't be more than 1MB!");
+            }               
+        }
+        $map = isset($mapAttachment) ? $new_image_name . $extension : NULL;
+        if($map){
+            if(file_exists('uploads/packages/'.$package->googlemap_attachment) && $package->googlemap_attachment!='')
+                unlink('uploads/packages/'.$package->googlemap_attachment);
+            $package->googlemap_attachment = $map;     
+        }
+        
         $package->save();
 
         return redirect()->route('admin.packages')

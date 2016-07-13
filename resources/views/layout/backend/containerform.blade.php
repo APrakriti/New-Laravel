@@ -195,7 +195,7 @@
     }
     $("#attachment").change(function(){
         readURL(this);
-    });
+    });   
     
 </script>
 

@@ -57,11 +57,24 @@
         });
         $(".textarea").wysihtml5();
       });
+  function readURLL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('#upload-preview-banner').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
   $(document).ready(function() {
     $('.sidebar-menu li').removeClass('active');
     $('#packages').addClass('active');
     $('#package_add').addClass('active');
-    
+
+    $("#banner_attachment").change(function(){
+        readURLL(this);
+    });
     $('#packageAddForm').formValidation({
         framework: 'bootstrap',
         icon: {
@@ -121,7 +134,17 @@
                 }
             },
             
-            attachment: {
+            banner_attachment: {
+              validators: {
+                  file: {
+                      extension: 'jpeg,jpg,png',
+                      type: 'image/jpeg,image/png',
+                      maxSize: 1048576,   // 1024 * 1024
+                      message: 'The selected file is not valid.'
+                  }
+              }
+            },
+            googlemap_attachment: {
               validators: {
                   file: {
                       extension: 'jpeg,jpg,png',
@@ -294,6 +317,28 @@
                   <label for="exampleInputPackage">End To </label>
                   <input type="text" class="form-control" id="end" name="end" value="{{ old('end') }}" placeholder="Enter end location">
                 </div>                               
+              </div>
+
+              <div class="box-body">
+                <div class="form-group col-md-12">
+                  <label for="exampleInputBanner">Banner Attachment *</label>
+                  <div class="fileupload-new thumbnail" >
+                    <img src="{{ asset('uploads/noimage.jpg') }}" alt="" id="upload-preview-banner" />
+                  </div>
+                  <input type="file" name="banner_attachment" id="banner_attachment">
+                  <p class="help-block">Valid file extensions are jpeg,jpg and png.</p>
+                  </div>                               
+              </div>
+
+              <div class="box-body">
+                <div class="form-group col-md-12">
+                  <label for="exampleInputBanner">Google Map *</label>
+                  <div class="fileupload-new thumbnail" >
+                    <img src="{{ asset('uploads/noimage.jpg') }}" alt="" id="upload-preview" />
+                  </div>
+                  <input type="file" name="googlemap_attachment" id="attachment">
+                  <p class="help-block">Valid file extensions are jpeg,jpg and png.</p>
+                  </div>                               
               </div>
 
               <div class="box-body">
