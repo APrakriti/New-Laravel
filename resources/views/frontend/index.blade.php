@@ -154,17 +154,18 @@
       <ul class="tabs">
          <li class="tab">
             <a class="active" href="#travel_tab">
-            Travel & Tour
+            <i class="fa fa-umbrella"></i>
+                                 Travel & Tour
             </a>
          </li>
          <li class="tab">
             <a  href="#hotel_tab">
-            Hotel
+            <i class="fa fa-bed"></i> Hotel
             </a>
          </li>
          <li class="tab">
             <a href="#car_rent_tab">
-            Car Rent
+           <i class="fa fa-car"></i> Car Rent
             </a>
          </li>
       </ul>

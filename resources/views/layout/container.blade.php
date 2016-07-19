@@ -13,6 +13,7 @@
 <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,100italic,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
 
