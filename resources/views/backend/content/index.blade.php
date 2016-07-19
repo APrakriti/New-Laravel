@@ -35,7 +35,8 @@
             });
           }
         });
-        $('.change-status').click(function(){
+        
+        $("#example1").on("click", ".change-status", function(){
           $object = $(this);
           var contentId = $object.attr('id');
           swal({
@@ -68,7 +69,7 @@
           });          
         });
 
-        $('.delete').click(function(){
+        $("#example1").on("click", ".delete", function(){
           $object = $(this);
           var contentId = $object.attr('id');
           swal({

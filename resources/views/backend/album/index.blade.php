@@ -36,7 +36,7 @@
           }
         });
 
-        $('.change-status').click(function(){
+        $("#example1").on("click", ".change-status", function(){
           $object = $(this);
           var albumId = $object.attr('id');
           $.ajax({
@@ -58,7 +58,7 @@
           });
         });
 
-        $('.delete').click(function(){
+        $("#example1").on("click", ".delete", function(){
           $object = $(this);
           var albumId = $object.attr('id');
           swal({
@@ -134,7 +134,7 @@
                 <tr id="album_{{ $album->id }}">
                   <td><i class="fa fa-arrows"></i></td>
                   <td>{{ $index+1 }}</td>
-                  <td>{{ $album->heading }}</td>
+                  <td>{{ $album->caption }}</td>
                   <td>
                     @if(file_exists('uploads/albums/'.$album->attachment) && $album->attachment!='')
                       <img src="{{ asset('uploads/albums/'.$album->attachment) }}" style="width: 200px; height: 120px;">
@@ -152,6 +152,7 @@
                   <td>
                     <a href="{{ route('admin.album.edit', $album->id) }}"><i class="fa fa-fw fa-edit"></i>Edit</a>&nbsp;&nbsp;
                     <a href="javascript:void(0)" class="delete" id="{{ $album->id }}" title="Delete Record"><i class="fa  fa-trash-o"></i>Delete</a>
+                    <a href="{{ route('admin.album.galleries', $album->id) }}" ><i class="fa  fa-fw fa-edit"></i>Gallery</a>
                   </td>
                 </tr>
                 @endforeach                

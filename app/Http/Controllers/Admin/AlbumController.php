@@ -44,7 +44,7 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = ['heading'=>'required'];
+        $rules = ['caption'=>'required'];
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails())
             return redirect()->back()->withInput()->withErrors($validator);
@@ -73,7 +73,7 @@ class AlbumController extends Controller
         $logo = isset($attachment) ? $new_image_name . $extension : NULL;
         
         $album = new Album();
-        $album->heading = $request->heading;
+        $album->caption = $request->caption;
         $album->created_by = Auth::id();
         $album->is_active = $request->is_active;
 
@@ -117,7 +117,7 @@ class AlbumController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rules = ['heading'=>'required'];
+        $rules = ['caption'=>'required'];
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails())
             return redirect()->back()->withInput()->withErrors($validator);
@@ -146,7 +146,7 @@ class AlbumController extends Controller
         $logo = isset($attachment) ? $new_image_name . $extension : NULL;
         
         $album = Album::find($id);
-        $album->heading = $request->heading;
+        $album->caption = $request->caption;
         $album->updated_by = Auth::id();
         $album->is_active = $request->is_active;
 

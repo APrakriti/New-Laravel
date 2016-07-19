@@ -7,7 +7,7 @@
         $('#news').addClass('active');
         $('#news_list').addClass('active');
         
-        $('.change-status').click(function(){
+        $("#example1").on("click", ".change-status", function(){
           $object = $(this);
           var newsId = $object.attr('id');
           swal({
@@ -40,7 +40,7 @@
           });          
         });
 
-        $('.delete').click(function(){
+        $("#example1").on("click", ".delete", function(){
           $object = $(this);
           var newsId = $object.attr('id');
           swal({

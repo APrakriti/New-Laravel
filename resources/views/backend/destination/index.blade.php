@@ -36,7 +36,7 @@
           }
         });
 
-        $('.change-status').click(function(){
+        $("#example1").on("click", ".change-status", function(){
           $object = $(this);
           var destinationId = $object.attr('id');
           $.ajax({
@@ -59,7 +59,7 @@
           });
         });
 
-        $('.delete').click(function(){
+        $("#example1").on("click", ".delete", function(){
           $object = $(this);
           var destinationId = $object.attr('id');
           swal({

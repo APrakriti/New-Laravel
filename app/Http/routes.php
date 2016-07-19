@@ -48,7 +48,6 @@ Route::group(['prefix'=>'admin','middleware' => 'admin','namespace' => 'Admin'],
 	Route::get('album/gallery/edit/{id}', ['middleware' => 'access:albums','as'=>'admin.album.gallery.edit', 'uses'=>'AlbumGalleryController@edit']);
 	Route::post('album/gallery/edit/{id}', ['middleware' => 'access:albums','as'=>'admin.album.gallery.update', 'uses'=>'AlbumGalleryController@update']);
 	Route::post('album/gallery/change/status', ['middleware' => 'access:albums','as'=>'admin.album.gallery.changestatus', 'uses'=>'AlbumGalleryController@changeStatus']);
-	Route::post('album/gallery/make/cover', ['middleware' => 'access:albums','as'=>'admin.album.gallery.makecover', 'uses'=>'AlbumGalleryController@makeCover']);
 	Route::post('album/gallery/delete', ['middleware' => 'access:albums','as'=>'admin.album.gallery.delete', 'uses'=>'AlbumGalleryController@destroy']);
 	Route::post('album/gallery/sort/order', ['middleware' => 'access:albums','as'=>'admin.album.gallery.sort.order', 'uses'=>'AlbumGalleryController@sortOrder']);
 
