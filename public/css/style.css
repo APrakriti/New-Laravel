@@ -183,7 +183,7 @@ opacity:0.5
 	
 }
 
-.trip_title {height:30px; overflow:hidden}
+.trip_title {height:29px; overflow:hidden}
 .trip_fact_brief {height:25px; overflow:hidden}
 .h2block {background:#fff; padding:15px 20px;}
 .fixed_dep {}
@@ -377,7 +377,7 @@ opacity:0.5
 
 .foot_link {margin-bottom:15px; font-size:14px;}
 .foot_link ul {margin:0; padding:0}
-.foot_link ul li {display:inline; float:left; border-right:1px solid #999; padding-right:10px; margin-right:10px; margin-bottom:10px; line-height:1}
+.foot_link ul li {display:inline; float:left; border-right:1px solid #999; padding-right:10px; margin-right:10px; margin-bottom:10px; line-height:1; text-align:left}
 .foot_link ul li a {color:#000; font-size:13px;}
 .foot_link ul li:first-child {font-weight:bold; color:#000; text-transform:uppercase; border-right:none; }
 
@@ -544,6 +544,11 @@ nav a.button-collapse, nav a.button-collapse i {margin:-10px; margin-left:-5px;}
 .title h1 {font-size:28px;}
 nav .brand-logo {margin-top:35px;}
 .logo img {width:250px;}
+
+.trip_fact_brief {height:auto !important; font-size:13px;}
+
+.sub_title h2 {font-size:18px;}
+.testimonials {font-size:14px;}
  }
 	
  @media (max-width: 600px) {
@@ -563,7 +568,7 @@ nav .brand-logo {margin-top:35px;}
 
 
 .why {margin-bottom:15px;}
-.trip_title {font-size:16px;}
+.trip_title {font-size:14px;}
 .booknow { padding-bottom:20px;}
 
 .search_tab_wrapper  { width:100%; margin-left:0;  margin-top:0px; position:relative}
