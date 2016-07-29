@@ -28,7 +28,7 @@
 <section class="footer_wrap pd">
     <div class="container ">
         <div class="row">
-            <div class="col l3 m6 s12 delay-05s  fadeInUp wow animated linebreak">
+            <div class="col l4 m6 s12 delay-05s  fadeInUp wow animated linebreak">
                 <div class="footer_head">
                     Popular Trips
                 </div>
@@ -46,42 +46,34 @@
                     </div>
                 </div>
             </div>
-            <div class="col l3 m6 s12 delay-05s  fadeInUp wow animated linebreak">
+            <div class="col l2 m6 s12 delay-05s  fadeInUp wow animated linebreak">
                 <div class="footer_head">
-                    Quick Links
+                    Destinations
                 </div>
                 <div class="footer_links">
                     <ul>
+                       
                         <li>
-                            <a href="{{ route('home') }}">
-                                Home
+                            <a href="http://demo.peacenepal.com/ibook/public/destination/nepal">
+                                Nepal
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                About Us
+                            <a href="http://demo.peacenepal.com/ibook/public/destination/tibet">
+                                Tibet
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                                What our  guests say?
+                         <li>
+                            <a href="http://demo.peacenepal.com/ibook/public/destination/india">
+                                India
                             </a>
                         </li>
-                        <!-- <li>
-                            <a href="#">
-                                Photo Gallery
-                            </a>
-                        </li> -->
-                        <!-- <li>
-                            <a href="#">
-                                Videos
-                            </a>
-                        </li> -->
-                        <li>
-                            <a href="#">
-                                Contact Us
+                         <li>
+                            <a href="http://demo.peacenepal.com/ibook/public/destination/bhutan">
+                                Bhutan
                             </a>
                         </li>
+                        
                     </ul>
                     <div class="clear">
                     </div>
@@ -89,11 +81,17 @@
             </div>
             <div class="col l3 m6 s12 delay-05s  fadeInUp wow animated linebreak">
                 <div class="footer_head">
-                    &nbsp;
+                     Quick Links
                 </div>
                 <div class="footer_links">
                     <ul>
+                    <li>
+                            <a href="{{ route('home') }}">
+                                Home
+                            </a>
+                        </li>
                     @foreach($contents as $content)
+                    
                         <li>
                             <a href="{{ route('content.detail', $content->slug) }}">
                                 {{ $content->heading }}

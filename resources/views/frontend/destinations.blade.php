@@ -26,7 +26,7 @@
                      @if(count($destinations) > 0)
                      <div class="row">
                         @foreach($destinations as $destination)
-                        <div class="col l4 m6 s12 mgb25">
+                        <div class="col l3 m6 s12 mgb25">
                            <div class="trip_img">                           
                               <a href="{{ route('destination.detail', $destination->slug) }}">
                                   
@@ -39,12 +39,13 @@
                               </a>
                               </div>
                            <div class="trip_brief">
-                              <div class="trip_price">{{ count($destination->packages) }}<br>Packages</div>
+                              
                               <div class="trip_title">
                               	<a href="{{ route('destination.detail', $destination->slug) }}">
                                 	{{ str_limit($destination->heading) }}
                               	</a>
                               </div>
+                              <div style="font-weight:bold">{{ count($destination->packages) }} Packages</div>
                            </div>
                         </div>
                         <!--col end-->
