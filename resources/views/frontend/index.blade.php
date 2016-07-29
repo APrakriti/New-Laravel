@@ -9,8 +9,8 @@
   <script src="{{ asset('owl-carousel/owl.carousel.js') }}"></script>
   <link href="{{ asset('owl-carousel/owl.carousel.css') }}" rel="stylesheet">
   <link href="{{ asset('owl-carousel/owl.theme.css') }}" rel="stylesheet">
-  <script src="{{ asset('bower_components/sweetalert/dist/sweetalert.min.js') }}"></script>
-  <link href="{{ asset('bower_components/sweetalert/dist/sweetalert.css') }}" rel="stylesheet" type="text/css">
+  <script src="{{ asset('plugins/sweetalert/dist/sweetalert.min.js') }}"></script>
+  <link href="{{ asset('plugins/sweetalert/dist/sweetalert.css') }}" rel="stylesheet" type="text/css">
   <script>
     $(document).ready(function() {
      
