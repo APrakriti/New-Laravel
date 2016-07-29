@@ -54,22 +54,22 @@
                     <ul>
                        
                         <li>
-                            <a href="http://demo.peacenepal.com/ibook/public/destination/nepal">
+                            <a href="http://ibookmytour.com/destination/nepal">
                                 Nepal
                             </a>
                         </li>
                         <li>
-                            <a href="http://demo.peacenepal.com/ibook/public/destination/tibet">
+                            <a href="http://ibookmytour.com/destination/tibet">
                                 Tibet
                             </a>
                         </li>
                          <li>
-                            <a href="http://demo.peacenepal.com/ibook/public/destination/india">
+                            <a href="http://ibookmytour.com/destination/india">
                                 India
                             </a>
                         </li>
                          <li>
-                            <a href="http://demo.peacenepal.com/ibook/public/destination/bhutan">
+                            <a href="http://ibookmytour.com/destination/bhutan">
                                 Bhutan
                             </a>
                         </li>
