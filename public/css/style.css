@@ -364,9 +364,10 @@ opacity:0.5
 .youtube i {background:#cf3427 !important}
 
 
-.accept {margin:15px 0; line-height:2}
+.accept {margin:10px 0; line-height:2}
 .accept img {width:auto; }
 .copyright {font-size:12px; line-height:2}
+.copyright span {font-size:16px; line-height:1}
 .pd {
     padding: 50px 0
 }

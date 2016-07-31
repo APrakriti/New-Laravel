@@ -79,7 +79,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col l3 m6 s12 delay-05s  fadeInUp wow animated linebreak">
+            <div class="col l2 m6 s12 delay-05s  fadeInUp wow animated linebreak">
                 <div class="footer_head">
                      Quick Links
                 </div>
@@ -103,7 +103,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col l3 m6 s12 delay-05s  fadeInUp wow animated ">
+            <div class="col l4 m6 s12 delay-05s  fadeInUp wow animated ">
                 <div class="footer_head">
                     Get Connect With Us
                 </div>
@@ -149,6 +149,7 @@
                     <img src="{{ asset('images/accept.png') }}"/>
                 </div>
                 <div class="copyright">
+                <span>A division of Divine International Explore <br />and Treks Sing</span> <br />
                     Copyright © 2016. iBook My Tour <br />
                     Powered By: <a href="http://www.peacenepal.com" target="_blank">Peace Nepal DOT Com</a>
                 </div>
