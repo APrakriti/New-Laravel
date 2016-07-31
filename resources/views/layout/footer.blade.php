@@ -149,7 +149,7 @@
                     <img src="{{ asset('images/accept.png') }}"/>
                 </div>
                 <div class="copyright">
-                <span>A division of Divine International Explore <br />and Treks Sing</span> <br />
+                <span>A division of Divine International Explore and Treks </span> <br />
                     Copyright © 2016. iBook My Tour <br />
                     Powered By: <a href="http://www.peacenepal.com" target="_blank">Peace Nepal DOT Com</a>
                 </div>

@@ -413,8 +413,17 @@
 </section>
 <!--services end-->
 <section class="video_wrap">
-  <div class="vdo">
-    <img src="images/vdo.jpg"/>
+  <div class="container">
+    <div class="row">
+  <div class=" col l12 m12 s12 vdo">
+   
+    <embed width="100%" height="600"
+src="https://www.youtube.com/v/tjWZM2hMogU">
+
+
+</embed>
+</div>
+</div>
   </div>
 </section>
 

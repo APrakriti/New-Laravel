@@ -171,7 +171,7 @@ opacity:0.5
 .ad_wrap {}
 .ad {}
 
-.video_wrap {line-height:0}
+.video_wrap {line-height:0; margin-bottom:60px;}
 
 .fixed_last {background:#eae8e9}
 .sub_title {margin-bottom:15px;}
@@ -574,7 +574,7 @@ nav .brand-logo {margin-top:35px;}
 
 .search_tab_wrapper  { width:100%; margin-left:0;  margin-top:0px; position:relative}
 
-
+.video_wrap {display:none}
 }
 
 @media (max-width: 479px) {
