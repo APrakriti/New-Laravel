@@ -127,18 +127,18 @@
                                 </i>
                             </a>
                         </li>
-                        <li class="linkedin">
-                            <a href="" target="_blank" >
-                                <i class="fa fa-linkedin">
-                                </i>
-                            </a>
-                        </li>
-                        <li class="youtube">
-                            <a href=""  >
-                                <i class="fa fa-youtube ">
-                                </i>
-                            </a>
-                        </li>
+                        {{--<li class="linkedin">--}}
+                            {{--<a href="" target="_blank" >--}}
+                                {{--<i class="fa fa-linkedin">--}}
+                                {{--</i>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                        {{--<li class="youtube">--}}
+                            {{--<a href=""  >--}}
+                                {{--<i class="fa fa-youtube ">--}}
+                                {{--</i>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                     </ul>
                     <div class="clear">
                     </div>
