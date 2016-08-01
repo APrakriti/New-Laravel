@@ -50,7 +50,7 @@
                               <div class="divider"></div>
                               <p class="small">Dont you have account?
                                  <a href="{{ route('register') }}">Sign Up</a> here
-                                 <span class="floatright"><a href="#">Forgot Password?</a></span>
+                                 {{--<span class="floatright"><a href="#">Forgot Password?</a></span>--}}
                               </p>
                               <div>
                               <!-- <button class="btn btnfull"><i class="fa fa-facebook"></i> Login with facebook</button> -->

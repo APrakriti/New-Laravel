@@ -39,7 +39,7 @@ class AuthController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -54,7 +54,7 @@ class AuthController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return User
      */
     protected function create(array $data)
@@ -72,25 +72,40 @@ class AuthController extends Controller
      * @param Illuminate\Http\Request
      * @return Redirect
      */
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $rules = [
-            'username'=>'required | email',
-            'password'=>'required'
-            ];
+            'username' => 'required | email',
+            'password' => 'required'
+        ];
         $validator = Validator::make($request->only('username', 'password'), $rules);
-        
-        if($validator->fails())
+
+        if ($validator->fails())
             return redirect()->back()->withErrors($validator);
-        
-        if(Auth::attempt([
-                    'is_active' => 1,
-                    'role_id' => 3,
-                    'email' => $request->username,
-                    'password' => $request->password
-                ])){
-            return redirect()->route('home');            
+
+
+        if (Auth::attempt([
+            'is_active' => 1,
+            'role_id' => 3,
+            'email' => $request->username,
+            'password' => $request->password
+        ])
+        ) {
+            return redirect()->route('home');
         } else {
-            return redirect()->back()->withInput();
+
+            $checkRegister = User::where('email', $request->username)->whereNotNull('verify_token')->first();
+
+            if ($checkRegister) {
+                return redirect()->back()->withInput()->with('status', 'error')
+                    ->with('message', 'Your account has not been activated. please check your email to activate your account.');
+
+            } else {
+                return redirect()->back()->withInput()->with('status', 'error')
+                    ->with('message', 'Invalid username or password. Please try again.');
+            }
+
+
         }
     }
 

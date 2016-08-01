@@ -30,7 +30,7 @@
     @if (session('status') == 'error' && session('message'))
         <div class="alert alert-danger alert-dismissable">
             <h4>
-                <i class="icon fa fa-check">
+                <i class="icon fa fa-ban">
                 </i>
                 Error!
             </h4>
