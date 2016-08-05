@@ -22,9 +22,20 @@
                     }
                 }
             },
-            
+            banner_url: {
+                validators: {
+                    uri: {
+                        message: 'The banner url is not valid'
+                    }
+                }
+            },
+
+
             attachment: {
               validators: {
+                  notEmpty: {
+                      message: 'The banner file is required'
+                  },
                   file: {
                       extension: 'jpeg,jpg,png',
                       type: 'image/jpeg,image/png',
@@ -73,6 +84,13 @@
                   <input type="text" class="form-control" id="heading" name="heading" value="{{ old('heading') }}" placeholder="Enter banner caption">
                 </div>                        
               </div>
+
+                <div class="box-body">
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputBanner">Banner Url</label>
+                        <input type="text" class="form-control" id="banner_url" name="banner_url" value="{{ old('banner_url') }}" placeholder="Enter banner url">
+                    </div>
+                </div>
               <!-- /.box-body -->
               
               <div class="box-body">
