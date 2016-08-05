@@ -140,6 +140,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'namespace' => 'Admi
     Route::post('testimonial/sort/order', ['middleware' => 'access:testimonials', 'as' => 'admin.testimonial.sort.order', 'uses' => 'TestimonialController@sortOrder']);
 
 });
+
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@getHomePage']);
 Route::get('home', ['as' => 'home', 'uses' => 'HomeController@getHomePage']);
 Route::get('contact', ['as' => 'contact', 'uses' => 'HomeController@getContactPage']);
