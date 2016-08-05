@@ -90,6 +90,7 @@
                                 Home
                             </a>
                         </li>
+                        <li><a href="{{ route('testimonials') }}">Testimonials</a></li>
                     @foreach($contents as $content)
                     
                         <li>
