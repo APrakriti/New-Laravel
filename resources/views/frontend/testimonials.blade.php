@@ -37,7 +37,7 @@
 
                         @if(count($testimonials)>0)
 
-                            @foreach ($testimonials->chunk(3) as $chunk)
+                            @foreach ($testimonials->chunk(1) as $chunk)
                                 <div class="col l6 m12 delay-05s  fadeInLeft wow animated linebreak">
 
                                     <div class="row">
