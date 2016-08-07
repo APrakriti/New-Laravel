@@ -167,6 +167,14 @@ Route::get('testimonials', ['as' => 'testimonials', 'uses' => 'TestimonialsContr
 
 Route::get('login', ['as' => 'login', 'uses' => 'Auth\AuthController@getLogin']);
 Route::post('login', ['as' => 'check.login', 'uses' => 'Auth\AuthController@login']);
+Route::get('forget-password', ['as' => 'user.forget.password', 'uses' => 'UserController@getForgetPasswordRequest']);
+Route::post('forget-password', ['as' => 'user.forget.password','uses' => 'UserController@forgetPasswordRequest']);
+
+
+Route::get('reset/{token}', array('as' => 'user.password_reset', 'uses' => 'UserController@getReset'));
+Route::post('reset/{token}', array('as' => 'user.password_reset', 'uses' => 'UserController@postReset'));
+
+
 Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 
 Route::get('register', ['as' => 'register', 'uses' => 'UserController@register']);
