@@ -43,11 +43,43 @@
                 $object = $(this);
                 var data = $object.serialize();
                 var full_name = $object.find('.full_name').val();
+
+                if (full_name == '') {
+                    swal("Error ! ", "Full name is required.", "error");
+                    return false;
+                }
+
                 var address = $object.find('.address').val();
-                var email_address = $object.find('.email_address').val();
+                if (address == '') {
+                    swal("Error ! ", "Address is required.", "error");
+                    return false;
+                }
+
                 var phone_number = $object.find('.phone_number').val();
+
+                if (phone_number == '') {
+                    swal("Error ! ", "Phone number is required.", "error");
+                    return false;
+                }
+                var email_address = $object.find('.email_address').val();
+
+                if (email_address == '') {
+                    swal("Error ! ", "Email Address is required.", "error");
+                    return false;
+                }
+
+
                 var number_of_rooms = $object.find('.number_of_rooms').find(":selected").val();
+
+                if (number_of_rooms == '') {
+                    swal("Error ! ", "Number of room is required.", "error");
+                    return false;
+                }
                 var number_of_person = $object.find('.number_of_person').find(":selected").val();
+                if (number_of_person == '') {
+                    swal("Error ! ", "Number of person is required.", "error");
+                    return false;
+                }
                 swal({
                     title: "Make Inquiry!",
                     text: "Are you sure to make inquiry?",
@@ -90,11 +122,41 @@
                 $object = $(this);
                 var data = $object.serialize();
                 var full_name = $object.find('.full_name').val();
+                if (full_name == '') {
+                    swal("Error ! ", "Full name is required.", "error");
+                    return false;
+                }
                 var address = $object.find('.address').val();
-                var email_address = $object.find('.email_address').val();
+                if (address == '') {
+                    swal("Error ! ", "Address is required.", "error");
+                    return false;
+                }
                 var phone_number = $object.find('.phone_number').val();
+
+                if (phone_number == '') {
+                    swal("Error ! ", "Phone number is required.", "error");
+                    return false;
+                }
+
+                var email_address = $object.find('.email_address').val();
+
+                if (email_address == '') {
+                    swal("Error ! ", "Email is required.", "error");
+                    return false;
+                }
+
                 var pick_up = $object.find('.pick_up').val();
+
+                if (pick_up == '') {
+                    swal("Error ! ", "Pick up is required.", "error");
+                    return false;
+                }
                 var drop_out = $object.find('.drop_out').val();
+
+                if (drop_out == '') {
+                    swal("Error ! ", "Drop out up is required.", "error");
+                    return false;
+                }
                 swal({
                     title: "Make Inquiry!",
                     text: "Are you sure to make inquiry?",

@@ -1,0 +1,1 @@
+ALTER TABLE  `packages` CHANGE  `trip_duration`  `trip_duration` INT( 11 ) NULL DEFAULT NULL ;

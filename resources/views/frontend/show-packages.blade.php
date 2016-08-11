@@ -1,3 +1,4 @@
+@if(count($packages)>0)
 @foreach ($packages->chunk(3) as $chunk)
     <div class="row">
         @foreach($chunk as $package)
@@ -44,14 +45,7 @@
     </div>
 @endforeach
 
-{!! $packages->appends(Input::except('page'))->render(); !!}
-
-<!-- <ul class="pagination">
-                        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                        <li class="active"><a href="#!">1</a></li>
-                        <li class="waves-effect"><a href="#!">2</a></li>
-                        <li class="waves-effect"><a href="#!">3</a></li>
-                        <li class="waves-effect"><a href="#!">4</a></li>
-                        <li class="waves-effect"><a href="#!">5</a></li>
-                        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-                     </ul> -->
+{!! $packages->appends(Input::except('page'))->render() !!}
+    @else
+<p> No Package Found.</p>
+@endif
