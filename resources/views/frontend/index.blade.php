@@ -448,13 +448,17 @@
                                         </a>
                                     </div>
                                     <div class="trip_brief">
+
+
                                         @if($package->starting_price)
-                                            <div class="trip_price">${{ $package->starting_price }}<br/>
-                                                @if($package->previous_price)
-                                                    <span>${{ $package->previous_price }}</span>
+                                            <div class="trip_price">${{ $package->starting_price }}
+                                                @if($package->previous_price  && ($package->previous_price >0) && ($package->previous_price > $package->starting_price) )
+                                                    <br/><span>${{ $package->previous_price }}</span>
                                                 @endif
                                             </div>
                                         @endif
+
+
                                         <div class="trip_title">
                                             <a href="{{ route('package.detail', $package->slug) }}">
                                                 {{ $package->heading }}
@@ -534,9 +538,16 @@
                                 </a>
                             </div>
                             <div class="trip_brief">
-                                <div class="trip_price">${{ $fixedDeparturePackage->starting_price }}<br/>
-                                    <span>${{ $fixedDeparturePackage->previous_price }}</span>
+                                <div class="trip_price">${{ $fixedDeparturePackage->starting_price }}
+
+                                    @if($fixedDeparturePackage->previous_price  && ($fixedDeparturePackage->previous_price >0) && ($fixedDeparturePackage->previous_price > $fixedDeparturePackage->starting_price) )
+                                        <br/> <span>${{ $fixedDeparturePackage->previous_price }}</span>
+                                    @endif
+
+
                                 </div>
+
+
                                 <div class="trip_title">
                                     <a href="{{ route('package.detail', $fixedDeparturePackage->slug) }}">{{ $fixedDeparturePackage->heading }}</a>
                                 </div>
