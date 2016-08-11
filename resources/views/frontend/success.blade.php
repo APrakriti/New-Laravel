@@ -1,8 +1,8 @@
 @extends('layout.container')
 
-@section('title', 'I BOOK DOT COM')
-@section('meta_tags', 'I BOOK DOT COM')
-@section('meta_description', 'I BOOK DOT COM')
+@section('title', 'I BOOK MY TOUR')
+@section('meta_tags', 'I BOOK MY TOUR')
+@section('meta_description', 'I BOOK MY TOUR')
 
 @section('footer_js')
   

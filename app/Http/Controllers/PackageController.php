@@ -183,9 +183,9 @@ class PackageController extends Controller
 
         return view('frontend.searchpackages')
             ->with('packages', $packages)
-            ->with('title', 'I BOOK MY TRIP')
-            ->with('metaTags', 'I BOOK MY TRIP')
-            ->with('metaDescription', 'I BOOK MY TRIP');
+            ->with('title', 'I BOOK MY TOUR')
+            ->with('metaTags', 'I BOOK MY TOUR')
+            ->with('metaDescription', 'I BOOK MY TOUR');
 
     }
 }

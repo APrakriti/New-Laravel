@@ -66,9 +66,9 @@ class HomeController extends Controller
                     ->with('testimonials', $testimonials)
                     ->with('allActivities', $allActivities)
                     ->with('allDestinations', $allDestinations)
-                    ->with('title', 'I BOOK MY TRIP')
-                    ->with('metaTags', 'I BOOK MY TRIP')
-                    ->with('metaDescription', 'I BOOK MY TRIP');
+                    ->with('title', 'I BOOK MY TOUR')
+                    ->with('metaTags', 'I BOOK MY TOUR')
+                    ->with('metaDescription', 'I BOOK MY TOUR');
     }
 
     /**
@@ -103,7 +103,7 @@ class HomeController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
 
             $receiverEmail  = env('ADMIN_EMAIL');
-            $ccEmail  = 'adhikarysunil.1@outlook.com';
+            //$ccEmail  = 'adhikarysunil.1@outlook.com';
             
             $subject     = "Contact form submitted.";
             
