@@ -38,7 +38,7 @@
                                 <div class="overview">
 
                                     @include('frontend.show-packages')
-                           
+
                                 </div>
                             </div>
                         </div>
