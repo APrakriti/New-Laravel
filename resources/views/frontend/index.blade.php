@@ -472,8 +472,8 @@
                                 </a>
                             </div>
                             <div class="trip_brief">
-                                <div class="trip_price">${{ $fixedDeparturePackage->previous_price }}<br/>
-                                    <span>${{ $fixedDeparturePackage->starting_price }}</span>
+                                <div class="trip_price">${{ $fixedDeparturePackage->starting_price }}<br/>
+                                    <span>${{ $fixedDeparturePackage->previous_price }}</span>
                                 </div>
                                 <div class="trip_title">
                                     <a href="{{ route('package.detail', $fixedDeparturePackage->slug) }}">{{ $fixedDeparturePackage->heading }}</a>
