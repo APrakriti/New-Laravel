@@ -62,10 +62,10 @@
                                 },
                                 validators: {
                                     notEmpty: {
-                                        message: 'The content is required and cannot be empty'
+                                        message: 'The description is required and cannot be empty'
                                     },
                                     stringLength: {
-                                        message: 'The content must be less than 100 characters long',
+                                        message: 'The description must be less than 100 characters long',
                                         max: 100
                                     },
                                     callback: {

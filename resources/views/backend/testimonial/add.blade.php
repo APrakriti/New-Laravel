@@ -22,9 +22,20 @@
                     }
                 }
             },
+
+            description: {
+                validators: {
+                    notEmpty: {
+                        message: 'The description is required.'
+                    }
+                }
+            },
             
             attachment: {
               validators: {
+                  notEmpty: {
+                      message: 'The attachment is required'
+                  },
                   file: {
                       extension: 'jpeg,jpg,png',
                       type: 'image/jpeg,image/png',
@@ -35,6 +46,7 @@
             },
         }
     });
+
   });
 </script>
 @endsection
