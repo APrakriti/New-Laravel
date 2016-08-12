@@ -155,13 +155,10 @@
               </div>
 
               <div class="box-body">
-                <div class="form-group col-md-6">
-                  <label for="exampleInputContent">Show Footer</label>
-                  <select class="form-control" name="show_footer">
-                    <option value="0">No</option>
-                    <option value="1">Yes</option>
-                  </select>
-                </div>
+
+
+                  <input type="hidden" name="show_footer" value="1">
+
                 <div class="form-group col-md-6">
                   <label for="exampleInputContent">Published</label>
                   <select class="form-control" name="is_active">
