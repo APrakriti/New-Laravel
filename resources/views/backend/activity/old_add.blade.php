@@ -1,7 +1,84 @@
 @extends('layout.backend.containerform')
+
 @section('footer_js')
     <script>
+        $(function () {
+            // Replace the <textarea id="editor1"> with a CKEditor
+            // instance, using default configuration.
 
+            CKEDITOR.replace('description', {
+                filebrowserBrowseUrl: "{{ asset('backend/plugins/ckfinder/ckfinder.html') }}",
+                filebrowserImageBrowseUrl: "{{ asset('backend/plugins/ckfinder/ckfinder.html?type=Images') }}",
+                filebrowserFlashBrowseUrl: "{{ asset('backend/plugins/ckfinder/ckfinder.html?type=Flash') }}",
+                filebrowserUploadUrl: "{{ asset('backend/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}",
+                filebrowserImageUploadUrl: "{{ asset('backend/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}",
+                filebrowserFlashUploadUrl: "{{ asset('backend/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}",
+                filebrowserWindowWidth: '1000',
+                filebrowserWindowHeight: '700'
+            });
+
+            //bootstrap WYSIHTML5 - text editor
+            $(".textarea").wysihtml5();
+        });
+        $(document).ready(function () {
+            $('.sidebar-menu li').removeClass('active');
+            $('#activities').addClass('active');
+            $('#activity_add').addClass('active');
+
+            $('#activityAddForm').formValidation({
+                framework: 'bootstrap',
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    activity_type: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The activity type is not selected'
+                            }
+                        }
+                    },
+                    heading: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The activity name is required'
+                            }
+                        }
+                    },
+                    description: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The description is required and cannot be empty'
+                            },
+                        }
+                    },
+
+                    title: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The activity title is required'
+                            }
+                        }
+                    },
+
+                    attachment: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The attachment is required'
+                            },
+                            file: {
+                                extension: 'jpeg,jpg,png',
+                                type: 'image/jpeg,image/png',
+                                maxSize: 1048576,   // 1024 * 1024
+                                message: 'The selected file is not valid'
+                            }
+                        }
+                    },
+                }
+            });
+        });
     </script>
 @endsection
 
