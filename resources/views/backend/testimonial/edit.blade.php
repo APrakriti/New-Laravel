@@ -21,6 +21,14 @@
                     }
                 }
             },
+
+            description: {
+                validators: {
+                    notEmpty: {
+                        message: 'The description is required.'
+                    }
+                }
+            },
             
             attachment: {
               validators: {

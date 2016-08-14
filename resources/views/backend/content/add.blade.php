@@ -3,18 +3,7 @@
 @section('footer_js')
 
     <script>
-        $(function () {
-            {{--CKEDITOR.replace('description', {--}}
-                {{--filebrowserBrowseUrl: "{{ asset('backend/plugins/ckfinder/ckfinder.html') }}",--}}
-                {{--filebrowserImageBrowseUrl: "{{ asset('backend/plugins/ckfinder/ckfinder.html?type=Images') }}",--}}
-                {{--filebrowserFlashBrowseUrl: "{{ asset('backend/plugins/ckfinder/ckfinder.html?type=Flash') }}",--}}
-                {{--filebrowserUploadUrl: "{{ asset('backend/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}",--}}
-                {{--filebrowserImageUploadUrl: "{{ asset('backend/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}",--}}
-                {{--filebrowserFlashUploadUrl: "{{ asset('backend/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}",--}}
-                {{--filebrowserWindowWidth: '1000',--}}
-                {{--filebrowserWindowHeight: '700'--}}
-            {{--});--}}
-        });
+
         $(document).ready(function () {
             $('.sidebar-menu li').removeClass('active');
             $('#contents').addClass('active');

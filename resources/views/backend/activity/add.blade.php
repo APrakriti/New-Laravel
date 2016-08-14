@@ -5,20 +5,7 @@
 
 
     <script>
-        $(function () {
 
-            {{--CKEDITOR.replace('description', {--}}
-            {{--filebrowserBrowseUrl: "{{ asset('backend/plugins/ckfinder/ckfinder.html') }}",--}}
-            {{--filebrowserImageBrowseUrl: "{{ asset('backend/plugins/ckfinder/ckfinder.html?type=Images') }}",--}}
-            {{--filebrowserFlashBrowseUrl: "{{ asset('backend/plugins/ckfinder/ckfinder.html?type=Flash') }}",--}}
-            {{--filebrowserUploadUrl: "{{ asset('backend/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}",--}}
-            {{--filebrowserImageUploadUrl: "{{ asset('backend/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}",--}}
-            {{--filebrowserFlashUploadUrl: "{{ asset('backend/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}",--}}
-            {{--filebrowserWindowWidth: '1000',--}}
-            {{--filebrowserWindowHeight: '700'--}}
-            {{--});--}}
-
-        });
         $(document).ready(function () {
             $('#activityAddForm')
                     .formValidation({
@@ -64,12 +51,8 @@
                                     notEmpty: {
                                         message: 'The description is required and cannot be empty'
                                     },
-                                    stringLength: {
-                                        message: 'The description must be less than 100 characters long',
-                                        max: 100
-                                    },
                                     callback: {
-                                        message: 'The summary must be less than 200 characters long',
+                                        message: 'The summary must be more than 100 characters long',
                                         callback: function (value, validator, $field) {
                                             if (value === '') {
                                                 return true;
@@ -78,7 +61,7 @@
                                             var div = $('<div/>').html(value).get(0),
                                                     text = div.textContent || div.innerText;
 
-                                            return text.length <= 100;
+                                            return text.length > 100;
                                         }
                                     }
                                 }

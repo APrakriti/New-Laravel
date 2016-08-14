@@ -2,7 +2,7 @@
 
 @section('footer_js')
     <script>
-        
+
         function readURLL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -21,7 +21,6 @@
             $("#banner_attachment").change(function () {
                 readURLL(this);
             });
-
 
             $('#packageAddForm')
                     .formValidation({
@@ -74,12 +73,9 @@
                                     notEmpty: {
                                         message: 'The description is required and cannot be empty'
                                     },
-                                    stringLength: {
-                                        message: 'The description must be less than 100 characters long',
-                                        max: 100
-                                    },
+
                                     callback: {
-                                        message: 'The summary must be less than 200 characters long',
+                                        message: 'The summary must be more than 100 characters long',
                                         callback: function (value, validator, $field) {
                                             if (value === '') {
                                                 return true;
@@ -88,7 +84,7 @@
                                             var div = $('<div/>').html(value).get(0),
                                                     text = div.textContent || div.innerText;
 
-                                            return text.length <= 100;
+                                            return text.length > 100;
                                         }
                                     }
                                 }
@@ -112,12 +108,9 @@
                                     notEmpty: {
                                         message: 'The itineraries is required and cannot be empty'
                                     },
-                                    stringLength: {
-                                        message: 'The itineraries must be less than 100 characters long',
-                                        max: 100
-                                    },
+
                                     callback: {
-                                        message: 'The itineraries must be less than 200 characters long',
+                                        message: 'The itineraries must be more than 100 characters long',
                                         callback: function (value, validator, $field) {
                                             if (value === '') {
                                                 return true;
@@ -126,7 +119,7 @@
                                             var div = $('<div/>').html(value).get(0),
                                                     text = div.textContent || div.innerText;
 
-                                            return text.length <= 100;
+                                            return text.length > 100;
                                         }
                                     }
                                 }
@@ -189,8 +182,6 @@
                                     $('#packageAddForm').formValidation('revalidateField', e.sender.name);
                                 });
                     });
-
-
         });
     </script>
 @endsection

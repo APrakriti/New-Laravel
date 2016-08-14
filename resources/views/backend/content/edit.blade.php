@@ -2,22 +2,7 @@
 
 @section('footer_js')
     <script>
-        $(function () {
-            // Replace the <textarea id="editor1"> with a CKEditor
-            // instance, using default configuration.
-            CKEDITOR.replace('description', {
-                filebrowserBrowseUrl: sitePath + 'backend/plugins/ckfinder/ckfinder.html',
-                filebrowserImageBrowseUrl: sitePath + 'backend/plugins/ckfinder/ckfinder.html?type=Images',
-                filebrowserFlashBrowseUrl: sitePath + 'backend/plugins/ckfinder/ckfinder.html?type=Flash',
-                filebrowserUploadUrl: sitePath + 'backend/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                filebrowserImageUploadUrl: sitePath + 'backend/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                filebrowserFlashUploadUrl: sitePath + 'backend/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash',
-                filebrowserWindowWidth: '1000',
-                filebrowserWindowHeight: '700'
-            });
-            //bootstrap WYSIHTML5 - text editor
-            $(".textarea").wysihtml5();
-        });
+
         $(document).ready(function () {
             $('.sidebar-menu li').removeClass('active');
             $('#contents').addClass('active');
@@ -50,56 +35,89 @@
                 });
             });
 
-            $('#contentEditForm').formValidation({
-                framework: 'bootstrap',
-                icon: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                },
-                fields: {
-                    content_type: {
-                        validators: {
-                            notEmpty: {
-                                message: 'The content type is not selected'
-                            }
-                        }
-                    },
-                    heading: {
-                        validators: {
-                            notEmpty: {
-                                message: 'The content name is required'
-                            }
-                        }
-                    },
-                    description: {
-                        validators: {
-                            notEmpty: {
-                                message: 'The description is required and cannot be empty'
+
+
+            $('#contentEditForm')
+                    .formValidation({
+                        framework: 'bootstrap',
+                        excluded: [':disabled'],
+                        icon: {
+                            valid: 'glyphicon glyphicon-ok',
+                            invalid: 'glyphicon glyphicon-remove',
+                            validating: 'glyphicon glyphicon-refresh'
+                        },
+                        fields: {
+
+                            content_type: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'The content type is not selected'
+                                    }
+                                }
+                            },
+                            heading: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'The content name is required'
+                                    }
+                                }
+                            },
+
+                            description: {
+                                // Use the same transformer for all validators
+                                transformer: function ($field, validatorName, validator) {
+                                    var value = $field.val();
+                                    if (value === '') {
+                                        return value;
+                                    }
+
+                                    // Get the plain text without HTML
+                                    var div = $('<div/>').html(value).get(0),
+                                            text = div.textContent || div.innerText;
+
+                                    return text;
+                                },
+                                validators: {
+                                    notEmpty: {
+                                        message: 'The description is required and cannot be empty'
+                                    }
+                                }
+                            },
+
+                            title: {
+                                validators: {
+                                    notEmpty: {
+                                        message: 'The content title is required'
+                                    }
+                                }
+                            },
+
+                            attachment: {
+                                validators: {
+//                                    notEmpty: {
+//                                        message: 'The attachment is required'
+//                                    },
+                                    file: {
+                                        extension: 'jpeg,jpg,png',
+                                        type: 'image/jpeg,image/png',
+                                        maxSize: 1048576,   // 1024 * 1024
+                                        message: 'The selected file is not valid or file size greater than 1 MB.'
+                                    }
+                                }
                             },
                         }
-                    },
+                    })
+                    .find('[name="description"]')
+                    .each(function () {
+                        $(this)
+                                .ckeditor()
+                                .editor
+                                .on('change', function (e) {
+                                    $('#contentEditForm').formValidation('revalidateField', e.sender.name);
+                                });
+                    });
 
-                    title: {
-                        validators: {
-                            notEmpty: {
-                                message: 'The content title is required'
-                            }
-                        }
-                    },
 
-                    attachment: {
-                        validators: {
-                            file: {
-                                extension: 'jpeg,jpg,png',
-                                type: 'image/jpeg,image/png',
-                                maxSize: 1048576,   // 1024 * 1024
-                                message: 'The selected file is not valid'
-                            }
-                        }
-                    },
-                }
-            });
         });
     </script>
 @endsection
