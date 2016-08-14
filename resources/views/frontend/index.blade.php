@@ -247,7 +247,7 @@
                             <div class="col l6 m6 s6">
                                 <select class="browser-default  bdr0" name="destination_id">
                                     <option value="">
-                                        Select Destintion
+                                        Select Destination
                                     </option>
                                     @foreach($allDestinations as $id=>$heading)
                                         <option value="{{ $id }}">
