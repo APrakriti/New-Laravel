@@ -294,15 +294,6 @@
                                     <option value="1500 - 2000">$1500 - $2000</option>
                                 </select>
                             </div>
-                            <!-- <div class="col l6 m6 s6">
-                               <select class="default_field bdr0">
-                                  <option value="" >Select Rating</option>
-                                  <option value="1">1 Star</option>
-                                  <option value="2">2 Star</option>
-                                  <option value="3">3 Star</option>
-                                  <option value="4">4 Star</option>
-                               </select>
-                            </div> -->
                             <div class="clear"></div>
                             <div class="col l6 m6 s6">
                                 <button class="btn btnfull" name="search" value="search">Search</button>
@@ -483,8 +474,9 @@
                                         </div>
                                         <div class="trip_btns">
                                             <a href="{{ route('package.detail', $package->slug) }}" class="btn green">Details</a>
-                                            <a href="{{ route('package.booking', $package->slug) }}" class="btn ">Book
+                                            <a href="{{ route('package.booking', $package->slug) }}" class="btn ">Buy
                                                 Now</a>
+                                            <a href="{{ route('package.inquiry', $package->slug) }}" class="btn red">Inquiry</a>
                                         </div>
                                     </div>
                                 </div>
