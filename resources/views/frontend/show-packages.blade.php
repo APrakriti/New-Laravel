@@ -44,6 +44,7 @@
                         <div class="trip_btns">
                             <a href="{{ route('package.detail', $package->slug) }}" class="btn green">Details</a>
                             <a href="{{ route('package.booking', $package->slug) }}" class="btn ">Book Now</a>
+                            <a href="{{ route('package.booking', $package->slug) }}" class="btn red">Inquiry</a>
                         </div>
                     </div>
                 </div>

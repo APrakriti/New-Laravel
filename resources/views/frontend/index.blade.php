@@ -503,11 +503,9 @@
             <div class="row">
                 <div class=" col l12 m12 s12 vdo">
 
-                    <embed width="100%" height="600"
-                           src="https://www.youtube.com/v/tjWZM2hMogU">
-
-
-                    </embed>
+                     <iframe width="100%" height="600px" frameborder="0"
+src="https://www.youtube.com/embed/tjWZM2hMogU">
+</iframe> 
                 </div>
             </div>
         </div>
