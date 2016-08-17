@@ -6,7 +6,7 @@
 	<body>
 		<div>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#8d8e90" style="margin: 20px">
-		  <tr bgcolor="#520101">
+		  <tr bgcolor="#f2f2f2">
 			<td align="left"><img src="<?php echo $message->embed($logopath); ?>"></td>			
 		  </tr>
 		</table>
