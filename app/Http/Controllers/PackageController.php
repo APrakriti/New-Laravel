@@ -13,6 +13,8 @@ use App\Models\Booking;
 
 use Validator;
 use Auth;
+use App\Models\Activity;
+use App\Models\Destination;
 
 class PackageController extends Controller
 {
@@ -181,11 +183,16 @@ class PackageController extends Controller
         }
         $packages = $package->paginate(env('PAGINATE'));
 
+        $allActivities = Activity::where('is_active', 1)->lists('heading', 'id');
+        $allDestinations = Destination::where('is_active', 1)->lists('heading', 'id');
+
         return view('frontend.searchpackages')
             ->with('packages', $packages)
             ->with('title', 'I BOOK MY TOUR')
             ->with('metaTags', 'I BOOK MY TOUR')
-            ->with('metaDescription', 'I BOOK MY TOUR');
+            ->with('metaDescription', 'I BOOK MY TOUR')
+            ->with('allActivities', $allActivities)
+            ->with('allDestinations', $allDestinations);
 
     }
 }
