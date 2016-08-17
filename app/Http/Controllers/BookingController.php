@@ -133,6 +133,7 @@ class BookingController extends Controller
         if($booking){
             $booking->token = NULL;      
             $booking->is_active = 1;
+            $booking->call_back = serialize($request->all());
             $booking->restore();
             
             $id = $request->get('paymentId');

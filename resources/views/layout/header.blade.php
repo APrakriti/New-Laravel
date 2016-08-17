@@ -48,6 +48,12 @@
                         Home
                     </a>
                 </li>
+                
+                <li>
+                    <a href="http://ibookmytour.com/page/about-us">
+                       About Us
+                    </a>
+                </li>
                 <li>
                     <a href="{{ route('packages') }}">
                         Tour packages
@@ -84,6 +90,12 @@
                         Last Minutes Deals
                     </a>
                 </li>
+                
+                <li>
+                    <a href="http://ibookmytour.com/page/contact-us">
+                       Contact Us
+                    </a>
+                </li>
             </ul>
             <ul id="nav-mobile" class="side-nav">
                 <li>
@@ -92,8 +104,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('packages') }}">
-                        Tour packages
+                    <a href="http://ibookmytour.com/page/about-us">
+                       About US
                     </a>
                 </li>
                 <li>
@@ -132,6 +144,11 @@
                 <li>
                     <a href="{{ route('last.minute.deals') }}">
                         Last Minutes Deals
+                    </a>
+                </li>
+                <li>
+                    <a href="http://ibookmytour.com/page/contact-us">
+                       Contact Us
                     </a>
                 </li>
             </ul>
