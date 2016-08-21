@@ -490,7 +490,7 @@
         <!--main container end-->
     </section>
     <!--services end-->
-    <section class="video_wrap">
+    <!--<section class="video_wrap">
         <div class="container">
             <div class="row">
                 <div class=" col l12 m12 s12 vdo">
@@ -501,7 +501,7 @@ src="https://www.youtube.com/embed/tjWZM2hMogU">
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
 
     <section class="fixed_last pd">
         <div class="container">
