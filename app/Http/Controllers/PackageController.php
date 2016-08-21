@@ -61,6 +61,9 @@ class PackageController extends Controller
         $package = Package::with('activeGalleries')
             ->where('slug', $slug)
             ->first();
+			 $allActivities = Activity::where('is_active', 1)->lists('heading', 'id');
+        $allDestinations = Destination::where('is_active', 1)->lists('heading', 'id');
+			
         if ($package) {
             $relatedPackages = Package::where('is_active', 1)
                 ->where('id', '<>', $package->id)
@@ -69,7 +72,11 @@ class PackageController extends Controller
                 ->get();
             return view('frontend.package-detail')
                 ->with('package', $package)
+				->with('allActivities', $allActivities)
+            ->with('allDestinations', $allDestinations)
                 ->with('relatedPackages', $relatedPackages);
+				
+				
         } else {
             return view('frontend.404');
         }
