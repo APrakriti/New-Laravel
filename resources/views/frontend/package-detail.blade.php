@@ -64,28 +64,7 @@
                      </div>
                      <div class="row">
                         <div class="col l8 m12 s12 linebreak">
-                           <div class="trip_highlight_wrap">
-                              <div class="row">
-                                 <div class="col l4 m4 s12">
-                                    @if($package->starting_price)
-                                    <div class="detail_price">
-                                       Starting Price <span>${{ $package->starting_price }}</span>
-                                    </div>
-                                    @endif
-                                    <div class="booknow"><a href="{{ route('package.booking', $package->slug) }}" class="btn">Book Now</a></div>
-                                 </div>
-                                 <div class="col l8 m8 s12">
-                                    <div class="trip_highlight">
-                                       <div class="row">
-                                          <div class="col l3 m3 s3 trip_highlight_single"><i class="fa fa-bus"></i> <br>Transport</div>
-                                          <div class="col l3 m3 s3 trip_highlight_single"><i class="fa fa-building"></i> <br> Hotel</div>
-                                          <div class="col l3 m3 s3 trip_highlight_single"><i class="fa fa-cutlery"></i> <br> Food</div>
-                                          <div class="col l3 m3 s3 trip_highlight_single"><i class="fa fa-binoculars "></i> <br> Sight Seeing</div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
+                           
                            @if(count($package->activeGalleries) > 0)
                            <div class="trip_slide">
                               <div id="owl-demo2" class="owl-carousel owl-theme">
@@ -138,6 +117,30 @@
                         </div>
                         <!-- col end-->
                         <div class="col l4 m12 s12 trip_detail_sidebar">
+                        <div class="trip_highlight_wrap">
+                              <div class="row">
+                                 <div class="col l12">
+                                    @if($package->starting_price)
+                                    <div class="detail_price">
+                                       Starting Price <span>${{ $package->starting_price }}</span>
+                                    </div>
+                                    @endif
+                                    <div class="booknow"><a href="{{ route('package.booking', $package->slug) }}" class="btn">Book Now</a>  <a href="{{ route('package.inquiry', $package->slug) }}" class="btn green">Inquiry</a> </div>
+                                 </div>
+                                 <!--<div class="col l8 m8 s12">
+                                    <div class="trip_highlight">
+                                       <div class="row">
+                                          <div class="col l3 m3 s3 trip_highlight_single"><i class="fa fa-bus"></i> <br>Transport</div>
+                                          <div class="col l3 m3 s3 trip_highlight_single"><i class="fa fa-building"></i> <br> Hotel</div>
+                                          <div class="col l3 m3 s3 trip_highlight_single"><i class="fa fa-cutlery"></i> <br> Food</div>
+                                          <div class="col l3 m3 s3 trip_highlight_single"><i class="fa fa-binoculars "></i> <br> Sight Seeing</div>
+                                       </div>
+                                    </div>
+                                 </div>-->
+                              </div>
+                           </div>
+                           
+                           
                            <div class="box trip_fact_wrap">
                               <div class="inner_head">Trip Facts</div>
                               <div class="tripfact_list">
