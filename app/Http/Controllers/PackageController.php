@@ -46,7 +46,12 @@ class PackageController extends Controller
             ->where('last_minute_deal', 1)
             ->orderBy('order_position')
             ->paginate(env('PAGINATE'));
+			$allActivities = Activity::where('is_active', 1)->lists('heading', 'id');
+        $allDestinations = Destination::where('is_active', 1)->lists('heading', 'id');
+			
         return view('frontend.lastminutedeals')
+		->with('allActivities', $allActivities)
+            ->with('allDestinations', $allDestinations)
             ->with('packages', $packages);
     }
 
