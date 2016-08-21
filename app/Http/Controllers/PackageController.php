@@ -30,7 +30,12 @@ class PackageController extends Controller
             ->where('is_active', 1)
             ->orderBy('order_position')
             ->paginate(env('PAGINATE'));
+        $allActivities = Activity::where('is_active', 1)->lists('heading', 'id');
+        $allDestinations = Destination::where('is_active', 1)->lists('heading', 'id');
+
         return view('frontend.packages')
+            ->with('allActivities', $allActivities)
+            ->with('allDestinations', $allDestinations)
             ->with('packages', $packages);
     }
 
@@ -46,11 +51,11 @@ class PackageController extends Controller
             ->where('last_minute_deal', 1)
             ->orderBy('order_position')
             ->paginate(env('PAGINATE'));
-			$allActivities = Activity::where('is_active', 1)->lists('heading', 'id');
+        $allActivities = Activity::where('is_active', 1)->lists('heading', 'id');
         $allDestinations = Destination::where('is_active', 1)->lists('heading', 'id');
-			
+
         return view('frontend.lastminutedeals')
-		->with('allActivities', $allActivities)
+            ->with('allActivities', $allActivities)
             ->with('allDestinations', $allDestinations)
             ->with('packages', $packages);
     }
@@ -66,9 +71,9 @@ class PackageController extends Controller
         $package = Package::with('activeGalleries')
             ->where('slug', $slug)
             ->first();
-			 $allActivities = Activity::where('is_active', 1)->lists('heading', 'id');
+        $allActivities = Activity::where('is_active', 1)->lists('heading', 'id');
         $allDestinations = Destination::where('is_active', 1)->lists('heading', 'id');
-			
+
         if ($package) {
             $relatedPackages = Package::where('is_active', 1)
                 ->where('id', '<>', $package->id)
@@ -77,11 +82,11 @@ class PackageController extends Controller
                 ->get();
             return view('frontend.package-detail')
                 ->with('package', $package)
-				->with('allActivities', $allActivities)
-            ->with('allDestinations', $allDestinations)
+                ->with('allActivities', $allActivities)
+                ->with('allDestinations', $allDestinations)
                 ->with('relatedPackages', $relatedPackages);
-				
-				
+
+
         } else {
             return view('frontend.404');
         }

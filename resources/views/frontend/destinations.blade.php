@@ -10,7 +10,7 @@
 
 @section('dynamicdata')
       <section class="inner_banner">
-         <img src="{{ asset('images/inner_banner3.jpg') }}">  
+         <img src="{{ asset('images/inner_banner3.jpg') }}">
          
          
       </section>
