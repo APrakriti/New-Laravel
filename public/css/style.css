@@ -295,7 +295,7 @@ opacity:0.5
 .list {}
 .list ul {padding:0; margin:0}
 .list ul li {display:block; }
-.list ul li a { padding:12px 0; border-top:1px solid #ccc; display:block; text-align:left}
+.list ul li a { padding:15px 0; border-top:1px solid #ccc; display:block; text-align:left}
 
 .trip_tab_wrap {}
 .tab_wrapper .tabs {

@@ -48,7 +48,7 @@
                             <a href="#!" class="breadcrumb">Online Booking</a>
                         </div>
                         <div class="sub_title mgb25">
-                            <h2>Online Inquery</h2>
+                            <h2>Online Inquiry</h2>
                         </div>
                         <div class="row">
                             <div class="col l8 m8 s12">
