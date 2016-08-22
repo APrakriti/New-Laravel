@@ -162,7 +162,7 @@ Route::post('package/{slug}/inquiry', ['as' => 'package.inquiry', 'uses' => 'Pac
 
 
 Route::get('package/booking/{token}/success', ['as' => 'package.booking.success', 'uses' => 'BookingController@getSuccess']);
-Route::post('package/booking/{token}/cancel', ['as' => 'package.booking.cancel', 'uses' => 'BookingController@getCancel']);
+Route::get('package/booking/{token}/cancel', ['as' => 'package.booking.cancel', 'uses' => 'BookingController@getCancel']);
 
 Route::get('destinations', ['as' => 'destinations', 'uses' => 'DestinationController@index']);
 Route::get('destination/{slug}', ['as' => 'destination.detail', 'uses' => 'DestinationController@show']);
