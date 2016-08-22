@@ -111,23 +111,23 @@
                 <div class="social_link">
                     <ul>
                         <li>
-                            <a href="" target="_blank" >
+                            <a href="https://www.facebook.com/ibookmytour/" target="_blank" >
                                 <i class="fa fa-facebook">
                                 </i>
                             </a>
                         </li>
-                        <li class="twitter">
-                            <a href="" target="_blank" >
-                                <i class="fa fa-twitter">
-                                </i>
-                            </a>
-                        </li>
-                        <li class="googleplus">
-                            <a href="" target="_blank" >
-                                <i class="fa fa-google-plus">
-                                </i>
-                            </a>
-                        </li>
+                        {{--<li class="twitter">--}}
+                            {{--<a href="" target="_blank" >--}}
+                                {{--<i class="fa fa-twitter">--}}
+                                {{--</i>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                        {{--<li class="googleplus">--}}
+                            {{--<a href="" target="_blank" >--}}
+                                {{--<i class="fa fa-google-plus">--}}
+                                {{--</i>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                         {{--<li class="linkedin">--}}
                             {{--<a href="" target="_blank" >--}}
                                 {{--<i class="fa fa-linkedin">--}}

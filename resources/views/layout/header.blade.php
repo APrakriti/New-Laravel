@@ -50,7 +50,7 @@
                 </li>
                 
                 <li>
-                    <a href="http://ibookmytour.com/page/about-us">
+                    <a href="{{ url('page/about-us') }}">
                        About Us
                     </a>
                 </li>
@@ -92,7 +92,7 @@
                 </li>
                 
                 <li>
-                    <a href="http://ibookmytour.com/page/contact-us">
+                    <a href="{{ url('page/about-us') }}">
                        Contact Us
                     </a>
                 </li>
@@ -104,7 +104,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="http://ibookmytour.com/page/about-us">
+                    <a href="{{ url('page/about-us') }}">
                        About US
                     </a>
                 </li>
@@ -147,7 +147,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="http://ibookmytour.com/page/contact-us">
+                    <a href="{{ url('page/about-us') }}">
                        Contact Us
                     </a>
                 </li>
