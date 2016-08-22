@@ -630,3 +630,6 @@ img {
 
 .view_details a {background:rgba(255, 255, 255, 0.6); padding:15px 45px; font-size:18px; text-shadow:none; color:#000; font-weight:bold; border-radius:30px;}
 .view_details a:hover {background:#fff}
+.ui-datepicker-month{
+    display: block !important;
+}
