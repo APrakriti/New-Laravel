@@ -75,17 +75,6 @@
 // owl slider end
 
 
-<<<<<<< HEAD
-$(".hotel_inquiry a").on("click", function() {
-$("html, body").animate({ scrollTop: 0 }, 800);
-return false;
-});
-
-
-
-
-  }); // end of document ready
-=======
         $(".hotel_inquiry a").on("click", function () {
             $("html, body").animate({scrollTop: 0}, 800);
             return false;
@@ -93,5 +82,4 @@ return false;
 
 
     }); // end of document ready
->>>>>>> cd90e883497d3f53ff6a4374e1bbb79bcab21d10
 })(jQuery); // end of jQuery name space
