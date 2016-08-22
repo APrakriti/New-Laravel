@@ -70,6 +70,9 @@ $allDestinations = \App\Models\Destination::where('is_active', 1)->lists('headin
                     <option value="1500 - 2000"
                             @if(Input::get('price')=='1500 - 2000' ) selected="selected" @endif>$1500 - $2000
                     </option>
+
+                    <option @if(Input::get('price')=='2000 - 20000' ) selected="selected" @endif
+                            value="2000 - 20000">$2000 and above</option>
                 </select>
             </div>
 
