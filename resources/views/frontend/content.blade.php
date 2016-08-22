@@ -12,7 +12,7 @@
       <section class="inner_banner">
          <img src="{{ asset('images/inner_banner.jpg') }}">
          
-         
+         @include('layout.search')
          
       </section>
       <!--slideshow end-->
