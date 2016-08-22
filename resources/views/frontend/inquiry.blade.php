@@ -48,8 +48,12 @@
                             <a href="#!" class="breadcrumb">Online Booking</a>
                         </div>
                         <div class="sub_title mgb25">
-                            <h2>Online Inquery</h2>
+                            <h2>Online Inquiry</h2>
                         </div>
+                       <div class="" style="float: right; margin-top: -55px;">
+                                            <a onclick="window.history.back(1);"  class="btn green" href="#">Back</a>
+
+                                        </div>
                         <div class="row">
                             <div class="col l8 m8 s12">
                                 <form action="" name="bookingForm" method="POST">

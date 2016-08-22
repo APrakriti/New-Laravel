@@ -295,7 +295,7 @@ opacity:0.5
 .list {}
 .list ul {padding:0; margin:0}
 .list ul li {display:block; }
-.list ul li a { padding:12px 0; border-top:1px solid #ccc; display:block; text-align:left}
+.list ul li a { padding:15px 0; border-top:1px solid #ccc; display:block; text-align:left}
 
 .trip_tab_wrap {}
 .tab_wrapper .tabs {
@@ -419,7 +419,7 @@ opacity:0.5
 .input-field {margin-top:0; margin-bottom:1rem}
 
 .slideshow {}
-.slider .slides li .caption {color: #fff; font-size:36px; margin-top:180px; width:60%; left:40%; text-shadow:1px 3px 5px #000; }
+.slider .slides li .caption {color: #fff; font-size:36px; margin-top:180px; width:60%; left:40%; text-shadow:1px 1px 3px #000; }
 .slider .slides li .caption h3 {font-weight:bold; font-size:55px;}
 .slider {height:650px !important}
 .slider .slides {height:650px !important}

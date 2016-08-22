@@ -10,7 +10,11 @@
 
 @section('dynamicdata')
       <section class="inner_banner">
-         <img src="{{ asset('images/inner_banner3.jpg') }}">  
+         <img src="{{ asset('images/inner_banner3.jpg') }}">
+
+         @include('layout.search')
+         
+         
       </section>
       <!--slideshow end-->     
       <section class="body_content_wrap">
