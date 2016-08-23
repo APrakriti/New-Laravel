@@ -512,6 +512,7 @@ src="https://www.youtube.com/embed/tjWZM2hMogU">
                         <div class="sub_title h2block">
                             <h2>Fixed Departure</h2>
                         </div>
+                        @if(count($fixedDeparturePackage)>0)
                         <div class="fixed">
                             <div class="trip_img">
                                 <a href="{{ route('package.detail', $fixedDeparturePackage->slug) }}">
@@ -558,6 +559,11 @@ src="https://www.youtube.com/embed/tjWZM2hMogU">
                                 </div>
                             </div>
                         </div>
+                            @else
+                            <div class="fixed">
+                                <p>No Fixed Departure package at the moment.</p>
+                            </div>
+                        @endif
                     </div>
                     <!--fixed departure end-->
                     <div class="why_us center-align">
