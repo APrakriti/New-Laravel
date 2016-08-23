@@ -155,7 +155,9 @@ Route::get('packages', ['as' => 'packages', 'uses' => 'PackageController@index']
 Route::get('lastminutedeals', ['as' => 'last.minute.deals', 'uses' => 'PackageController@deals']);
 Route::get('package/{slug}', ['as' => 'package.detail', 'uses' => 'PackageController@show']);
 Route::get('package/{slug}/booking', ['as' => 'package.booking', 'uses' => 'PackageController@booking']);
-Route::post('package/{slug}/booking', ['as' => 'package.booking', 'uses' => 'BookingController@getCheckout']);
+Route::post('package/{slug}/booking', ['as' => 'package.booking', 'uses' => 'BookingController@postBooking']);
+
+Route::get('package/{slug}/booking/{id}', ['as' => 'package.booking.checkout', 'uses' => 'BookingController@getCheckout']);
 
 Route::get('package/{slug}/inquiry', ['as' => 'package.inquiry', 'uses' => 'PackageController@inquiry']);
 Route::post('package/{slug}/inquiry', ['as' => 'package.inquiry', 'uses' => 'PackageController@postInquiry']);

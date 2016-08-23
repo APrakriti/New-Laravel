@@ -14,6 +14,7 @@ use Redirect;
 use Paypal;
 use Validator;
 use Auth;
+use App\Classes\Helper;
 
 class BookingController extends Controller
 {
@@ -38,44 +39,38 @@ class BookingController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function getCheckout(Request $request, $slug)
+    public function postBooking(Request $request, $slug)
     {
         $package = Package::where('slug', $slug)->first();
-        if($package){
+        if ($package) {
             $rules = [
-                'email_address'=>'required',
-                'arrival_date'=>'required',
-                'first_name'=>'required',
-                'country_id'=>'required|exists:countries,id',
-                'number_of_traveller'=>'required|min:1',
-                'contact_number'=>'required|max:16',
+                'email_address' => 'required',
+                'arrival_date' => 'required',
+                'first_name' => 'required',
+                'country_id' => 'required|exists:countries,id',
+                'number_of_traveller' => 'required|min:1',
+                'contact_number' => 'required|max:16',
             ];
 
             $validator = Validator::make($request->all(), $rules);
-            if($validator->fails())
+            if ($validator->fails())
                 return redirect()->back()->withInput()->withErrors($validator);
-            
-            if(!$package->starting_price > 0){
-              return redirect()->back()
-                        ->with('status', 'error')  
-                        ->with('message', 'This package can not be booked.');  
-            }
 
-            // $captcha = $request->input('g-recaptcha-response');
-            // $recaptchaSecret = env('RECAPTCHA_SECRET_KEY');
-            // $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . $recaptchaSecret . "&response=" . $captcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
-            // $response = json_decode($response);
-            
-            // if ($response->success == false) {
-            //     return redirect()->back()
-            //          ->withInput()
-            //          ->with('status', 'error')
-            //          ->with('message', 'Invalid captcha verification.');
-            // }          
-            
+            if (!$package->starting_price > 0) {
+                return redirect()->back()
+                    ->with('status', 'error')
+                    ->with('message', 'This package can not be booked.');
+            }
+            $relatedPackages = Package::where('is_active', 1)
+                ->where('id', '<>', $package->id)
+                ->orderBy('order_position')
+                ->take(10)
+                ->get();
+
+
             $booking = new Booking();
             $booking->package_id = $request->input('package_id', $package->id);
             $booking->user_id = Auth::user()->id;
@@ -92,37 +87,70 @@ class BookingController extends Controller
             $booking->is_active = $request->input('is_active', 0);
             $booking->token = substr(str_shuffle('aAbBcCdDEeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789'), 0, 30);
             $booking->save();
-
-
-
-
-
-
             $booking->delete();
+
+            if ($booking->id) {
+                return view('frontend.booking_detail')->with(array('package' => $package, 'bookingInfo' => $booking, 'relatedPackages' => $relatedPackages));
+            } else {
+                redirect()->back()->with('status', 'error')
+                    ->with('message', 'This package can not be booked.');
+            }
+
+            // redirect to review page
+
+        } else {
+            return view('frontend.404');
+        }
+    }
+
+
+    public function getCheckout($slug, $id)
+    {
+        $package = Package::where('slug', $slug)->first();
+        if ($package) {
+
+            $booking = Booking::onlyTrashed()->find($id);
+
 
             $payer = PayPal::Payer();
             $payer->setPaymentMethod('paypal');
 
-            $amount = PayPal:: Amount();
-            $amount->setCurrency('USD')
-                    ->setTotal($booking->amount);
-            // This is the simple way,
-            // you can alternatively describe everything in the order separately;
-            // Reference the PayPal PHP REST SDK for details.
+            $bookedPackage = PayPal::Item();
+            $bookedPackage->setName($package->heading)
+                ->setDescription($package->heading)
+                ->setCurrency('USD')
+                ->setQuantity($booking->number_of_traveller)
+                ->setPrice($package->starting_price);
+
+            $itemList = PayPal::ItemList();
+            $itemList->addItem($bookedPackage);
+
+
+            $amount = PayPal::Amount();
+            $amount->setCurrency("USD")
+                ->setTotal($booking->amount);
+            //->setDetails($details);
 
             $transaction = PayPal::Transaction();
             $transaction->setAmount($amount)
-                        ->setDescription($package->heading);
+                ->setItemList($itemList)
+                ->setInvoiceNumber(uniqid())
+                ->setDescription($package->heading . ' Payment');
+
+
+            $presentation = PayPal::Presentation();
+            $presentation->setLogoImage("http://ibookmytour.com/images/paypal_logo.png")->setBrandName("I Book My Tour");
 
             $redirectUrls = PayPal:: RedirectUrls();
             $redirectUrls->setReturnUrl(route('package.booking.success', $booking->token))
-                        ->setCancelUrl(route('package.booking.cancel', $booking->token));
+                ->setCancelUrl(route('package.booking.cancel', $booking->token));
+
 
             $payment = PayPal::Payment();
             $payment->setIntent('sale')
-                    ->setPayer($payer)
-                    ->setRedirectUrls($redirectUrls)
-                    ->setTransactions(array($transaction));
+                ->setPayer($payer)
+                ->setRedirectUrls($redirectUrls)
+                ->setTransactions(array($transaction));
 
             $response = $payment->create($this->_apiContext);
             $redirectUrl = $response->links[1]->href;
@@ -135,13 +163,19 @@ class BookingController extends Controller
 
     public function getSuccess(Request $request, $ttoken)
     {
+
         $booking = Booking::onlyTrashed()->where('token', $ttoken)->first();
-        if($booking){
-            $booking->token = NULL;      
+
+
+        $package = Package::find($booking->package_id);
+
+
+        if ($booking) {
+            $booking->token = NULL;
             $booking->is_active = 1;
             $booking->call_back = serialize($request->all());
             $booking->restore();
-            
+
             $id = $request->get('paymentId');
             $token = $request->get('token');
             $payer_id = $request->get('PayerID');
@@ -153,37 +187,71 @@ class BookingController extends Controller
                 $executePayment = $payment->execute($paymentExecution, $this->_apiContext);
 
                 $bookingPayment = new BookingPayment();
-                $bookingPayment->transaction_id = $executePayment->id;                
-                $bookingPayment->status = $executePayment->payer->status;                  
-                $bookingPayment->first_name = $executePayment->payer->payer_info->first_name;                  
-                $bookingPayment->last_name = $executePayment->payer->payer_info->last_name;                  
-                $bookingPayment->email = $executePayment->payer->payer_info->email;                  
-                $bookingPayment->payer_id = $executePayment->payer->payer_info->payer_id;                  
-                $bookingPayment->currency = $executePayment->transactions[0]->amount->currency;                  
-                $bookingPayment->transaction_amount = $executePayment->transactions[0]->amount->total;                     
+                $bookingPayment->transaction_id = $executePayment->id;
+                $bookingPayment->status = $executePayment->payer->status;
+                $bookingPayment->first_name = $executePayment->payer->payer_info->first_name;
+                $bookingPayment->last_name = $executePayment->payer->payer_info->last_name;
+                $bookingPayment->email = $executePayment->payer->payer_info->email;
+                $bookingPayment->payer_id = $executePayment->payer->payer_info->payer_id;
+                $bookingPayment->currency = $executePayment->transactions[0]->amount->currency;
+                $bookingPayment->transaction_amount = $executePayment->transactions[0]->amount->total;
                 $bookingPayment->transaction_fee = $executePayment->transactions[0]->related_resources[0]->sale->transaction_fee->value;
                 $bookingPayment->description = $executePayment;
 
                 $booking->payment()->save($bookingPayment);
-                
+
+
+                // send email to the user
+
+                $receiverEmail = $booking->email_address;
+
+                $subject = "Package Pooking Confirmation";
+
+                $content = '<table cellspacing="0" cellpadding="0" width="100%">';
+                $content .= '<tr><td><p>Dear <strong>'.$booking->first_name.' '.$booking->last_name.',</strong> <br />';
+                $content .= '<br />Booking for <strong>'.$package->heading.'</strong> Package has been received and is being processed, we will be in contact with you shortly.</td>';
+                $content .= '</table>';
+
+                $content .= '<table cellspacing="0" cellpadding="0" width="100%" border="0" style="border-collapse:collapse;margin-top: 20px;">';
+                $content .= '<tr><td colspan="2">Booking Detail</td></tr>';
+                $content .= '<tr><td width="150">Full Name :</td><td>'.$booking->first_name.' '.$booking->last_name.'</td></tr>';
+                $content .= '<tr><td width="150">Package Name:</td><td>'.$package->heading.'</td></tr>';
+                $content .= '<tr style="margin-top: 10px;"><td width="150">Number of traveller :</td><td>' . $booking->number_of_traveller . '</td></tr>';
+                $content .= '<tr style="margin-top: 10px;"><td width="150">Total Amount(USD) :</td><td>' . $booking->amount . '</td></tr>';
+                $content .= '<tr style="margin-top: 10px;"><td width="150">Arrival Date :</td><td>' . $booking->arrival_date . '</td></tr>';
+                $content .= '<tr style="margin-top: 10px;"><td width="150">Departure Date :</td><td>' . $booking->departure_date . '</td></tr>';
+
+                $content .= '</table>';
+
+                $content .= '<table cellspacing="0" cellpadding="0" width="100%" style="border-collapse:collapse;margin-top: 20px;">';
+                $content .= '<tr><td><p>Kind Regards,</strong> <br />';
+                $content .= env('SITE_NAME') . '</td>';
+                $content .= '</table>';
+
+                $email = Helper::sendEmail($receiverEmail, $subject, $content);
+
+
+                //sending email ends
+
                 $request->session()->flash('type', 'success');
-                $request->session()->flash('message', 'Booking was successful!');
+                $request->session()->flash('message', 'Thank You <br>Booking for <strong>'.$package->heading.'</strong> Package has been received and is being processed, we will be in contact with you shortly.<br>
+                '.env('SITE_NAME').'');
                 return view('frontend.success');
 
             } catch (PayPal\Exception\PayPalConnectionException $ex) {
-                $booking->is_active = 0;      
+                $booking->is_active = 0;
                 $booking->delete();
                 $error = json_decode($ex->getData());
                 $request->session()->flash('type', 'error');
                 $request->session()->flash('message', $error->message);
                 return view('frontend.error');
             } catch (Exception $ex) {
-                $booking->is_active = 0;      
-                $booking->delete(); 
+                $booking->is_active = 0;
+                $booking->delete();
                 $request->session()->flash('type', 'error');
                 $request->session()->flash('message', 'Booking was unsuccessful!');
                 return view('frontend.error');
-            }    
+            }
         } else {
             $request->session()->flash('type', 'error');
             $request->session()->flash('message', 'Oops! Either you tried to manipulate the system or you referesh the page after succssful booking.');
@@ -194,11 +262,11 @@ class BookingController extends Controller
     public function getCancel(Request $request, $token)
     {
         $booking = Booking::onlyTrashed()->where('token', $token)->first();
-        $booking->token = NULL;        
+        $booking->token = NULL;
         $booking->save();
 
         $request->session()->flash('type', 'success');
         $request->session()->flash('message', 'Booking is canceled!');
         return view('frontend.cancel');
-    } 
+    }
 }

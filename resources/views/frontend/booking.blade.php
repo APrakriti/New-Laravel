@@ -69,9 +69,9 @@
                                             </div>
                                             <div class="col l6 m6 s12">
                                                 <div class="input-field ">
-                                                    <select name="number_of_traveller" id="number_of_traveller">
-                                                        <option selected="" value="">No of Travellers</option>
-                                                        @for ($i = 1; $i <= 100; $i++)
+                                                    <select name="number_of_traveller" id="number_of_traveller" class="browser-default">
+                                                        <option selected="" value="0">No of Travellers</option>
+                                                        @for($i = 1; $i <= 100; $i++)
                                                             <option value="{{ $i }}"> {{ $i }}</option>
                                                         @endfor
                                                     </select>

@@ -28,7 +28,7 @@
                </div>
                <div class="row">
                   <div class="col l12 m12 s12">
-                     {{ Session::get('message') }}
+                     {!! Session::get('message') !!}
                   </div>
                   <!--col end-->                  
                </div>

@@ -28,6 +28,7 @@ class CreateBookingTable extends Migration
             $table->string('email_address', 100)->nullable()->default(null);
             $table->enum('is_active', [0, 1])->default(0);
             $table->string('token', 30)->nullable()->default(null);          
+            $table->text('call_back')->nullable()->default(null);
             $table->timestamps();
             $table->softDeletes();
 
