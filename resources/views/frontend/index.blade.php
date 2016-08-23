@@ -550,11 +550,11 @@ src="https://www.youtube.com/embed/tjWZM2hMogU">
                                                 Duration: {{ $fixedDeparturePackage->trip_duration}} Days
                                             </div>
                                         @endif
-                                        @if($fixedDeparturePackage->activity)
+
                                             <div class="col l8 m6 s6">
-                                                Activity: {{ $fixedDeparturePackage->activity->heading }}
+                                                Date: {{ $fixedDeparturePackage->fix_departure }}
                                             </div>
-                                        @endif
+
                                     </div>
                                 </div>
                             </div>
