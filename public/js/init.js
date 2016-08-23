@@ -72,14 +72,25 @@
             autoPlay: 5000
         });
 
+<<<<<<< HEAD
+
+//$(".hotel_inquiry a").on("click", function() {
+//$("html, body").animate({ scrollTop: 0 }, 800);
+//return false;
+//});
+=======
 // owl slider end
 
+>>>>>>> 324aebded839f4c5a8c35dee79abcb0df54ae779
 
         $(".hotel_inquiry a").on("click", function () {
             $("html, body").animate({scrollTop: 0}, 800);
             return false;
         });
 
+$( ".hotel_inquiry a" ).click(function() {
+$("html, body").animate({ scrollTop: 0 }, 800);
+});
 
     }); // end of document ready
 })(jQuery); // end of jQuery name space
