@@ -298,4 +298,16 @@ class PackageController extends Controller
         }
 
     }
+
+    public function fixedDepartures()
+    {
+        $packages = Package::with('coverGallery')
+            ->where('is_active', 1)
+            ->where('is_fix_departure', 1)
+            ->orderBy('order_position')
+            ->paginate(env('PAGINATE'));
+
+        return view('frontend.fixeddeparture')->with('packages', $packages);
+
+    }
 }

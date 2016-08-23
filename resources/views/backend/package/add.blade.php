@@ -22,6 +22,15 @@
                 readURLL(this);
             });
 
+            $(".is_fix_departure").change(function () {
+                if (this.checked && this.value === "1") {
+                    $("#fix_departure").show();
+                } else {
+                    $("#fix_departure").hide();
+                }
+            });
+
+
             $('#packageAddForm')
                     .formValidation({
                         framework: 'bootstrap',
@@ -222,7 +231,22 @@
                                 <input type="text" class="form-control" id="heading" name="heading"
                                        value="{{ old('heading') }}" placeholder="Enter package name">
                             </div>
+                            <div class="form-group col-md-2">
+                                <label for="exampleInputPackage">Is Fix Departure ?</label><br>
+                                <label class="radio-inline"><input type="radio" class="is_fix_departure"
+                                                                   name="is_fix_departure" value="0" checked>No</label>
+                                <label class="radio-inline"><input type="radio" class="is_fix_departure"
+                                                                   name="is_fix_departure" value="1"
+                                                                   id="yes">Yes</label>
+                            </div>
+                            <div class="form-group col-md-4" id="fix_departure" style="display:none;">
+                                <label for="exampleInputPackage">Fix Departure</label>
+                                <input type="text" class="form-control" id="fix_departure" name="fix_departure"
+                                       value="{{ old('fix_departure') }}" placeholder="Enter fix departure">
+                            </div>
+
                         </div>
+
                         <!-- /.box-body -->
 
                         <div class="box-body">

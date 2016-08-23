@@ -43,6 +43,7 @@ class HomeController extends Controller
             ->get();
         $fixedDeparturePackage = Package::with('coverGallery')
             ->where('is_active', 1)
+            ->where('is_fix_departure', 1)
             ->orderBy('order_position')
             ->first();
         $destinations = Destination::with('activePackages')

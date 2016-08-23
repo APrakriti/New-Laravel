@@ -153,6 +153,7 @@ Route::post('submit/carRent/inquiry', ['as' => 'submit.carrent.inquiry', 'uses' 
 
 Route::get('packages', ['as' => 'packages', 'uses' => 'PackageController@index']);
 Route::get('lastminutedeals', ['as' => 'last.minute.deals', 'uses' => 'PackageController@deals']);
+Route::get('fixed-departures', ['as' => 'fixed.departure', 'uses' => 'PackageController@fixedDepartures']);
 Route::get('package/{slug}', ['as' => 'package.detail', 'uses' => 'PackageController@show']);
 Route::get('package/{slug}/booking', ['as' => 'package.booking', 'uses' => 'PackageController@booking']);
 Route::post('package/{slug}/booking', ['as' => 'package.booking', 'uses' => 'BookingController@postBooking']);

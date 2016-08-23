@@ -24,16 +24,16 @@ class PackageController extends Controller
     public function index($destinationId = null)
     {
         $destination = [];
-        if($destinationId){
+        if ($destinationId) {
             $packages = Package::where('destination_id', $destinationId)
-                        ->orderBy('order_position')->get();
+                ->orderBy('order_position')->get();
             $destination = Destination::findOrFail($destinationId);
-        } else {         
+        } else {
             $packages = Package::orderBy('order_position')->get();
         }
         return view('backend.package.index')
-                ->with('destination', $destination)
-                ->with('packages', $packages);
+            ->with('destination', $destination)
+            ->with('packages', $packages);
     }
 
     /**
@@ -46,164 +46,39 @@ class PackageController extends Controller
         $activities = Activity::select('id', 'heading')->get();
         $destinations = Destination::select('id', 'heading')->get();
         return view('backend.package.add')
-                ->with('activities', $activities)
-                ->with('destinations', $destinations);
+            ->with('activities', $activities)
+            ->with('destinations', $destinations);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $rules = ['activity_id'=>'required | exists:activities,id',
-                    'destination_id'=>'required | exists:destinations,id',
-                    'heading'=>'required',
-                    'description'=>'required',
-                    'itineraries'=>'required',
-                    'maximum_altitude'=>'numeric',
-                    'group_size'=>'numeric',
-                    'trip_duration'=>'numeric',
-                    'starting_price'=>'required | numeric',
-                ];
+        $rules = ['activity_id' => 'required | exists:activities,id',
+            'destination_id' => 'required | exists:destinations,id',
+            'heading' => 'required',
+            'description' => 'required',
+            'itineraries' => 'required',
+            'maximum_altitude' => 'numeric',
+            'group_size' => 'numeric',
+            'trip_duration' => 'numeric',
+            'starting_price' => 'required | numeric',
+        ];
         $validator = Validator::make($request->all(), $rules);
-        if($validator->fails())
+        if ($validator->fails())
             return redirect()->back()->withInput()->withErrors($validator);
-        
+
         $package = new Package();
         $package->activity_id = $request->input('activity_id', 1);
         $package->destination_id = $request->input('destination_id', 1);
-        $package->heading = $request->heading;
-        $package->description = $request->description;
-        $package->itineraries = $request->itineraries;
-        $package->includes = $request->includes;
-        $package->excludes = $request->excludes;
-        $package->title = $request->title;
-        $package->meta_tags = $request->meta_tags;
-        $package->meta_description = $request->meta_description;
-        $package->trip_duration = $request->trip_duration;
-        $package->group_size = $request->group_size;
-        $package->maximum_altitude = $request->maximum_altitude;
-        $package->team_leader = $request->team_leader;
-        $package->trip_season = $request->trip_season;
-        $package->accommodation = $request->accommodation;
-        $package->previous_price = $request->previous_price;
-        $package->starting_price = $request->starting_price;        
-        $package->start = $request->start;        
-        $package->end = $request->end;        
-        $package->created_by = Auth::id();
-        $package->last_minute_deal = $request->last_minute_deal;
-        $package->is_active = $request->is_active;
-        
-        $bannerFile = $request->banner_attachment;
-        $googlemapFile = $request->googlemap_attachment;
-        $destinationPath = 'uploads/packages/';
-        $rEFileTypes = "/^\.(jpg|jpeg|gif|png){1}$/i";
-        $maximum_filesize = 1 * 1024 * 1024;
-                
-        if($bannerFile) {
-            $filename = $bannerFile->getClientOriginalName();
-            $extension = strrchr($filename, '.');
-            $size = $bannerFile->getSize();                  
-            $new_image_name = "package_banner_" . time();
-                    
-            if ($size <= $maximum_filesize && preg_match($rEFileTypes, $extension)) {
-                $bannerAttachment = $bannerFile->move($destinationPath, $new_image_name.$extension);
-            } else if (preg_match($rEFileTypes, $extension) == false) {
-                Session::flash('class', 'alert alert-error');
-                Session::flash('message', 'Warning : Invalid Image File!');
-            } else if ($size > $maximum_filesize) {
-                Session::flash('class', 'alert alert-error');
-                Session::flash('message', "Warning : The size of the image shouldn't be more than 1MB!");
-            }               
-        }
-        $banner = isset($bannerAttachment) ? $new_image_name . $extension : NULL;
-        if($banner)
-            $package->banner_attachment = $banner;     
-        
-        if($googlemapFile) {
-            $filename = $googlemapFile->getClientOriginalName();
-            $extension = strrchr($filename, '.');
-            $size = $googlemapFile->getSize();                  
-            $new_image_name = "package_map_" . time();
-                    
-            if ($size <= $maximum_filesize && preg_match($rEFileTypes, $extension)) {
-                $mapAttachment = $googlemapFile->move($destinationPath, $new_image_name.$extension);
-            } else if (preg_match($rEFileTypes, $extension) == false) {
-                Session::flash('class', 'alert alert-error');
-                Session::flash('message', 'Warning : Invalid Image File!');
-            } else if ($size > $maximum_filesize) {
-                Session::flash('class', 'alert alert-error');
-                Session::flash('message', "Warning : The size of the image shouldn't be more than 1MB!");
-            }               
-        }
-        $map = isset($mapAttachment) ? $new_image_name . $extension : NULL;
-        if($map)
-            $package->googlemap_attachment = $map;     
-        
-        $package->save();
 
-        return redirect()->route('admin.package.gallery.add', $package->id)
-                        ->with('status', 'success')
-                        ->with('message', 'Package with heading "'. $package->heading.'" is added!');
-    }
+        $package->is_fix_departure = $request->is_fix_departure;
+        $package->fix_departure = $request->fix_departure;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $package = Package::findOrFail($id);
-        $activities = Activity::select('id', 'heading')->get();
-        $destinations = Destination::select('id', 'heading')->get();
-        return view('backend.package.edit')
-                ->with('package', $package)
-                ->with('activities', $activities)
-                ->with('destinations', $destinations);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $rules = ['activity_id'=>'required | exists:activities,id',
-                    'destination_id'=>'required | exists:destinations,id',
-                    'heading'=>'required',
-                    'description'=>'required',
-                    'itineraries'=>'required',
-                    'maximum_altitude'=>'numeric',
-                    'group_size'=>'numeric',
-                    'trip_duration'=>'numeric',
-                    'starting_price'=>'required | numeric',
-                ];
-        $validator = Validator::make($request->all(), $rules);
-        if($validator->fails())
-            return redirect()->back()->withInput()->withErrors($validator);
-        
-        $package = Package::find($id);
-        $package->activity_id = $request->input('activity_id');
-        $package->destination_id = $request->input('destination_id');
         $package->heading = $request->heading;
         $package->description = $request->description;
         $package->itineraries = $request->itineraries;
@@ -220,109 +95,240 @@ class PackageController extends Controller
         $package->accommodation = $request->accommodation;
         $package->previous_price = $request->previous_price;
         $package->starting_price = $request->starting_price;
-        $package->start = $request->start;        
+        $package->start = $request->start;
         $package->end = $request->end;
-        $package->updated_by = Auth::id();
-        $package->last_minute_deal = $request->last_minute_deal;           
-        $package->is_active = $request->is_active;           
-        
+        $package->created_by = Auth::id();
+        $package->last_minute_deal = $request->last_minute_deal;
+        $package->is_active = $request->is_active;
+
         $bannerFile = $request->banner_attachment;
         $googlemapFile = $request->googlemap_attachment;
         $destinationPath = 'uploads/packages/';
         $rEFileTypes = "/^\.(jpg|jpeg|gif|png){1}$/i";
         $maximum_filesize = 1 * 1024 * 1024;
-                
-        if($bannerFile) {
+
+        if ($bannerFile) {
             $filename = $bannerFile->getClientOriginalName();
             $extension = strrchr($filename, '.');
-            $size = $bannerFile->getSize();                  
+            $size = $bannerFile->getSize();
             $new_image_name = "package_banner_" . time();
-                    
+
             if ($size <= $maximum_filesize && preg_match($rEFileTypes, $extension)) {
-                $bannerAttachment = $bannerFile->move($destinationPath, $new_image_name.$extension);
+                $bannerAttachment = $bannerFile->move($destinationPath, $new_image_name . $extension);
             } else if (preg_match($rEFileTypes, $extension) == false) {
                 Session::flash('class', 'alert alert-error');
                 Session::flash('message', 'Warning : Invalid Image File!');
             } else if ($size > $maximum_filesize) {
                 Session::flash('class', 'alert alert-error');
                 Session::flash('message', "Warning : The size of the image shouldn't be more than 1MB!");
-            }               
+            }
         }
         $banner = isset($bannerAttachment) ? $new_image_name . $extension : NULL;
-        if($banner){
-            if(file_exists('uploads/packages/'.$package->banner_attachment) && $package->banner_attachment!='')
-                unlink('uploads/packages/'.$package->banner_attachment);
-            $package->banner_attachment = $banner;     
-        }
-        
-        if($googlemapFile) {
+        if ($banner)
+            $package->banner_attachment = $banner;
+
+        if ($googlemapFile) {
             $filename = $googlemapFile->getClientOriginalName();
             $extension = strrchr($filename, '.');
-            $size = $googlemapFile->getSize();                  
+            $size = $googlemapFile->getSize();
             $new_image_name = "package_map_" . time();
-                    
+
             if ($size <= $maximum_filesize && preg_match($rEFileTypes, $extension)) {
-                $mapAttachment = $googlemapFile->move($destinationPath, $new_image_name.$extension);
+                $mapAttachment = $googlemapFile->move($destinationPath, $new_image_name . $extension);
             } else if (preg_match($rEFileTypes, $extension) == false) {
                 Session::flash('class', 'alert alert-error');
                 Session::flash('message', 'Warning : Invalid Image File!');
             } else if ($size > $maximum_filesize) {
                 Session::flash('class', 'alert alert-error');
                 Session::flash('message', "Warning : The size of the image shouldn't be more than 1MB!");
-            }               
+            }
         }
         $map = isset($mapAttachment) ? $new_image_name . $extension : NULL;
-        if($map){
-            if(file_exists('uploads/packages/'.$package->googlemap_attachment) && $package->googlemap_attachment!='')
-                unlink('uploads/packages/'.$package->googlemap_attachment);
-            $package->googlemap_attachment = $map;     
+        if ($map)
+            $package->googlemap_attachment = $map;
+
+        $package->save();
+
+        return redirect()->route('admin.package.gallery.add', $package->id)
+            ->with('status', 'success')
+            ->with('message', 'Package with heading "' . $package->heading . '" is added!');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $package = Package::findOrFail($id);
+        $activities = Activity::select('id', 'heading')->get();
+        $destinations = Destination::select('id', 'heading')->get();
+        return view('backend.package.edit')
+            ->with('package', $package)
+            ->with('activities', $activities)
+            ->with('destinations', $destinations);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $rules = ['activity_id' => 'required | exists:activities,id',
+            'destination_id' => 'required | exists:destinations,id',
+            'heading' => 'required',
+            'description' => 'required',
+            'itineraries' => 'required',
+            'maximum_altitude' => 'numeric',
+            'group_size' => 'numeric',
+            'trip_duration' => 'numeric',
+            'starting_price' => 'required | numeric',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+            return redirect()->back()->withInput()->withErrors($validator);
+
+        $package = Package::find($id);
+        $package->activity_id = $request->input('activity_id');
+        $package->destination_id = $request->input('destination_id');
+        $package->is_fix_departure = $request->is_fix_departure;
+        $package->fix_departure = $request->fix_departure;
+        $package->heading = $request->heading;
+        $package->description = $request->description;
+        $package->itineraries = $request->itineraries;
+        $package->includes = $request->includes;
+        $package->excludes = $request->excludes;
+        $package->title = $request->title;
+        $package->meta_tags = $request->meta_tags;
+        $package->meta_description = $request->meta_description;
+        $package->trip_duration = $request->trip_duration;
+        $package->group_size = $request->group_size;
+        $package->maximum_altitude = $request->maximum_altitude;
+        $package->team_leader = $request->team_leader;
+        $package->trip_season = $request->trip_season;
+        $package->accommodation = $request->accommodation;
+        $package->previous_price = $request->previous_price;
+        $package->starting_price = $request->starting_price;
+        $package->start = $request->start;
+        $package->end = $request->end;
+        $package->updated_by = Auth::id();
+        $package->last_minute_deal = $request->last_minute_deal;
+        $package->is_active = $request->is_active;
+
+        $bannerFile = $request->banner_attachment;
+        $googlemapFile = $request->googlemap_attachment;
+        $destinationPath = 'uploads/packages/';
+        $rEFileTypes = "/^\.(jpg|jpeg|gif|png){1}$/i";
+        $maximum_filesize = 1 * 1024 * 1024;
+
+        if ($bannerFile) {
+            $filename = $bannerFile->getClientOriginalName();
+            $extension = strrchr($filename, '.');
+            $size = $bannerFile->getSize();
+            $new_image_name = "package_banner_" . time();
+
+            if ($size <= $maximum_filesize && preg_match($rEFileTypes, $extension)) {
+                $bannerAttachment = $bannerFile->move($destinationPath, $new_image_name . $extension);
+            } else if (preg_match($rEFileTypes, $extension) == false) {
+                Session::flash('class', 'alert alert-error');
+                Session::flash('message', 'Warning : Invalid Image File!');
+            } else if ($size > $maximum_filesize) {
+                Session::flash('class', 'alert alert-error');
+                Session::flash('message', "Warning : The size of the image shouldn't be more than 1MB!");
+            }
         }
-        
+        $banner = isset($bannerAttachment) ? $new_image_name . $extension : NULL;
+        if ($banner) {
+            if (file_exists('uploads/packages/' . $package->banner_attachment) && $package->banner_attachment != '')
+                unlink('uploads/packages/' . $package->banner_attachment);
+            $package->banner_attachment = $banner;
+        }
+
+        if ($googlemapFile) {
+            $filename = $googlemapFile->getClientOriginalName();
+            $extension = strrchr($filename, '.');
+            $size = $googlemapFile->getSize();
+            $new_image_name = "package_map_" . time();
+
+            if ($size <= $maximum_filesize && preg_match($rEFileTypes, $extension)) {
+                $mapAttachment = $googlemapFile->move($destinationPath, $new_image_name . $extension);
+            } else if (preg_match($rEFileTypes, $extension) == false) {
+                Session::flash('class', 'alert alert-error');
+                Session::flash('message', 'Warning : Invalid Image File!');
+            } else if ($size > $maximum_filesize) {
+                Session::flash('class', 'alert alert-error');
+                Session::flash('message', "Warning : The size of the image shouldn't be more than 1MB!");
+            }
+        }
+        $map = isset($mapAttachment) ? $new_image_name . $extension : NULL;
+        if ($map) {
+            if (file_exists('uploads/packages/' . $package->googlemap_attachment) && $package->googlemap_attachment != '')
+                unlink('uploads/packages/' . $package->googlemap_attachment);
+            $package->googlemap_attachment = $map;
+        }
+
         $package->save();
 
         return redirect()->route('admin.packages')
-                        ->with('status', 'success')
-                        ->with('message', 'Package with heading "'. $package->heading.'" is updated!');
+            ->with('status', 'success')
+            ->with('message', 'Package with heading "' . $package->heading . '" is updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
     {
-        $rules = ['package_id'=>'required|exists:packages,id'];
+        $rules = ['package_id' => 'required|exists:packages,id'];
         $validator = Validator::make($request->only('package_id'), $rules);
-        if($validator->fails())
-            return response()->json(['status'=>'error', 'message'=>$validator->errors()->all()], 422);
-        
+        if ($validator->fails())
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 422);
+
         $package = Package::find($request->package_id);
-        if(file_exists("uploads/packages/".$package->attachment) && $package->attachment!=''){
-            rename('uploads/packages/'. $package->attachment, 'uploads/packages/trash/'. $package->attachment);
+        if (file_exists("uploads/packages/" . $package->attachment) && $package->attachment != '') {
+            rename('uploads/packages/' . $package->attachment, 'uploads/packages/trash/' . $package->attachment);
         }
         $package->delete();
         $message = 'Your package is deleted successfully.';
-        return response()->json(['status'=>'ok', 'message'=>$message, 'package'=>$package], 200);
+        return response()->json(['status' => 'ok', 'message' => $message, 'package' => $package], 200);
     }
 
     /**
      * Change status of the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function changeStatus(Request $request)
     {
-        $rules = ['package_id'=>'required|exists:packages,id'];
+        $rules = ['package_id' => 'required|exists:packages,id'];
         $validator = Validator::make($request->only('package_id'), $rules);
-        if($validator->fails())
-            return response()->json(['status'=>'error', 'message'=>$validator->errors()->all()], 422);
-        
+        if ($validator->fails())
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 422);
+
         $package = Package::find($request->package_id);
         $message = '';
-        if($package->is_active == 0){
+        if ($package->is_active == 0) {
             $package->is_active = 1;
             $message = 'Your package is published successfully.';
         } else {
@@ -331,25 +337,25 @@ class PackageController extends Controller
         }
         $package->save();
 
-        return response()->json(['status'=>'ok', 'message'=>$message, 'package'=>$package], 200);
+        return response()->json(['status' => 'ok', 'message' => $message, 'package' => $package], 200);
     }
 
     /**
      * Change special of the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function makeSpecial(Request $request)
     {
-        $rules = ['package_id'=>'required|exists:packages,id'];
+        $rules = ['package_id' => 'required|exists:packages,id'];
         $validator = Validator::make($request->only('package_id'), $rules);
-        if($validator->fails())
-            return response()->json(['status'=>'error', 'message'=>$validator->errors()->all()], 422);
-        
+        if ($validator->fails())
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 422);
+
         $package = Package::find($request->package_id);
         $message = '';
-        if($package->is_special == 0){
+        if ($package->is_special == 0) {
             $package->is_special = 1;
             $message = 'Your package is added to special successfully.';
         } else {
@@ -358,25 +364,25 @@ class PackageController extends Controller
         }
         $package->save();
 
-        return response()->json(['status'=>'ok', 'message'=>$message, 'package'=>$package], 200);
+        return response()->json(['status' => 'ok', 'message' => $message, 'package' => $package], 200);
     }
 
     /**
      * Make last minute deal of the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function makeLastMinuteDeal(Request $request)
     {
-        $rules = ['package_id'=>'required|exists:packages,id'];
+        $rules = ['package_id' => 'required|exists:packages,id'];
         $validator = Validator::make($request->only('package_id'), $rules);
-        if($validator->fails())
-            return response()->json(['status'=>'error', 'message'=>$validator->errors()->all()], 422);
-        
+        if ($validator->fails())
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 422);
+
         $package = Package::find($request->package_id);
         $message = '';
-        if($package->last_minute_deal == 0){
+        if ($package->last_minute_deal == 0) {
             $package->last_minute_deal = 1;
             $message = 'Your package is added to last minute deal successfully.';
         } else {
@@ -385,31 +391,31 @@ class PackageController extends Controller
         }
         $package->save();
 
-        return response()->json(['status'=>'ok', 'message'=>$message, 'package'=>$package], 200);
+        return response()->json(['status' => 'ok', 'message' => $message, 'package' => $package], 200);
     }
 
 
     /**
      * sort orders of the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function sortOrder(Request $request)
     {
-        $rules = ['packages'=>'required'];
+        $rules = ['packages' => 'required'];
         $validator = Validator::make($request->only('packages'), $rules);
-        if($validator->fails())
-            return response()->json(['status'=>'error', 'message'=>$validator->errors()->all()], 422);
-        
-        $packages = explode('&',str_replace('package[]=','',$request->packages));
+        if ($validator->fails())
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 422);
+
+        $packages = explode('&', str_replace('package[]=', '', $request->packages));
         $position = 1;
         foreach ($packages as $packageId) {
-            $package                 = Package::find($packageId);
+            $package = Package::find($packageId);
             $package->order_position = $position;
             $package->save();
             $position++;
         }
-        return response()->json(['status'=>'success', 'message'=>'Your packages are sorted successfully.'], 200);
+        return response()->json(['status' => 'success', 'message' => 'Your packages are sorted successfully.'], 200);
     }
 }
