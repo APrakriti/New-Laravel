@@ -84,13 +84,15 @@ $('.materialboxed').materialbox();
 // owl slider end
 
 
-$(".hotel_inquiry a").on("click", function() {
+//$(".hotel_inquiry a").on("click", function() {
+//$("html, body").animate({ scrollTop: 0 }, 800);
+//return false;
+//});
+
+
+$( ".hotel_inquiry a" ).click(function() {
 $("html, body").animate({ scrollTop: 0 }, 800);
-return false;
 });
-
-
-
 
   }); // end of document ready
 })(jQuery); // end of jQuery name space
