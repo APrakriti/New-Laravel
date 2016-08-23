@@ -22,9 +22,9 @@
                 <div class="col l12 m12 s12">
                     <div class="body_content">
                         <div class="breadcrumb-wrapper"><a href="{{ route('home') }}" class="breadcrumb">Home</a> <a
-                                    href="#!" class="breadcrumb">Last Minute Deals </a></div>
+                                    href="#!" class="breadcrumb">Fix Departures</a></div>
                         <div class="sub_title mgb25">
-                            <h2>Last Minute Deals</h2>
+                            <h2>Fix Departures</h2>
                         </div>
                         @include('frontend.show-packages')
                     </div>
