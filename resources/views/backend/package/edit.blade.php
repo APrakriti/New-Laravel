@@ -20,6 +20,14 @@
                 readURLL(this);
             });
 
+            $(".is_fix_departure").change(function () {
+                if (this.checked && this.value === "1") {
+                    $("#fix_departure").show();
+                } else {
+                    $("#fix_departure").hide();
+                }
+            });
+
 
             $('#packageEditForm')
                     .formValidation({
@@ -228,6 +236,24 @@
                                 <input type="text" class="form-control" id="heading" name="heading"
                                        value="{{ $package->heading }}" placeholder="Enter package name">
                             </div>
+
+
+                            <div class="form-group col-md-2">
+                                <label for="exampleInputPackage">Is Fix Departure ?</label><br>
+                                <label class="radio-inline">
+                                    <input type="radio" class="is_fix_departure"
+                                                                   name="is_fix_departure" value="0" @if($package->is_fix_departure=='0') checked @endif>No</label>
+                                <label class="radio-inline"><input type="radio" class="is_fix_departure"
+                                                                   name="is_fix_departure" value="1"
+                                                                   id="yes" @if($package->is_fix_departure=='1') checked @endif>Yes</label>
+                            </div>
+                            <div class="form-group col-md-4" id="fix_departure" style="@if($package->is_fix_departure=='0') display:none; @endif">
+                                <label for="exampleInputPackage">Fix Departure</label>
+                                <input type="text" class="form-control" id="fix_departure" name="fix_departure"
+                                       value="{{ $package->fix_departure }}" placeholder="Enter fix departure">
+                            </div>
+
+
                         </div>
                         <!-- /.box-body -->
 

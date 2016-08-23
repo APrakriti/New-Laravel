@@ -1,1 +1,4 @@
 ALTER TABLE  `packages` CHANGE  `trip_duration`  `trip_duration` INT( 11 ) NULL DEFAULT NULL ;
+
+ALTER TABLE  `packages` ADD  `is_fix_departure` ENUM(  '1',  '0' ) NOT NULL DEFAULT  '0' AFTER  `activity_id` ,
+ADD  `fix_departure` VARCHAR( 255 ) NOT NULL AFTER  `is_fix_departure` ;
