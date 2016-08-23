@@ -92,6 +92,12 @@ class BookingController extends Controller
             $booking->is_active = $request->input('is_active', 0);
             $booking->token = substr(str_shuffle('aAbBcCdDEeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789'), 0, 30);
             $booking->save();
+
+
+
+
+
+
             $booking->delete();
 
             $payer = PayPal::Payer();
@@ -110,7 +116,7 @@ class BookingController extends Controller
 
             $redirectUrls = PayPal:: RedirectUrls();
             $redirectUrls->setReturnUrl(route('package.booking.success', $booking->token))
-                        ->setCancelUrl(route('package.booking.success', $booking->token));
+                        ->setCancelUrl(route('package.booking.cancel', $booking->token));
 
             $payment = PayPal::Payment();
             $payment->setIntent('sale')

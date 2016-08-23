@@ -292,6 +292,7 @@
                                     <option value="500 - 1000">$500 - $1000</option>
                                     <option value="1000 - 1500">$1000 - $1500</option>
                                     <option value="1500 - 2000">$1500 - $2000</option>
+                                    <option value="2000 - 20000">$2000 and above</option>
                                 </select>
                             </div>
                             <div class="clear"></div>

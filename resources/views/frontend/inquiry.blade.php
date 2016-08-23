@@ -12,7 +12,7 @@
             var dateToday = new Date();
             var dates = $("#from, #to").datepicker({
                 defaultDate: "+1w",
-                changeMonth: true,
+                changeMonth: false,
                 numberOfMonths: 1,
                 dateFormat: "yy-mm-dd",
                 minDate: dateToday,
