@@ -8,8 +8,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
+use Input;
 
 use Auth;
+use Redirect;
 
 class AuthController extends Controller
 {
@@ -91,7 +93,18 @@ class AuthController extends Controller
             'password' => $request->password
         ])
         ) {
-            return redirect()->route('home');
+            $backUrl = Input::get('backUrl');
+
+            if ($backUrl) {
+
+                return Redirect::to($backUrl);
+
+            } else {
+
+                return redirect()->route('home');
+            }
+
+
         } else {
 
             $checkRegister = User::where('email', $request->username)->whereNotNull('verify_token')->first();

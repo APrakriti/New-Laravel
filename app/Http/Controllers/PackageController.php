@@ -98,10 +98,10 @@ class PackageController extends Controller
      * @param string $slug
      * @return \Illuminate\Http\Response
      */
-    public function booking($slug)
+    public function booking(Request $request,$slug)
     {
         if (!Auth::check()) {
-            return redirect()->route('login')
+            return redirect()->route('login',array('backUrl'=>$request->fullUrl()))
                 ->with('booking', 'error')
                 ->with('message', 'You should have logged in to book a package.');
         }
