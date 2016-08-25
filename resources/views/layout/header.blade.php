@@ -98,7 +98,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ url('page/about-us') }}">
+                    <a href="{{ url('page/contact-us') }}">
                         Contact Us
                     </a>
                 </li>

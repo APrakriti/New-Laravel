@@ -354,6 +354,8 @@ select:focus {
 .fixed_dep {
 }
 
+.fixedgif {position:absolute; z-index:99; right:0; margin:-50px  -5px  0  0}
+
 .fixed {
     position: relative;
     margin-bottom: 30px;
@@ -1326,6 +1328,8 @@ input[type="text"]:focus:not([readonly]) + label, input[type="password"]:focus:n
     .tab_search_content {
         padding: 15px;
     }
+	
+	.fixedgif  {display:none}
 
 }
 

@@ -512,6 +512,8 @@ src="https://www.youtube.com/embed/tjWZM2hMogU">
                         <div class="sub_title h2block">
                             <h2>Fixed Departure</h2>
                         </div>
+                        
+                        <div class="fixedgif"><a href="{{ route('fixed.departure') }}"   ><img src="{{ asset('images/fixed.gif') }}"/></a></div>
                         @if(count($fixedDeparturePackage)>0)
                         <div class="fixed">
                             <div class="trip_img">
