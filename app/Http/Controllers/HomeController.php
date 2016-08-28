@@ -237,8 +237,6 @@ class HomeController extends Controller
 
     }
 
-
-
     public function postAviaInquiry(Request $request)
     {
         $rules = [
