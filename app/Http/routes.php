@@ -147,6 +147,10 @@ Route::get('contact', ['as' => 'contact', 'uses' => 'HomeController@getContactPa
 Route::post('contact', ['as' => 'contact.submit', 'uses' => 'HomeController@submitContactPage']);
 Route::get('page/{slug}', ['as' => 'content.detail', 'uses' => 'HomeController@content']);
 
+Route::get('inquiry/avia-club', ['as' => 'home.avia.inquiry', 'uses' => 'HomeController@getAviaInquiry']);
+Route::post('inquiry/avia-club', ['as' => 'home.avia.inquiry', 'uses' => 'HomeController@postAviaInquiry']);
+
+
 Route::get('search', ['as' => 'search', 'uses' => 'PackageController@search']);
 Route::post('submit/hotel/inquiry', ['as' => 'submit.hotel.inquiry', 'uses' => 'HomeController@hotelInquiry']);
 Route::post('submit/carRent/inquiry', ['as' => 'submit.carrent.inquiry', 'uses' => 'HomeController@carRentInquiry']);
@@ -163,7 +167,6 @@ Route::get('package/{slug}/booking/{id}', ['as' => 'package.booking.checkout', '
 Route::get('package/{slug}/inquiry', ['as' => 'package.inquiry', 'uses' => 'PackageController@inquiry']);
 Route::post('package/{slug}/inquiry', ['as' => 'package.inquiry', 'uses' => 'PackageController@postInquiry']);
 
-
 Route::get('package/booking/{token}/success', ['as' => 'package.booking.success', 'uses' => 'BookingController@getSuccess']);
 Route::get('package/booking/{token}/cancel', ['as' => 'package.booking.cancel', 'uses' => 'BookingController@getCancel']);
 
@@ -177,18 +180,11 @@ Route::post('login', ['as' => 'check.login', 'uses' => 'Auth\AuthController@logi
 Route::get('forget-password', ['as' => 'user.forget.password', 'uses' => 'UserController@getForgetPasswordRequest']);
 Route::post('forget-password', ['as' => 'user.forget.password','uses' => 'UserController@forgetPasswordRequest']);
 
-
 Route::get('reset/{token}', array('as' => 'user.password_reset', 'uses' => 'UserController@getReset'));
 Route::post('reset/{token}', array('as' => 'user.password_reset', 'uses' => 'UserController@postReset'));
-
 
 Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 
 Route::get('register', ['as' => 'register', 'uses' => 'UserController@register']);
 Route::post('register', ['as' => 'register', 'uses' => 'UserController@registration']);
 Route::get('verify/{token}', ['as' => 'verify', 'uses' => 'UserController@verify']);
-
-
-// Route::any('{query}',function() { 
-// 	return redirect('/');
-// })->where('query', '.*');

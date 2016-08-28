@@ -205,8 +205,8 @@
                     <li>
                         <img src="{{ asset('uploads/banners/'.$banner->attachment) }}"/>
                         <div class="caption center-align">
-                            Enjoy the Grand trip
-                            <br/>
+                            {{--Enjoy the Grand trip--}}
+                            {{--<br/>--}}
                             <h3>
                                 {{ $banner->heading }}
                             </h3>
@@ -512,56 +512,57 @@ src="https://www.youtube.com/embed/tjWZM2hMogU">
                         <div class="sub_title h2block">
                             <h2>Fixed Departure</h2>
                         </div>
-                        
-                        <div class="fixedgif"><a href="{{ route('fixed.departure') }}"   ><img src="{{ asset('images/fixed.gif') }}"/></a></div>
+
+                        <div class="fixedgif"><a href="{{ route('fixed.departure') }}"><img
+                                        src="{{ asset('images/fixed.gif') }}"/></a></div>
                         @if(count($fixedDeparturePackage)>0)
-                        <div class="fixed">
-                            <div class="trip_img">
-                                <a href="{{ route('package.detail', $fixedDeparturePackage->slug) }}">
-                                    @if(count($fixedDeparturePackage->coverGallery) > 0)
-                                        @foreach($fixedDeparturePackage->coverGallery as $gallery)
-                                        @endforeach
-                                        @if(file_exists('uploads/gallery/'.$gallery->attachment) && $gallery->attachment != '')
-                                            <img src="{{ asset('uploads/gallery/'.$gallery->attachment) }}"/>
+                            <div class="fixed">
+                                <div class="trip_img">
+                                    <a href="{{ route('package.detail', $fixedDeparturePackage->slug) }}">
+                                        @if(count($fixedDeparturePackage->coverGallery) > 0)
+                                            @foreach($fixedDeparturePackage->coverGallery as $gallery)
+                                            @endforeach
+                                            @if(file_exists('uploads/gallery/'.$gallery->attachment) && $gallery->attachment != '')
+                                                <img src="{{ asset('uploads/gallery/'.$gallery->attachment) }}"/>
+                                            @else
+                                                <img src="{{ asset('images/fixed1.jpg') }}"/>
+                                            @endif
                                         @else
                                             <img src="{{ asset('images/fixed1.jpg') }}"/>
                                         @endif
-                                    @else
-                                        <img src="{{ asset('images/fixed1.jpg') }}"/>
-                                    @endif
-                                </a>
-                            </div>
-                            <div class="trip_brief">
-                                <div class="trip_price">${{ $fixedDeparturePackage->starting_price }}
-
-                                    @if($fixedDeparturePackage->previous_price  && ($fixedDeparturePackage->previous_price >0) && ($fixedDeparturePackage->previous_price > $fixedDeparturePackage->starting_price) )
-                                        <br/> <span>${{ $fixedDeparturePackage->previous_price }}</span>
-                                    @endif
-
-
+                                    </a>
                                 </div>
+                                <div class="trip_brief">
+                                    <div class="trip_price">${{ $fixedDeparturePackage->starting_price }}
 
-
-                                <div class="trip_title">
-                                    <a href="{{ route('package.detail', $fixedDeparturePackage->slug) }}">{{ $fixedDeparturePackage->heading }}</a>
-                                </div>
-                                <div class="trip_fact_brief">
-                                    <div class="row">
-                                        @if($fixedDeparturePackage->trip_duration)
-                                            <div class="col l4 m6 s6">
-                                                Duration: {{ $fixedDeparturePackage->trip_duration}} Days
-                                            </div>
+                                        @if($fixedDeparturePackage->previous_price  && ($fixedDeparturePackage->previous_price >0) && ($fixedDeparturePackage->previous_price > $fixedDeparturePackage->starting_price) )
+                                            <br/> <span>${{ $fixedDeparturePackage->previous_price }}</span>
                                         @endif
+
+
+                                    </div>
+
+
+                                    <div class="trip_title">
+                                        <a href="{{ route('package.detail', $fixedDeparturePackage->slug) }}">{{ $fixedDeparturePackage->heading }}</a>
+                                    </div>
+                                    <div class="trip_fact_brief">
+                                        <div class="row">
+                                            @if($fixedDeparturePackage->trip_duration)
+                                                <div class="col l4 m6 s6">
+                                                    Duration: {{ $fixedDeparturePackage->trip_duration}} Days
+                                                </div>
+                                            @endif
 
                                             <div class="col l8 m6 s6">
                                                 Date: {{ $fixedDeparturePackage->fix_departure }}
                                             </div>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                            @else
+                        @else
                             <div class="fixed">
                                 <p>No Fixed Departure package at the moment.</p>
                             </div>
@@ -704,7 +705,7 @@ src="https://www.youtube.com/embed/tjWZM2hMogU">
 
     <section class="ad_wrap">
         <div class="ad delay-05s  fadeInUp wow animated">
-            <img src="images/avia.jpg"/>
+            <a href="{{ route('home.avia.inquiry') }}"><img src="{{ asset('images/avia.jpg') }}"/></a>
         </div>
     </section>
 
@@ -747,7 +748,7 @@ src="https://www.youtube.com/embed/tjWZM2hMogU">
                     </div>
                 </div>
                 <div class="col l6 m12    delay-05s  fadeInRight wow animated">
-                    <a href="home#car_rent_tab" target="_parent"  ><img src="{{ asset('images/hotel.jpg') }}"/></a>
+                    <a href="home#car_rent_tab" target="_parent"><img src="{{ asset('images/hotel.jpg') }}"/></a>
                 </div>
             </div>
         </div>
