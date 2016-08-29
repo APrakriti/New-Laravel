@@ -165,10 +165,7 @@ class BookingController extends Controller
     {
 
         $booking = Booking::onlyTrashed()->where('token', $ttoken)->first();
-
-
         $package = Package::find($booking->package_id);
-
 
         if ($booking) {
             $booking->token = NULL;
@@ -204,9 +201,7 @@ class BookingController extends Controller
                 // send email to the user
 
                 $receiverEmail = $booking->email_address;
-
                 $subject = "Package Pooking Confirmation";
-
                 $content = '<table cellspacing="0" cellpadding="0" width="100%">';
                 $content .= '<tr><td><p>Dear <strong>'.$booking->first_name.' '.$booking->last_name.',</strong> <br />';
                 $content .= '<br />Booking for <strong>'.$package->heading.'</strong> Package has been received and is being processed, we will be in contact with you shortly.</td>';
@@ -228,10 +223,34 @@ class BookingController extends Controller
                 $content .= env('SITE_NAME') . '</td>';
                 $content .= '</table>';
 
-                $email = Helper::sendEmail($receiverEmail, $subject, $content);
+                Helper::sendEmail($receiverEmail, $subject, $content);
 
 
-                //sending email ends
+                $receiverAdminEmail = env('ADMIN_EMAIL');
+                $subject = "Package Pooking Confirmation";
+                $contentAdmin = '<table cellspacing="0" cellpadding="0" width="100%">';
+                $contentAdmin .= '<tr><td><p>Dear <strong>Admin</strong>';
+                $contentAdmin .= '<br />Booking for <strong>'.$package->heading.'</strong> Package has been received.</td>';
+                $contentAdmin .= '</table>';
+
+                $contentAdmin .= '<table cellspacing="0" cellpadding="0" width="100%" border="0" style="border-collapse:collapse;margin-top: 20px;">';
+                $contentAdmin .= '<tr><td colspan="2">Booking Detail</td></tr>';
+                $contentAdmin .= '<tr><td width="150">Full Name :</td><td>'.$booking->first_name.' '.$booking->last_name.'</td></tr>';
+                $contentAdmin .= '<tr><td width="150">Package Name:</td><td>'.$package->heading.'</td></tr>';
+                $contentAdmin .= '<tr style="margin-top: 10px;"><td width="150">Number of traveller :</td><td>' . $booking->number_of_traveller . '</td></tr>';
+                $contentAdmin .= '<tr style="margin-top: 10px;"><td width="150">Total Amount(USD) :</td><td>' . $booking->amount . '</td></tr>';
+                $contentAdmin .= '<tr style="margin-top: 10px;"><td width="150">Arrival Date :</td><td>' . $booking->arrival_date . '</td></tr>';
+                $contentAdmin .= '<tr style="margin-top: 10px;"><td width="150">Departure Date :</td><td>' . $booking->departure_date . '</td></tr>';
+
+                $contentAdmin .= '</table>';
+
+                $contentAdmin .= '<table cellspacing="0" cellpadding="0" width="100%" style="border-collapse:collapse;margin-top: 20px;">';
+                $contentAdmin .= '<tr><td><p>Kind Regards,</strong> <br />';
+                $contentAdmin .= env('SITE_NAME') . '</td>';
+                $contentAdmin .= '</table>';
+
+                Helper::sendEmail($receiverAdminEmail, $subject, $contentAdmin);
+                // sending admin email ends
 
                 $request->session()->flash('type', 'success');
                 $request->session()->flash('message', 'Thank You <br>Booking for <strong>'.$package->heading.'</strong> Package has been received and is being processed, we will be in contact with you shortly.<br>
