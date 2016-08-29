@@ -747,8 +747,9 @@ src="https://www.youtube.com/embed/tjWZM2hMogU">
           </div> -->
                     </div>
                 </div>
-                <div class="col l6 m12    delay-05s  fadeInRight wow animated">
-                    <a href="home#car_rent_tab" target="_parent"><img src="{{ asset('images/hotel.jpg') }}"/></a>
+                <div class="col l6 m12 delay-05s fadeInRight wow animated">
+                    <a href="{{ route('home.hotel.inquiry') }}"><img
+                                src="{{ asset('images/hotel.jpg') }}"/></a>
                 </div>
             </div>
         </div>

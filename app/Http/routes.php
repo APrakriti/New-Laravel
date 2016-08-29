@@ -150,6 +150,9 @@ Route::get('page/{slug}', ['as' => 'content.detail', 'uses' => 'HomeController@c
 Route::get('inquiry/avia-club', ['as' => 'home.avia.inquiry', 'uses' => 'HomeController@getAviaInquiry']);
 Route::post('inquiry/avia-club', ['as' => 'home.avia.inquiry', 'uses' => 'HomeController@postAviaInquiry']);
 
+Route::get('inquiry/hotel', ['as' => 'home.hotel.inquiry', 'uses' => 'HomeController@getHotelInquiry']);
+Route::post('inquiry/hotel', ['as' => 'home.hotel.inquiry', 'uses' => 'HomeController@postHotelInquiry']);
+
 
 Route::get('search', ['as' => 'search', 'uses' => 'PackageController@search']);
 Route::post('submit/hotel/inquiry', ['as' => 'submit.hotel.inquiry', 'uses' => 'HomeController@hotelInquiry']);
