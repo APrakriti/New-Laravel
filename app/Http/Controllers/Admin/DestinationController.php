@@ -46,6 +46,7 @@ class DestinationController extends Controller
     public function store(Request $request)
     {
         $rules = ['heading'=>'required',
+                    'type'=>'required',
                     'description'=>'required'
                 ];
         $validator = Validator::make($request->all(), $rules);
@@ -77,6 +78,7 @@ class DestinationController extends Controller
         
         $destination = new Destination();
         $destination->heading = $request->heading;
+        $destination->type= $request->type;
         $destination->description = $request->description;
         $destination->title = $request->title;
         $destination->meta_tags = $request->meta_tags;
@@ -127,6 +129,7 @@ class DestinationController extends Controller
     public function update(Request $request, $id)
     {
         $rules = ['heading'=>'required',
+                    'type'=>'required',
                     'description'=>'required'
                 ];
         $validator = Validator::make($request->all(), $rules);
@@ -158,6 +161,7 @@ class DestinationController extends Controller
         
         $destination = Destination::find($id);
         $destination->heading = $request->heading;
+        $destination->type= $request->type;
         $destination->description = $request->description;
         $destination->title = $request->title;
         $destination->meta_tags = $request->meta_tags;

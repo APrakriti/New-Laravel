@@ -22,7 +22,7 @@
             <div class="row">
                <div class="col l12 m12 s12">
                   <div class="body_content">
-                     <div class="breadcrumb-wrapper"> <a href="{{ route('home') }}" class="breadcrumb">Home</a>
+                     <div class="breadcrumb-wrapper"> <a href="{{ route('home',Session::get('bound_type')) }}" class="breadcrumb">Home</a>
                      <a href="#!" class="breadcrumb">Destinations</a></div>
                      <div class="sub_title mgb25">
                         <h2>Destinations</h2>
@@ -45,9 +45,9 @@
                            <div class="trip_brief">
                               
                               <div class="trip_title">
-                              	<a href="{{ route('destination.detail', $destination->slug) }}">
-                                	{{ str_limit($destination->heading) }}
-                              	</a>
+                                 <a href="{{ route('destination.detail', $destination->slug) }}">
+                                 {{ str_limit($destination->heading) }}
+                                 </a>
                               </div>
                               <div style="font-weight:bold">{{ count($destination->packages) }} Packages</div>
                            </div>
@@ -57,11 +57,11 @@
                      </div>
                      {!! $destinations->render() !!}
                      @else
-                     	<div class="row">
-                     		<div class="col l12 m12 s12">
-                     			Destinations are not found.
-                     		</div>
-                     	</div>
+                        <div class="row">
+                           <div class="col l12 m12 s12">
+                              Destinations are not found.
+                           </div>
+                        </div>
                      @endif
                      
                   </div>

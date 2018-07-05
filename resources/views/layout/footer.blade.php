@@ -1,5 +1,5 @@
-{{-- */ $destinations = App\Models\Destination::with('footerPackages')->where('is_active', 1)->orderBy('order_position')->get(); /* --}}
-{{-- */ $packages = App\Models\Package::where('is_active', 1)->orderBy('order_position')->take(6)->get(); /* --}}
+{{-- */ $destinations = App\Models\Destination::with('footerPackages')->where('type',Session::get('bound_type'))->where('is_active', 1)->orderBy('order_position')->take(5)->get(); /* --}}
+{{-- */ $packages = App\Models\Package::where('is_active', 1)->where('type',Session::get('bound_type'))->orderBy('order_position')->take(6)->get(); /* --}}
 {{-- */ $contents = App\Models\Content::where('is_active', 1)->orderBy('order_position')->take(6)->get(); /* --}}
 
 <section class="footer_destination pd">
@@ -47,38 +47,27 @@
                 </div>
             </div>
             <div class="col l2 m6 s12 delay-05s  fadeInUp wow animated linebreak">
-                <div class="footer_head">
+                 <div class="footer_head">
                     Destinations
                 </div>
                 <div class="footer_links">
+                    @foreach($destinations as $destination)
                     <ul>
                        
                         <li>
-                            <a href="http://ibookmytour.com/destination/nepal">
-                                Nepal
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://ibookmytour.com/destination/tibet">
-                                Tibet
-                            </a>
-                        </li>
-                         <li>
-                            <a href="http://ibookmytour.com/destination/india">
-                                India
-                            </a>
-                        </li>
-                         <li>
-                            <a href="http://ibookmytour.com/destination/bhutan">
-                                Bhutan
-                            </a>
-                        </li>
+                           @if(count($destination->footerPackages) > 0)
+                        <li><a href="{{ route('destination.detail', $destination->slug) }}">{{ $destination->heading }}</a></li>
+                        @endif
+                        
                         
                     </ul>
+                    @endforeach
                     <div class="clear">
                     </div>
                 </div>
-            </div>
+                </div>
+                
+            
             <div class="col l2 m6 s12 delay-05s  fadeInUp wow animated linebreak">
                 <div class="footer_head">
                      Quick Links
@@ -86,7 +75,7 @@
                 <div class="footer_links">
                     <ul>
                     <li>
-                            <a href="{{ route('home') }}">
+                            <a href="{{ route('home',Session::get('bound_type'))}}">
                                 Home
                             </a>
                         </li>

@@ -14,6 +14,23 @@
         }
 
         $(document).ready(function () {
+
+     $('.dynamic').change(function() {
+      if($(this).val() != '') {
+           var value = $(this).val();
+           //alert(value);
+           $.ajax({
+                url:"{{ route('admin.package.fetch') }}",
+                method:"GET",
+                data:{value:value},
+                success:function(result)
+                {
+                  //alert(result);
+                 $('#destination_id').html(result);
+                }
+           })
+      }
+ });
             $('.sidebar-menu li').removeClass('active');
             $('#packages').addClass('active');
             $("#banner_attachment").change(function () {
@@ -257,7 +274,7 @@
                         </div>
                         <!-- /.box-body -->
 
-                        <div class="box-body">
+                        
                             <div class="form-group col-md-6">
                                 <label for="exampleInputPackage">Activity</label>
                                 <select class="form-control" name="activity_id">
@@ -268,13 +285,22 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="box-body">
+                                <div class="form-group col-md-6">
+                                <label for="exampleInputPackage">Type</label>
+                                <select class="form-control dynamic" name="type">
+                                    <option value="">Select Type</option>
+                                         <option value="inbound">Inbound</option>
+                                         <option value="outbound">Outbound</option>
+                                   
+                                </select>
+                            </div>
+                             <div class="form-group col-md-6">
                                 <label for="exampleInputPackage">Destination</label>
-                                <select class="form-control" name="destination_id">
+                                <select class="form-control" name="destination_id" id="destination_id">
                                     <option value="">Select Destination</option>
                                     @foreach($destinations as $destination)
-                                        <option value="{{ $destination->id }}"
-                                                @if($destination->id == $package->destination_id) selected="selected" @endif>{{ $destination->heading }}</option>
+                                        <option value="{{ $destination->id }}"@if($destination->id == $package->destination_id) selected="selected" @endif>{{ $destination->heading }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -374,12 +400,17 @@
                         </div>
 
                         <div class="box-body">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
+                                <label for="exampleInputPackage">Currency Type *</label>
+                            <input type="text" class="form-control" id="currency" name="currency"
+                                 value="{{ $package->currency }}" placeholder="Enter Currency Type">
+                            </div>
+                            <div class="form-group col-md-4">
                                 <label for="exampleInputPackage">Previous Price</label>
                                 <input type="number" class="form-control" id="previous_price" name="previous_price"
                                        value="{{ $package->previous_price }}" placeholder="Enter Previous price">
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="exampleInputPackage">Starting Price </label>
                                 <input type="number" class="form-control" id="starting_price" name="starting_price"
                                        value="{{ $package->starting_price }}" placeholder="Enter starting price">

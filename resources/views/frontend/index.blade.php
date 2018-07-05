@@ -440,10 +440,8 @@
                                         </a>
                                     </div>
                                     <div class="trip_brief">
-
-
                                         @if($package->starting_price)
-                                            <div class="trip_price">${{ $package->starting_price }}
+                                            <div class="trip_price">{{$package->currency}}{{ $package->starting_price }}
                                                 @if($package->previous_price  && ($package->previous_price >0) && ($package->previous_price > $package->starting_price) )
                                                     <br/><span>${{ $package->previous_price }}</span>
                                                 @endif
@@ -513,7 +511,7 @@ src="https://www.youtube.com/embed/tjWZM2hMogU">
                             <h2>Fixed Departure</h2>
                         </div>
 
-                        <div class="fixedgif"><a href="{{ route('fixed.departure') }}"><img
+                        <div class="fixedgif"><a href="{{ route('fixed.departure',Session::get('bound_type')) }}"><img
                                         src="{{ asset('images/fixed.gif') }}"/></a></div>
                         @if(count($fixedDeparturePackage)>0)
                             <div class="fixed">
@@ -533,7 +531,7 @@ src="https://www.youtube.com/embed/tjWZM2hMogU">
                                     </a>
                                 </div>
                                 <div class="trip_brief">
-                                    <div class="trip_price">${{ $fixedDeparturePackage->starting_price }}
+                                    <div class="trip_price">{{$package->currency}}{{ $fixedDeparturePackage->starting_price }}
 
                                         @if($fixedDeparturePackage->previous_price  && ($fixedDeparturePackage->previous_price >0) && ($fixedDeparturePackage->previous_price > $fixedDeparturePackage->starting_price) )
                                             <br/> <span>${{ $fixedDeparturePackage->previous_price }}</span>

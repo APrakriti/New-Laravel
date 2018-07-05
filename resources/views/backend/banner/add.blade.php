@@ -82,7 +82,16 @@
                 <div class="form-group col-md-6">
                   <label for="exampleInputBanner">Banner Caption *</label>
                   <input type="text" class="form-control" id="heading" name="heading" value="{{ old('heading') }}" placeholder="Enter banner caption">
-                </div>                        
+                </div> 
+                <div class="form-group col-md-6">
+                                <label for="exampleInputPackage">Type</label>
+                                <select class="form-control dynamic" name="type">
+                                    <option value="">Select Type</option>
+                                         <option value="inbound">Inbound</option>
+                                         <option value="outbound">Outbound</option>
+                                   
+                                </select>
+                            </div>                       
               </div>
 
                 <div class="box-body">

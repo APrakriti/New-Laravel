@@ -50,6 +50,24 @@ class PackageController extends Controller
             ->with('destinations', $destinations);
     }
 
+     function fetch(Request $request) {
+
+        $value = $request->get('value');
+
+        $data = Destination::select('id','type', 'heading')
+          ->where('type', $value)
+          ->get();
+
+        $output = '<option value="">Select Destination</option>';
+
+        foreach($data as $row)
+        {
+            $output .= '<option value="'.$row->id.'">'.$row->heading.'</option>';
+        }
+
+        echo $output;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -80,6 +98,7 @@ class PackageController extends Controller
         $package->fix_departure = $request->fix_departure;
 
         $package->heading = $request->heading;
+        $package->type = $request->type;
         $package->description = $request->description;
         $package->itineraries = $request->itineraries;
         $package->includes = $request->includes;
@@ -211,6 +230,7 @@ class PackageController extends Controller
         $package->is_fix_departure = $request->is_fix_departure;
         $package->fix_departure = $request->fix_departure;
         $package->heading = $request->heading;
+        $package->type = $request->type;
         $package->description = $request->description;
         $package->itineraries = $request->itineraries;
         $package->includes = $request->includes;

@@ -13,6 +13,7 @@ use App\Models\Booking;
 
 use Validator;
 use Auth;
+use Session;
 use App\Models\Activity;
 use App\Models\Destination;
 use App\Classes\Helper;
@@ -24,14 +25,23 @@ class PackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($type)
     {
         $packages = Package::with('coverGallery')
             ->where('is_active', 1)
-            ->orderBy('order_position')
+            ->orderBy('order_position') 
+            ->where(function($packages) use ($type) {
+               if(isset($type)) {
+                   $packages->where('type', $type);
+               }              
+           })
             ->paginate(env('PAGINATE'));
         $allActivities = Activity::where('is_active', 1)->lists('heading', 'id');
-        $allDestinations = Destination::where('is_active', 1)->lists('heading', 'id');
+        $allDestinations = Destination::where('is_active', 1)->where('type',Session::get('bound_type'))->where(function($allDestinations) use ($type) {
+               if(isset($type)) {
+                   $allDestinations->where('type', $type);
+               }              
+           })->lists('heading', 'id');
 
         return view('frontend.packages')
             ->with('allActivities', $allActivities)
@@ -44,13 +54,19 @@ class PackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function deals()
+    public function deals($type)
     {
         $packages = Package::with('coverGallery')
             ->where('is_active', 1)
+            ->where('type',Session::get('bound_type'))
             ->where('last_minute_deal', 1)
             ->orderBy('order_position')
-            ->paginate(env('PAGINATE'));
+            ->where(function($packages) use ($type) {
+               if(isset($type)) {
+                   $packages->where('type', $type);
+               }              
+           })
+           ->paginate(env('PAGINATE'));
         $allActivities = Activity::where('is_active', 1)->lists('heading', 'id');
         $allDestinations = Destination::where('is_active', 1)->lists('heading', 'id');
 
@@ -68,14 +84,15 @@ class PackageController extends Controller
      */
     public function show($slug)
     {
-        $package = Package::with('activeGalleries')
+        $package = Package::with('activeGalleries')->where('type',Session::get('bound_type'))->where('type', Session::get('bound_type'))
             ->where('slug', $slug)
             ->first();
         $allActivities = Activity::where('is_active', 1)->lists('heading', 'id');
-        $allDestinations = Destination::where('is_active', 1)->lists('heading', 'id');
+        $allDestinations = Destination::where('is_active', 1)->lists('heading', 'id')->where('type', Session::get('bound_type'));
 
         if ($package) {
             $relatedPackages = Package::where('is_active', 1)
+                ->where('type', Session::get('bound_type'))
                 ->where('id', '<>', $package->id)
                 ->orderBy('order_position')
                 ->take(10)
@@ -112,6 +129,7 @@ class PackageController extends Controller
         if ($package) {
             $countries = Country::all();
             $relatedPackages = Package::where('is_active', 1)
+                ->where('type', Session::get('bound_type'))
                 ->where('id', '<>', $package->id)
                 ->orderBy('order_position')
                 ->take(10)
@@ -153,6 +171,7 @@ class PackageController extends Controller
 
             $relatedPackages = Package::where('is_active', 1)
                 ->where('id', '<>', $package->id)
+                ->where('type', Session::get('bound_type'))
                 ->orderBy('order_position')
                 ->take(10)
                 ->get();
@@ -186,23 +205,23 @@ class PackageController extends Controller
 
     public function search(Request $request)
     {
-        $package = Package::where('is_active', 1);
+        $package = Package::where('is_active', 1)->where('type', Session::get('bound_type'));
         if ($request->destination_id)
-            $package->where('destination_id', $request->destination_id);
+            $package->where('destination_id', $request->destination_id)->where('type', Session::get('bound_type'));
         if ($request->activity_id)
-            $package->where('activity_id', $request->activity_id);
+            $package->where('activity_id', $request->activity_id)->where('type', Session::get('bound_type'));
         if ($request->duration) {
             $duration = explode('-', $request->duration);
-            $package->whereBetween('trip_duration', $duration);
+            $package->whereBetween('trip_duration', $duration)->where('type', Session::get('bound_type'));
         }
         if ($request->price) {
             $price = explode('-', $request->price);
-            $package->whereBetween('starting_price', array(trim($price[0]) . '.00', trim($price[1]) . '.00'));
+            $package->whereBetween('starting_price', array(trim($price[0]) . '.00', trim($price[1]) . '.00'))->where('type', Session::get('bound_type'));
         }
         $packages = $package->paginate(env('PAGINATE'));
 
         $allActivities = Activity::where('is_active', 1)->lists('heading', 'id');
-        $allDestinations = Destination::where('is_active', 1)->lists('heading', 'id');
+        $allDestinations = Destination::where('is_active', 1)->lists('heading', 'id')->where('type', Session::get('bound_type'));
 
         return view('frontend.searchpackages')
             ->with('packages', $packages)
@@ -218,11 +237,13 @@ class PackageController extends Controller
     {
         $package = Package::with('activeGalleries')
             ->where('slug', $slug)
+            ->where('type', Session::get('bound_type'))
             ->first();
         if ($package) {
             $countries = Country::all();
             $relatedPackages = Package::where('is_active', 1)
                 ->where('id', '<>', $package->id)
+                ->where('type', Session::get('bound_type'))
                 ->orderBy('order_position')
                 ->take(10)
                 ->get();
@@ -239,6 +260,7 @@ class PackageController extends Controller
     public function postInquiry(Request $request, $slug)
     {
         $package = Package::with('activeGalleries')
+            ->where('type', Session::get('bound_type'))
             ->where('slug', $slug)
             ->first();
         if ($package) {
@@ -256,6 +278,7 @@ class PackageController extends Controller
                 return redirect()->back()->withInput()->withErrors($validator);
 
             $relatedPackages = Package::where('is_active', 1)
+                ->where('type', Session::get('bound_type'))
                 ->where('id', '<>', $package->id)
                 ->orderBy('order_position')
                 ->take(10)
@@ -299,12 +322,17 @@ class PackageController extends Controller
 
     }
 
-    public function fixedDepartures()
+    public function fixedDepartures($type)
     {
         $packages = Package::with('coverGallery')
             ->where('is_active', 1)
             ->where('is_fix_departure', 1)
             ->orderBy('order_position')
+            ->where(function($packages) use ($type) {
+               if(isset($type)) {
+                   $packages->where('type', $type);
+               }              
+           })
             ->paginate(env('PAGINATE'));
 
         return view('frontend.fixeddeparture')->with('packages', $packages);

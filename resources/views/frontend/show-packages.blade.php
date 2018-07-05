@@ -19,11 +19,11 @@
                         </a>
                     </div>
                     <div class="trip_brief">
-                        <div class="trip_price">{{ '$'.$package->starting_price }}
+                        <div class="trip_price">{{ $package->currency.$package->starting_price }}
 
                             @if($package->previous_price  && ($package->previous_price >0) && ($package->previous_price > $package->starting_price) )
 
-                                <br><span>{{ '$'.$package->previous_price }}</span>
+                                <br><span>{{ $package->currency.$package->previous_price }}</span>
                             @endif
 
 

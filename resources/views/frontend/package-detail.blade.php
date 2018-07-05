@@ -48,7 +48,11 @@
          <img src="{{ asset('images/inner_banner.jpg') }}" alt="{{ $package->heading }}">
          @endif
          
-         
+         <?php
+$allActivities = \App\Models\Activity::where('is_active', 1)->lists('heading', 'id');
+$allDestinations = \App\Models\Destination::where('is_active', 1)->where('type',Session::get('bound_type'))->lists('heading', 'id');
+
+?>
          <div class="container inner_search_wrap">
             <form action="{{ route('search') }}" id="searchForm" method="get">
                 <div class="row">
@@ -134,7 +138,7 @@
                   <div class="body_content">
                      <div class="breadcrumb-wrapper">
                         <a href="{{ route('home') }}" class="breadcrumb">Home</a>
-                        <a href="{{ route('packages') }}" class="breadcrumb">Tour Packages</a>
+                        <a href="{{ route('packages',Session::get('bound_type')) }}" class="breadcrumb">Tour Packages</a>
                         <a href="#!" class="breadcrumb">{{ $package->heading }}</a>
                      </div>
                      <div class="sub_title mgb25">

@@ -80,6 +80,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'namespace' => 'Admi
     Route::post('destination/delete/attachment', ['middleware' => 'access:destinations', 'as' => 'admin.destination.delete.attachment', 'uses' => 'DestinationController@destroyAttachment']);
     Route::post('destination/sort/order', ['middleware' => 'access:destinations', 'as' => 'admin.destination.sort.order', 'uses' => 'DestinationController@sortOrder']);
 
+
     Route::get('news', ['middleware' => 'access:news', 'as' => 'admin.news', 'uses' => 'NewsController@index']);
     Route::get('news/add', ['middleware' => 'access:news', 'as' => 'admin.news.add', 'uses' => 'NewsController@create']);
     Route::post('news/add', ['middleware' => 'access:news', 'as' => 'admin.news.store', 'uses' => 'NewsController@store']);
@@ -91,6 +92,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'namespace' => 'Admi
 
     Route::get('packages/{id?}', ['middleware' => 'access:packages', 'as' => 'admin.packages', 'uses' => 'PackageController@index']);
     Route::get('package/add', ['middleware' => 'access:packages', 'as' => 'admin.package.add', 'uses' => 'PackageController@create']);
+    Route::get('package/fetch', ['middleware' => 'access:packages', 'as' => 'admin.package.fetch', 'uses' => 'PackageController@fetch']);
     Route::post('package/add', ['middleware' => 'access:packages', 'as' => 'admin.package.store', 'uses' => 'PackageController@store']);
     Route::get('package/edit/{id}', ['middleware' => 'access:packages', 'as' => 'admin.package.edit', 'uses' => 'PackageController@edit']);
     Route::post('package/edit/{id}', ['middleware' => 'access:packages', 'as' => 'admin.package.update', 'uses' => 'PackageController@update']);
@@ -141,8 +143,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'namespace' => 'Admi
 
 });
 
-Route::get('/', ['as' => 'home', 'uses' => 'HomeController@getHomePage']);
-Route::get('home', ['as' => 'home', 'uses' => 'HomeController@getHomePage']);
+
+ //Route::get('/', ['as' => 'home', 'uses' => 'HomeController@getBoundHomePage']);
+Route::get('/{type}', ['as' => 'home', 'uses' => 'HomeController@getBoundHomePage']);
+// Route::get('home/{type}', ['as' => 'home', 'uses' => 'HomeController@getHomePage']);
+// Route::get('home/inbound', ['as' => 'home.inbound', 'uses' => 'HomeController@getHomePage']);
+// Route::get('home/outbound', ['as' => 'home.outbound', 'uses' => 'HomeController@getHomePage']);
 Route::get('contact', ['as' => 'contact', 'uses' => 'HomeController@getContactPage']);
 Route::post('contact', ['as' => 'contact.submit', 'uses' => 'HomeController@submitContactPage']);
 Route::get('page/{slug}', ['as' => 'content.detail', 'uses' => 'HomeController@content']);
@@ -158,9 +164,9 @@ Route::get('search', ['as' => 'search', 'uses' => 'PackageController@search']);
 Route::post('submit/hotel/inquiry', ['as' => 'submit.hotel.inquiry', 'uses' => 'HomeController@hotelInquiry']);
 Route::post('submit/carRent/inquiry', ['as' => 'submit.carrent.inquiry', 'uses' => 'HomeController@carRentInquiry']);
 
-Route::get('packages', ['as' => 'packages', 'uses' => 'PackageController@index']);
-Route::get('lastminutedeals', ['as' => 'last.minute.deals', 'uses' => 'PackageController@deals']);
-Route::get('fixed-departures', ['as' => 'fixed.departure', 'uses' => 'PackageController@fixedDepartures']);
+Route::get('{type}/packages', ['as' => 'packages', 'uses' => 'PackageController@index']);
+Route::get('{type}/lastminutedeals', ['as' => 'last.minute.deals', 'uses' => 'PackageController@deals']);
+Route::get('{type}/fixed-departures', ['as' => 'fixed.departure', 'uses' => 'PackageController@fixedDepartures']);
 Route::get('package/{slug}', ['as' => 'package.detail', 'uses' => 'PackageController@show']);
 Route::get('package/{slug}/booking', ['as' => 'package.booking', 'uses' => 'PackageController@booking']);
 Route::post('package/{slug}/booking', ['as' => 'package.booking', 'uses' => 'BookingController@postBooking']);
@@ -173,8 +179,8 @@ Route::post('package/{slug}/inquiry', ['as' => 'package.inquiry', 'uses' => 'Pac
 Route::get('package/booking/{token}/success', ['as' => 'package.booking.success', 'uses' => 'BookingController@getSuccess']);
 Route::get('package/booking/{token}/cancel', ['as' => 'package.booking.cancel', 'uses' => 'BookingController@getCancel']);
 
-Route::get('destinations', ['as' => 'destinations', 'uses' => 'DestinationController@index']);
-Route::get('destination/{slug}', ['as' => 'destination.detail', 'uses' => 'DestinationController@show']);
+Route::get('{type}/destinations', ['as' => 'destinations', 'uses' => 'DestinationController@index']);
+Route::get('destinations/{slug}', ['as' => 'destination.detail', 'uses' => 'DestinationController@show']);
 
 Route::get('testimonials', ['as' => 'testimonials', 'uses' => 'TestimonialsController@index']);
 

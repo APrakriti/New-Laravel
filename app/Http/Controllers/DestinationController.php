@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Destination;
 use App\Models\Package;
+use Session;
 
 class DestinationController extends Controller
 {
@@ -17,12 +18,18 @@ class DestinationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($type)
     {
         $destinations = Destination::with('activePackages')
                         ->where('is_active', 1)
+                        ->where('type',Session::get('bound_type'))
                         ->orderBy('order_position')
-                        ->paginate(env('PAGINATE'));
+                        ->where(function($destinations) use ($type) {
+                    if(isset($type)) {
+                        $destinations->where('type', $type);
+                     }              
+                     })
+                ->paginate(env('PAGINATE'));
 
         return view('frontend.destinations')
                     ->with('destinations', $destinations);
@@ -35,8 +42,10 @@ class DestinationController extends Controller
      */
     public function show($slug)
     {
-        $destination = Destination::where('slug', $slug)
+        $destination = Destination::where('slug', $slug)->where('type',Session::get('bound_type'))
+                   
             ->first();
+
         if($destination){
             $packages = $destination->activePackages()
                                 ->paginate(env('PAGINATE'));

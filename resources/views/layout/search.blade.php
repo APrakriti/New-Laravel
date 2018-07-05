@@ -1,6 +1,6 @@
 <?php
 $allActivities = \App\Models\Activity::where('is_active', 1)->lists('heading', 'id');
-$allDestinations = \App\Models\Destination::where('is_active', 1)->lists('heading', 'id');
+$allDestinations = \App\Models\Destination::where('is_active', 1)->where('type',Session::get('bound_type'))->lists('heading', 'id');
 
 ?>
 

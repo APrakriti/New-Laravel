@@ -42,7 +42,7 @@
                     <div class="body_content">
                         <div class="breadcrumb-wrapper">
                             <a href="{{ route('home') }}" class="breadcrumb">Home</a>
-                            <a href="{{ route('packages') }}" class="breadcrumb">Tour Packages</a>
+                            <a href="{{ route('packages',Session::get('bound_type'))}}" class="breadcrumb">Tour Packages</a>
                             <a href="{{ route('package.detail', $package->slug) }}"
                                class="breadcrumb">{{ $package->heading }}</a>
                             <a href="#!" class="breadcrumb">Online Booking</a>

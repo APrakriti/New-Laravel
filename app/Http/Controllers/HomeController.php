@@ -17,6 +17,7 @@ use App\Models\Testimonial;
 use App\Models\Country;
 
 use Validator;
+use Session;
 
 class HomeController extends Controller
 {
@@ -25,39 +26,46 @@ class HomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function getHomePage()
+
+    
+    public function getBoundHomePage($type)
     {
         $banners = Banner::where('is_active', 1)
+            ->where('type',Session::get('bound_type'))
             ->orderBy('order_position')
             ->get();
+        
         $specialPackages = Package::with('coverGallery')
-            ->where('is_active', 1)
-            ->where('is_special', 1)
-            ->orderBy('order_position')
-            ->take(6)
-            ->get();
+           ->where('is_active', 1)
+           ->where('is_special', 1)
+           ->orderBy('order_position')            
+           ->where('type',Session::get('bound_type'))
+           ->take(6)->get();
         $lastMinuteDeals = Package::with('coverGallery')
-            ->where('is_active', 1)
             ->where('last_minute_deal', 1)
             ->orderBy('order_position')
+            ->where('type',Session::get('bound_type'))
             ->take(4)
             ->get();
         $fixedDeparturePackage = Package::with('coverGallery')
             ->where('is_active', 1)
             ->where('is_fix_departure', 1)
             ->orderBy('order_position')
+            ->where('type',Session::get('bound_type')) 
             ->first();
+       
         $destinations = Destination::with('activePackages')
-            ->where('is_active', 1)
-            ->orderBy('order_position')
-            ->take(4)->get();
+           ->where('is_active', 1)
+           ->orderBy('order_position')            
+           ->where('type',Session::get('bound_type'))
+           ->take(4)->get();
 
         $testimonials = Testimonial::where('is_active', 1)
             ->orderBy('order_position')
             ->take(2)->get();
 
         $allActivities = Activity::where('is_active', 1)->lists('heading', 'id');
-        $allDestinations = Destination::where('is_active', 1)->lists('heading', 'id');
+        $allDestinations = Destination::where('is_active', 1)->where('type',Session::get('bound_type'))->lists('heading', 'id');
 
         return view('frontend.index')
             ->with('banners', $banners)
@@ -72,7 +80,6 @@ class HomeController extends Controller
             ->with('metaTags', 'I BOOK MY TOUR')
             ->with('metaDescription', 'I BOOK MY TOUR');
     }
-
     /**
      * Display contact page.
      *
@@ -138,6 +145,7 @@ class HomeController extends Controller
         $content = Content::where('slug', $slug)
             ->where('is_active', 1)->first();
         $packages = Package::where('is_active', 1)
+            ->where('type', Session::get('bound_type'))
             ->orderBy(\DB::raw('RAND()'))
             ->take(8)->get();
         return view('frontend.content')
@@ -227,7 +235,7 @@ class HomeController extends Controller
     public function getAviaInquiry()
     {
         $countries = Country::all();
-        $relatedPackages = Package::where('is_active', 1)
+        $relatedPackages = Package::where('is_active', 1)->where('type', Session::get('bound_type'))
             ->orderBy('order_position')
             ->take(10)
             ->get();
@@ -293,6 +301,7 @@ class HomeController extends Controller
     {
         $countries = Country::all();
         $relatedPackages = Package::where('is_active', 1)
+            ->where('type', Session::get('bound_type'))
             ->orderBy('order_position')
             ->take(10)
             ->get();

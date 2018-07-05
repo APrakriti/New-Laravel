@@ -44,7 +44,7 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = ['heading' => 'required'];
+        $rules = ['heading' => 'required','type'=>'required'];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return redirect()->back()->withInput()->withErrors($validator);
@@ -74,6 +74,7 @@ class BannerController extends Controller
 
         $banner = new Banner();
         $banner->heading = $request->heading;
+        $banner->type = $request->type;
         $banner->banner_url = $request->banner_url;
         $banner->created_by = Auth::id();
         $banner->is_active = $request->is_active;
@@ -118,7 +119,7 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rules = ['heading' => 'required'];
+        $rules = ['heading' => 'required','type'=>'required'];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return redirect()->back()->withInput()->withErrors($validator);
@@ -148,6 +149,7 @@ class BannerController extends Controller
 
         $banner = Banner::find($id);
         $banner->heading = $request->heading;
+        $banner->type = $request->type;
         $banner->banner_url = $request->banner_url;
         $banner->updated_by = Auth::id();
         $banner->is_active = $request->is_active;

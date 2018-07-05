@@ -166,6 +166,16 @@
                                 <input type="text" class="form-control" id="heading" name="heading"
                                        value="{{ $destination->heading }}" placeholder="Enter destination name">
                             </div>
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputPackage">Type</label>
+                                <select class="form-control" name="type">
+                                    <option value="">Select Type</option>
+                                   <
+                                         <option value="inbound">Inbound</option>
+                                         <option value="outbound">Outbound</option>
+                                   
+                                </select>
+                            </div> 
                         </div>
                         <!-- /.box-body -->
 

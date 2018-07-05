@@ -17,8 +17,8 @@
                 <div class="col l12 m12 s12">
                     <div class="body_content">
                         <div class="breadcrumb-wrapper">
-                            <a href="{{ route('home') }}" class="breadcrumb">Home</a>
-                            <a href="{{ route('destinations') }}" class="breadcrumb">Destinations</a>
+                            <a href="{{ route('home',Session::get('bound_type')) }}" class="breadcrumb">Home</a>
+                            <a href="{{ route('destinations',Session::get('bound_type')) }}" class="breadcrumb">Destinations</a>
                             <a href="#!" class="breadcrumb">{{ $destination->heading }}</a>
                         </div>
                         <div class="sub_title mgb25">
