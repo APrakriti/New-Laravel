@@ -20,16 +20,16 @@
                     <div class="col l3 m6 s6">
 
                         <select class="browser-default  bdr0" name="destination_id">
-                            <option value="">
-                                Select Destination
-                            </option>
-                            @foreach($allDestinations as $id=>$heading)
-                                <option value="{{ $id }}"
-                                        @if(Input::get('destination_id')==$id ) selected="selected" @endif>
-                                    {{ $heading }}
-                                </option>
-                            @endforeach
-                        </select>
+                    <option value="">
+                        Select Destination
+                    </option>
+                    @foreach($allDestinations as $id=>$heading)
+                        <option value="{{ $id }}"
+                                @if(Input::get('destination_id')==$id ) selected="selected" @endif>
+                            {{ $heading }}
+                        </option>
+                    @endforeach
+                </select>
                     </div>
                     <div class="col l3 m6 s6">
                         <select class="browser-default  bdr0" name="activity_id">
@@ -81,10 +81,7 @@
                             <option @if(Input::get('price')=='2000 - 20000' ) selected="selected" @endif
                             value="2000 - 20000">$2000 and above</option>
                         </select>
-                    </div>
-
-
-                    <div class="col l2 m6 s6" style="margin-bottom:15px;">
+                    </div><div class="col l2 m6 s6" style="margin-bottom:15px;">
                         <button class="btn btnfull">Search</button>
                     </div>
                 </div> <!--row end-->
@@ -100,7 +97,7 @@
             <div class="row">
                 <div class="col l12 m12 s12">
                     <div class="body_content">
-                        <div class="breadcrumb-wrapper"><a href="{{ route('home') }}" class="breadcrumb">Home</a> <a
+                        <div class="breadcrumb-wrapper"><a href="{{ route('home',Session::get('bound_type')) }}" class="breadcrumb">Home</a> <a
                                     href="#!" class="breadcrumb">Search Packages</a></div>
                         <div class="sub_title mgb25">
                             <h2>Search Packages</h2>

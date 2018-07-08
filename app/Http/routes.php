@@ -145,7 +145,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'namespace' => 'Admi
 
 
  //Route::get('/', ['as' => 'home', 'uses' => 'HomeController@getBoundHomePage']);
-Route::get('/{type}', ['as' => 'home', 'uses' => 'HomeController@getBoundHomePage']);
+Route::get('/', ['as' => 'home', 'uses' => 'HomeController@getBoundHomePage']);
+Route::get('/{type}', ['as' => 'home', 'uses' => 'HomeController@getBoundHomePages']);
 // Route::get('home/{type}', ['as' => 'home', 'uses' => 'HomeController@getHomePage']);
 // Route::get('home/inbound', ['as' => 'home.inbound', 'uses' => 'HomeController@getHomePage']);
 // Route::get('home/outbound', ['as' => 'home.outbound', 'uses' => 'HomeController@getHomePage']);
@@ -160,7 +161,8 @@ Route::get('inquiry/hotel', ['as' => 'home.hotel.inquiry', 'uses' => 'HomeContro
 Route::post('inquiry/hotel', ['as' => 'home.hotel.inquiry', 'uses' => 'HomeController@postHotelInquiry']);
 
 
-Route::get('search', ['as' => 'search', 'uses' => 'PackageController@search']);
+Route::get('search/{request}', ['as' => 'search', 'uses' => 'PackageController@search']);
+
 Route::post('submit/hotel/inquiry', ['as' => 'submit.hotel.inquiry', 'uses' => 'HomeController@hotelInquiry']);
 Route::post('submit/carRent/inquiry', ['as' => 'submit.carrent.inquiry', 'uses' => 'HomeController@carRentInquiry']);
 

@@ -26,9 +26,60 @@ class HomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
+public function getBoundHomePage()
+    {
+        $banners = Banner::where('is_active', 1)
+            ->where('type',Session::get('bound_type'))
+            ->orderBy('order_position')
+            ->get();
+        
+        $specialPackages = Package::with('coverGallery')
+           ->where('is_active', 1)
+           ->where('is_special', 1)
+           ->orderBy('order_position')            
+           ->where('type',Session::get('bound_type'))
+           ->take(6)->get();
+        $lastMinuteDeals = Package::with('coverGallery')
+            ->where('last_minute_deal', 1)
+            ->orderBy('order_position')
+            ->where('type',Session::get('bound_type'))
+            ->take(4)
+            ->get();
+        $fixedDeparturePackage = Package::with('coverGallery')
+            ->where('is_active', 1)
+            ->where('is_fix_departure', 1)
+            ->orderBy('order_position')
+            ->where('type',Session::get('bound_type')) 
+            ->first();
+       
+        $destinations = Destination::with('activePackages')
+           ->where('is_active', 1)
+           ->orderBy('order_position')            
+           ->where('type',Session::get('bound_type'))
+           ->take(4)->get();
 
+        $testimonials = Testimonial::where('is_active', 1)
+            ->orderBy('order_position')
+            ->take(2)->get();
+
+        $allActivities = Activity::where('is_active', 1)->lists('heading', 'id');
+        $allDestinations = Destination::where('is_active', 1)->where('type',Session::get('bound_type'))->lists('heading', 'id');
+
+        return view('frontend.index')
+            ->with('banners', $banners)
+            ->with('specialPackages', $specialPackages)
+            ->with('lastMinuteDeals', $lastMinuteDeals)
+            ->with('fixedDeparturePackage', $fixedDeparturePackage)
+            ->with('destinations', $destinations)
+            ->with('testimonials', $testimonials)
+            ->with('allActivities', $allActivities)
+            ->with('allDestinations', $allDestinations)
+            ->with('title', 'I BOOK MY TOUR')
+            ->with('metaTags', 'I BOOK MY TOUR')
+            ->with('metaDescription', 'I BOOK MY TOUR');
+    }
     
-    public function getBoundHomePage($type)
+    public function getBoundHomePages($type)
     {
         $banners = Banner::where('is_active', 1)
             ->where('type',Session::get('bound_type'))
@@ -85,6 +136,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
+
     public function getContactPage()
     {
         $page = Page::where('slug', 'contact')->first();

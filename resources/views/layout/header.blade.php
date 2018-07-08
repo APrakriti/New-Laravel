@@ -23,19 +23,20 @@
                        $last_urll = collect(request()->segments())->last(); ?>
                      <!-- $last_urll = collect(request()->segments())->last(); ?> -->
                        @foreach($mainMenus as $mainMenu)
+                       <ul>
                        @if($mainMenu->type =='inbound')
-      <!--  @if(Session::has('bound_type') && Session::has('bound_type') == 'outbound') class="selected" @endif -->
-                        <ul>
+      
+                        
                             <li >
-                                <a href="{{ route('home',$mainMenu->type) }}">
-                                    Inbound
-                                </a>
-                            
-                            @elseif($mainMenu->type =='outbound')
-                             <a href="{{ route('home',$mainMenu->type) }}">
-                                    Outbound
-                                </a>
-                                </li>
+                               <a @if(Session::get('bound_type') && Session::get('bound_type') == 'inbound') class="selected" @endif href="{{ route('home',$mainMenu->type) }}">
+                                   Inbound
+                               </a>
+                           
+                           @elseif($mainMenu->type =='outbound')
+                            <a @if(Session::get('bound_type') && Session::get('bound_type') == 'outbound') class="selected" @endif href="{{ route('home',$mainMenu->type) }}">
+                                   Outbound
+                               </a>
+                               </li>
                             </ul>
                                 @endif
                         

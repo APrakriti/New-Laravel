@@ -18,6 +18,7 @@ use App\Models\Activity;
 use App\Models\Destination;
 use App\Classes\Helper;
 
+
 class PackageController extends Controller
 {
     /**
@@ -202,26 +203,51 @@ class PackageController extends Controller
             return view('frontend.404');
         }
     }
+    public function searchs(Request $request)
+{
+    $package = Package::where('destination_id', $request->destination_id)
+        ->where('destination_id', intval($request->get('activity_id')))
+        ->first();
+
+
+    return view('search.index', compact('destination_id'));
+}
+  
 
     public function search(Request $request)
     {
+      
+       //$request = $request->request;
+       
         $package = Package::where('is_active', 1)->where('type', Session::get('bound_type'));
-        if ($request->destination_id)
-            $package->where('destination_id', $request->destination_id)->where('type', Session::get('bound_type'));
-        if ($request->activity_id)
-            $package->where('activity_id', $request->activity_id)->where('type', Session::get('bound_type'));
+
+        
+        if ($request->destination_id){
+            $package->where('destination_id', $request['destination_id']);
+        }
+         if ($request->type){
+             $package->where('type', Session::get('bound_type'));
+         }
+        if ($request->activity_id){
+            $package->where('activity_id', $request['activity_id']);
+        }
         if ($request->duration) {
-            $duration = explode('-', $request->duration);
-            $package->whereBetween('trip_duration', $duration)->where('type', Session::get('bound_type'));
+            $duration = explode('-', $request['duration']);
+            $package->whereBetween('trip_duration', $duration);
         }
-        if ($request->price) {
-            $price = explode('-', $request->price);
-            $package->whereBetween('starting_price', array(trim($price[0]) . '.00', trim($price[1]) . '.00'))->where('type', Session::get('bound_type'));
+       if ($request->price) {
+            $price = explode('-', $request['price']);
+            $package->whereBetween('starting_price', array(trim($price[0]) . '.00', trim($price[1]) . '.00'));
         }
+        
+       // dd('bhdcbhds');
         $packages = $package->paginate(env('PAGINATE'));
+        
 
         $allActivities = Activity::where('is_active', 1)->lists('heading', 'id');
-        $allDestinations = Destination::where('is_active', 1)->lists('heading', 'id')->where('type', Session::get('bound_type'));
+        $allDestinations = Destination::where('is_active', 1)->where('type', Session::get('bound_type'))->lists('heading', 'id');
+        
+
 
         return view('frontend.searchpackages')
             ->with('packages', $packages)
