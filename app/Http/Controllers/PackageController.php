@@ -118,11 +118,17 @@ class PackageController extends Controller
      */
     public function booking(Request $request,$slug)
     {
+
         if (!Auth::check()) {
-            return redirect()->route('login',array('backUrl'=>$request->fullUrl()))
+              return redirect()->route('login',array('backUrl'=>$request->fullUrl()))
                 ->with('booking', 'error')
                 ->with('message', 'You should have logged in to book a package.');
         }
+        // if (!Auth::check()) {
+        //       return view('frontend.login')
+        //         ->with('booking', 'error')
+        //         ->with('message', 'You should have logged in to book a package.');
+        // }
 
         $package = Package::with('activeGalleries')
             ->where('slug', $slug)

@@ -21,27 +21,27 @@
                 <div class ="top_menu" id="menu">
                     <?php $mainMenus = App\Classes\Helper::getMainMenu(); 
                        $last_urll = collect(request()->segments())->last(); ?>
-                     <!-- $last_urll = collect(request()->segments())->last(); ?> -->
-                       @foreach($mainMenus as $mainMenu)
-                       <ul>
-                       @if($mainMenu->type =='inbound')
-      
-                        
-                            <li >
-                               <a @if(Session::get('bound_type') && Session::get('bound_type') == 'inbound') class="selected" @endif href="{{ route('home',$mainMenu->type) }}">
-                                   Inbound
+                        <ul>
+                      @foreach($mainMenus as $mainMenu)
+                             @if($mainMenu->type =='inbound')
+                            <li>
+                                <a @if(Session::get('bound_type') && Session::get('bound_type') == 'inbound') class="selected" @endif href="{{ route('home',$mainMenu->type) }}">
+                                   For Foreigners
                                </a>
-                           
-                           @elseif($mainMenu->type =='outbound')
-                            <a @if(Session::get('bound_type') && Session::get('bound_type') == 'outbound') class="selected" @endif href="{{ route('home',$mainMenu->type) }}">
-                                   Outbound
+                                
+                            </li>
+                              @elseif($mainMenu->type =='outbound')
+                            <li>
+                               <a @if(Session::get('bound_type') && Session::get('bound_type') == 'outbound') class="selected" @endif href="{{ route('home',$mainMenu->type) }}">
+                                   For Nepalese 
                                </a>
-                               </li>
-                            </ul>
-                                @endif
+                            </li>
+                             @endif
                         
                             
                            @endforeach
+                       </ul>
+                      
 
                         </div>
                 <div class="top_menu">
@@ -58,6 +58,7 @@
                                     Logout
                                 </a>
                             </li>
+                          
                         </ul>
                     @else
                         <ul>
@@ -71,10 +72,15 @@
                                     Sign Up
                                 </a>
                             </li>
+                           
                         </ul>
                     @endif
                     <div class="clear">
                     </div>
+                 
+                    <div class="clear">
+                    </div>
+
                 </div>
             </div>
             <div class="clear">

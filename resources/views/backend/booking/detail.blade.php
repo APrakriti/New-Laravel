@@ -46,7 +46,7 @@
                 </tr>
                 <tr>
                   <td>Package</td>
-                  <td><a href="{{ route('package.detail', $booking->package->slug) }}" target="_blank">{{ $booking->package->heading }}</a></td>
+                  <td><a href="{{ route('package.detail', $booking->package->slug) }}" target="_blank">{{ $booking->package->heading ?? "" }} </a></td>
                 </tr>
                 <tr>
                   <td>Amount</td>
@@ -93,36 +93,36 @@
                 <tbody>
                 <tr>
                   <td>Transaction Id</td>
-                  <td>{{ $booking->payment->transaction_id }}</td>                  
+                  <td>{{ $booking->payment->transaction_id ?? "" }} </td>                  
                 </tr>
                 <tr>
                   <td>Paymnet Status</td>
-                  <td>{{ $booking->payment->status }}</td>                  
+                  <td>{{ $booking->payment->status ?? "" }} </td>                  
                 </tr>
                 <tr>
                   <td>Transaction Amount</td>
-                  <td>{{ $booking->payment->transaction_amount }}</td>
+                  <td>{{ $booking->payment->transaction_amount ?? "" }} </td>
                 </tr>
                 <tr>
                   <td>Transaction Fee</td>
-                  <td>{{ $booking->payment->transaction_fee }}</td>
+                  <td>{{ $booking->payment->transaction_fee ?? "" }} </td>
                 </tr>
                 <tr>
                   <td>Paypal Email</td>
-                  <td>{{ $booking->payment->email }}</td>
+                  <td> {{ $booking->payment->email ?? "" }} </td>
                 </tr>
                 <tr>
                   <td>Paypal Customer Name</td>
-                  <td>{{ $booking->payment->first_name .' '.$booking->payment->last_name }}</td>
+                 <td>{{ $booking->payment->first_name ?? ""}} {{$booking->payment->last_name ?? ""}} </td>
                 </tr>             
                 <tr>
                   <td>Payer Id</td>
-                  <td>{{ $booking->payment->payer_id }}</td>
+                  <td> {{ $booking->payment->payer_id ?? "" }} </td>
                 </tr>
-                <!-- <tr>
+                <tr>
                   <td>Desc</td>
-                  <td>{{ $booking->payment->description }}</td>
-                </tr> -->                
+                  <td> {{ $booking->payment->description ?? "" }} </td>
+                </tr>                
                 </tbody>                
               </table>
             </div>

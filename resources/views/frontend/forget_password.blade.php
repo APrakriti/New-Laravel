@@ -1,28 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-    <link href="images/favicon.png" type="images/png" rel="icon"/>
-    <title>iBook My Tour</title>
-    <meta name="description" content=""/>
-    <meta name="keywords" content=""/>
-    <!-- CSS  -->
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-    <link href="css/animate.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,100italic,300italic,400italic,700,700italic,900,900italic'
-          rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-<body>
-<!-- header start-->
-@include('layout.header')
-<!--header end-->
-<section class="inner_banner">
-    <img src="{{ asset('images/inner_banner2.jpg') }}">
-</section>
+@extends('layout.container')
+
+@section('title', 'Forget-Password')
+@section('meta_tags', 'Packages I BOOK MY TRIP')
+@section('meta_description', 'Packages I BOOK MY TRIP')
+
+@section('footer_js')
+   
+@endsection
+
+@section('dynamicdata')
+      <section class="inner_banner">
+         <img src="{{ asset('images/inner_banner.jpg') }}">
+         
+         @include('layout.search')
+         
+      </section>
 <!--slideshow end-->
+
 <section class="body_content_wrap">
     <div class="container">
         <div class="row">
@@ -70,27 +64,4 @@
         </div>
     </div>
 </section>
-<!--body content wrap-->
-<!-- footer start-->
-@include('layout.footer')
-<!-- footer end-->
-<div class="scroll-top-wrapper"><span class="scroll-top-inner"> <i class="fa  fa-angle-up"></i> </span></div>
-<!--  Scripts-->
-<script src="js/jquery-1.10.2.js"></script>
-<script src="js/materialize.js"></script>
-<script src="js/customibook.js"></script>
-<script src="js/wow.js"></script>
-<script src="js/jquery.nicescroll.min.js"></script>
-<script src="js/init.js"></script>
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-82936006-1', 'auto');
-    ga('send', 'pageview');
-
-</script>
-</body>
-</html>
+@stop

@@ -1,4 +1,5 @@
 {{-- */ $destinations = App\Models\Destination::with('footerPackages')->where('type',Session::get('bound_type'))->where('is_active', 1)->orderBy('order_position')->take(5)->get(); /* --}}
+
 {{-- */ $packages = App\Models\Package::where('is_active', 1)->where('type',Session::get('bound_type'))->orderBy('order_position')->take(6)->get(); /* --}}
 {{-- */ $contents = App\Models\Content::where('is_active', 1)->orderBy('order_position')->take(6)->get(); /* --}}
 
@@ -79,7 +80,9 @@
                                 Home
                             </a>
                         </li>
-                        <li><a href="{{ route('testimonials') }}">Testimonials</a></li>
+                         
+                        <li><a href="{{ route('testimonials.index') }}">Testimonials</a></li>
+                       
                     @foreach($contents as $content)
                     
                         <li>

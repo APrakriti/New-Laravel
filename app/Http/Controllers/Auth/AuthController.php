@@ -129,6 +129,7 @@ class AuthController extends Controller
      */
     public function getLogin()
     {
+
         return view('frontend.login');
     }
 
@@ -139,6 +140,7 @@ class AuthController extends Controller
      */
     public function getLogout()
     {
+        
         Auth::logout();
         return redirect()->route('login');
     }

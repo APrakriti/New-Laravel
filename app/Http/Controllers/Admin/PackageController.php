@@ -79,11 +79,13 @@ class PackageController extends Controller
         $rules = ['activity_id' => 'required | exists:activities,id',
             'destination_id' => 'required | exists:destinations,id',
             'heading' => 'required',
+            'type'=>'required',
             'description' => 'required',
             'itineraries' => 'required',
             'maximum_altitude' => 'numeric',
             'group_size' => 'numeric',
             'trip_duration' => 'numeric',
+            'currency' => 'required',
             'starting_price' => 'required | numeric',
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -112,6 +114,7 @@ class PackageController extends Controller
         $package->team_leader = $request->team_leader;
         $package->trip_season = $request->trip_season;
         $package->accommodation = $request->accommodation;
+         $package->currency = $request->currency;
         $package->previous_price = $request->previous_price;
         $package->starting_price = $request->starting_price;
         $package->start = $request->start;
@@ -213,11 +216,13 @@ class PackageController extends Controller
         $rules = ['activity_id' => 'required | exists:activities,id',
             'destination_id' => 'required | exists:destinations,id',
             'heading' => 'required',
+            'type'=>'required',
             'description' => 'required',
             'itineraries' => 'required',
             'maximum_altitude' => 'numeric',
             'group_size' => 'numeric',
             'trip_duration' => 'numeric',
+            'currency' => 'required',
             'starting_price' => 'required | numeric',
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -244,6 +249,7 @@ class PackageController extends Controller
         $package->team_leader = $request->team_leader;
         $package->trip_season = $request->trip_season;
         $package->accommodation = $request->accommodation;
+         $package->currency = $request->currency;
         $package->previous_price = $request->previous_price;
         $package->starting_price = $request->starting_price;
         $package->start = $request->start;

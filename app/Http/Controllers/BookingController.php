@@ -14,6 +14,7 @@ use Redirect;
 use Paypal;
 use Validator;
 use Auth;
+use Session;
 use App\Classes\Helper;
 
 class BookingController extends Controller
@@ -65,6 +66,7 @@ class BookingController extends Controller
                     ->with('message', 'This package can not be booked.');
             }
             $relatedPackages = Package::where('is_active', 1)
+                ->where('type', Session::get('bound_type'))
                 ->where('id', '<>', $package->id)
                 ->orderBy('order_position')
                 ->take(10)

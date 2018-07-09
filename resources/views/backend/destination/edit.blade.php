@@ -171,8 +171,8 @@
                                 <select class="form-control" name="type">
                                     <option value="">Select Type</option>
                                    <
-                                         <option value="inbound">Inbound</option>
-                                         <option value="outbound">Outbound</option>
+                                         <option value="inbound">For foreigners</option>
+                                         <option value="outbound">For Nepalese</option>
                                    
                                 </select>
                             </div> 

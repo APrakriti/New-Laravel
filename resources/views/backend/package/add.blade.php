@@ -284,8 +284,8 @@ $('.dynamic').change(function() {
                                 <label for="exampleInputPackage">Type</label>
                                 <select class="form-control dynamic" name="type">
                                     <option value="">Select Type</option>
-                                         <option value="inbound">Inbound</option>
-                                         <option value="outbound">Outbound</option>
+                                         <option value="inbound">For Foreigners</option>
+                                         <option value="outbound">For Nepalese</option>
                                    
                                 </select>
                             </div>
@@ -428,7 +428,7 @@ $('.dynamic').change(function() {
                             <div class="form-group col-md-12">
                                 <label for="exampleInputBanner">Banner Attachment *</label>
                                 <div class="fileupload-new thumbnail">
-                                    <img src="{{ asset('uploads/noimage.jpg') }}" alt="" id="upload-preview-banner"/>
+                                    <img src="{{ asset('uploads/packages') }}" alt="" id="upload-preview-banner"/>
                                 </div>
                                 <input type="file" name="banner_attachment" id="banner_attachment">
                                 <p class="help-block">Valid file extensions are jpeg,jpg and png.</p>

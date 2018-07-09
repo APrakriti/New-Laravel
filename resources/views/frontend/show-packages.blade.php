@@ -41,11 +41,24 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="trip_btns">
+                        
+                        @if(Session::get('bound_type') && Session::get('bound_type') == 'inbound') 
+                             <div class="trip_btns">
                             <a href="{{ route('package.detail', $package->slug) }}" class="btn green">Details</a>
-                            <a href="{{ route('package.booking', $package->slug) }}" class="btn ">Buy Now</a>
+                            
+                            <a href="{{ route('package.bookings', $package->slug) }}" class="btn ">Buy Now</a>
                             <a href="{{ route('package.inquiry', $package->slug) }}" class="btn red">Inquiry</a>
                         </div>
+                        
+                        
+                       @else(Session::get('bound_type') && Session::get('bound_type') == 'outbound')  
+                          <div class="trip_btns">
+                            <a href="{{ route('package.detail', $package->slug) }}" class="btn green">Details</a>
+                            
+                            
+                            <a href="{{ route('package.inquiry', $package->slug) }}" class="btn red">Inquiry</a>
+                        </div>
+                        @endif
                     </div>
                 </div>
                 <!--col end-->
