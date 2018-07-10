@@ -290,8 +290,8 @@
                                 <label for="exampleInputPackage">Type</label>
                                 <select class="form-control dynamic" name="type">
                                     <option value="">Select Type</option>
-                                          <option value="inbound">For Foreigners</option>
-                                         <option value="outbound">For Nepalese</option>
+                                          <option value="foreigner">For Foreigners</option>
+                                         <option value="nepalese">For Nepalese</option>
                                    
                                 </select>
                             </div>

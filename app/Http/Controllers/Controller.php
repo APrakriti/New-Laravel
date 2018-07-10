@@ -16,15 +16,18 @@ abstract class Controller extends BaseController
 
         $last_segment = last(request()->segments());
 
-        if ($last_segment == 'outbound') 
+        if ($last_segment == 'nepalese') 
         {
             Session::pull( 'bound_type');
-            Session::set( 'bound_type', 'outbound' );
+            Session::set( 'bound_type', 'nepalese' );
 
         } 
-        elseif ($last_segment == 'inbound' || !Session::get( 'bound_type')) {
+        elseif ($last_segment == 'foreigner' || !Session::get( 'bound_type')) {
             Session::pull( 'bound_type');
-            Session::set( 'bound_type', 'inbound' );
+            Session::set( 'bound_type', 'foreigner' );
         }
     }
+
+   
+
 }

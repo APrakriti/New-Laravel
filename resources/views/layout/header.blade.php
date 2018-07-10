@@ -1,5 +1,5 @@
 {{-- */ $route = \Request::route()->getName(); /* --}}
-{{-- */  $last_part_url = "inbound"; /* --}}
+
 {{-- */ $destinations = App\Models\Destination::where('is_active', 1)->where('type',Session::get('bound_type'))->orderBy('order_position')->get(); /* --}}
 
 <style>
@@ -23,16 +23,16 @@
                        $last_urll = collect(request()->segments())->last(); ?>
                         <ul>
                       @foreach($mainMenus as $mainMenu)
-                             @if($mainMenu->type =='inbound')
+                             @if($mainMenu->type =='foreigner')
                             <li>
-                                <a @if(Session::get('bound_type') && Session::get('bound_type') == 'inbound') class="selected" @endif href="{{ route('home',$mainMenu->type) }}">
+                                <a @if(Session::get('bound_type') && Session::get('bound_type') == 'foreigner') class="selected" @endif href="{{ route('home',$mainMenu->type) }}">
                                    For Foreigners
                                </a>
                                 
                             </li>
-                              @elseif($mainMenu->type =='outbound')
+                              @elseif($mainMenu->type =='nepalese')
                             <li>
-                               <a @if(Session::get('bound_type') && Session::get('bound_type') == 'outbound') class="selected" @endif href="{{ route('home',$mainMenu->type) }}">
+                               <a @if(Session::get('bound_type') && Session::get('bound_type') == 'nepalese') class="selected" @endif href="{{ route('home',$mainMenu->type) }}">
                                    For Nepalese 
                                </a>
                             </li>

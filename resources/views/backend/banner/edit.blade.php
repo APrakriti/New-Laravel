@@ -84,8 +84,8 @@
                                 <label for="exampleInputPackage">Type</label>
                                 <select class="form-control dynamic" name="type">
                                     <option value="">Select Type</option>
-                                         <option value="inbound">Inbound</option>
-                                         <option value="outbound">Outbound</option>
+                                         <option value="foreigner">For Foreigners</option>
+                                         <option value="nepalese">For Nepalese</option>
                                    
                                 </select>
                             </div>

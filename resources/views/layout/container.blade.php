@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
     <link href="{{ asset('images/favicon.png') }}" type="images/png" rel="icon"/>
-    <title>@yield('title')</title>
+    <title>I BOOK MY TOUR-@yield('title')</title>
     <meta name="description" content="@yield('meta_description')"/>
     <meta name="keywords" content="@yield('meta_tags')"/>
     <!-- CSS  -->
