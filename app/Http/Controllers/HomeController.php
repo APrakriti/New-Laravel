@@ -59,6 +59,7 @@ public function getBoundHomePage()
            ->take(4)->get();
 
         $testimonials = Testimonial::where('is_active', 1)
+            ->where('type',Session::get('bound_type'))
             ->orderBy('order_position')
             ->take(2)->get();
 
@@ -112,6 +113,7 @@ public function getBoundHomePage()
            ->take(4)->get();
 
         $testimonials = Testimonial::where('is_active', 1)
+            ->where('type',Session::get('bound_type'))
             ->orderBy('order_position')
             ->take(2)->get();
 

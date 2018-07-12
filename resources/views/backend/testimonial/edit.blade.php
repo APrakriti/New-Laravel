@@ -78,7 +78,17 @@
                 <div class="form-group col-md-6">
                   <label for="exampleInputTestimonial">Testimonial Name *</label>
                   <input type="text" class="form-control" id="name" name="name" value="{!! $testimonial->name !!}" placeholder="Enter testimonial name">
-                </div>                        
+                </div> 
+                <div class="form-group col-md-6">
+                <label for="exampleInputPackage">Type</label>
+                  <select class="form-control" name="type">
+                     <option value="">Select Type</option>
+                                   
+                        <option value="foreigner">For Foreigners</option>
+                        <option value="nepalese">For Nepalese</option>
+                                   
+                                </select>
+                  </div>                         
               </div>
               <!-- /.box-body -->
               <div class="box-body">

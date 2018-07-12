@@ -124,6 +124,7 @@
                   <th></th>
                   <th>S N</th>
                   <th>Testimonial Name</th>
+                  <th>Type</th>
                   <th>Attachment</th>
                   <th>Publish</th>
                   <th>Options</th>
@@ -135,6 +136,7 @@
                   <td><i class="fa fa-arrows"></i></td>
                   <td>{{ $index+1 }}</td>
                   <td>{{ $testimonial->name }}</td>
+                   <td>{{$testimonial->type}} </td>
                   <td>
                     @if(file_exists('uploads/testimonials/'.$testimonial->attachment) && $testimonial->attachment!='')
                       <img src="{{ asset('uploads/testimonials/'.$testimonial->attachment) }}" style="width: 200px; height: 120px;">

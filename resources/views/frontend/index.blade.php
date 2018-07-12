@@ -286,7 +286,8 @@
                                 </select>
                             </div>
                             <div class="col l6 m6 s6">
-                                <select class="browser-default  bdr0" name="price">
+                                 @if(Session::get('bound_type') && Session::get('bound_type') == 'foreigner') 
+                             <select class="browser-default  bdr0" name="price">
                                     <option value="">Select Price</option>
                                     <option value="100 - 500">$100 - $500</option>
                                     <option value="500 - 1000">$500 - $1000</option>
@@ -294,6 +295,19 @@
                                     <option value="1500 - 2000">$1500 - $2000</option>
                                     <option value="2000 - 20000">$2000 and above</option>
                                 </select>
+                        
+                        
+                       @else(Session::get('bound_type') && Session::get('bound_type') == 'nepalese')  
+                          <select class="browser-default  bdr0" name="price">
+                                    <option value="">Select Price</option>
+                                    <option value="100 - 500">Nrs.10000 - Nrs.5000</option>
+                                    <option value="500 - 1000">Nrs.50000 - Nrs.100000</option>
+                                    <option value="1000 - 1500">Nrs.100000 - Nrs.150000</option>
+                                    <option value="1500 - 2000">Nrs.150000 - Nrs.200000</option>
+                                    <option value="2000 - 20000">Nrs.200000 and above</option>
+                                </select>
+                        @endif
+                                
                             </div>
                             <div class="clear"></div>
                             <div class="col l6 m6 s6">

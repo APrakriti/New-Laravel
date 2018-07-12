@@ -198,6 +198,7 @@ class BookingController extends Controller
                 $bookingPayment->description = $executePayment;
 
                 $booking->payment()->save($bookingPayment);
+                
 
 
                 // send email to the user

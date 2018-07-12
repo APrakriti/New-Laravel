@@ -44,7 +44,8 @@ class TestimonialController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = ['name'=>'required'];
+        $rules = ['name'=>'required',
+                  'type'=>'required'];
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails())
             return redirect()->back()->withInput()->withErrors($validator);
@@ -74,6 +75,7 @@ class TestimonialController extends Controller
         
         $testimonial = new Testimonial();
         $testimonial->name = $request->name;
+         $testimonial->type = $request->type;
         $testimonial->description = $request->description;
         $testimonial->created_by = Auth::id();
         $testimonial->is_active = $request->is_active;
@@ -118,7 +120,8 @@ class TestimonialController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rules = ['name'=>'required'];
+        $rules = ['name'=>'required',
+                  'type'=>'required'];
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails())
             return redirect()->back()->withInput()->withErrors($validator);
@@ -148,6 +151,7 @@ class TestimonialController extends Controller
         
         $testimonial = Testimonial::find($id);
         $testimonial->name = $request->name;
+        $testimonial->type = $request->type;
         $testimonial->description = $request->description;
         $testimonial->updated_by = Auth::id();
         $testimonial->is_active = $request->is_active;
