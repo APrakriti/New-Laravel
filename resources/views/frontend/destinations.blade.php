@@ -35,9 +35,9 @@
                               <a href="{{ route('destination.detail', $destination->slug) }}">
                                   
                                  @if(file_exists('uploads/destinations/'.$destination->attachment) && $destination->attachment != '')
-                                 <img src="{{ asset('uploads/destinations/'.$destination->attachment) }}"/>
+                                 <img class="destination_img" src="{{ asset('uploads/destinations/'.$destination->attachment) }}"/>
                                  @else
-                                 <img src="{{ asset('images/special1.jpg') }}"/>
+                                 <img class="destination_img" src="{{ asset('images/special1.jpg') }}"/>
                                  @endif
                                  
                               </a>

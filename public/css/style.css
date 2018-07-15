@@ -1115,6 +1115,9 @@ input[type="text"]:focus:not([readonly]) + label, input[type="password"]:focus:n
     margin-bottom: 25px !important
 }
 
+.destination_img{height: 427px;}
+
+
 @media (max-width: 1279px) {
     .slider .slides li .caption {
         display: none
@@ -1273,6 +1276,7 @@ input[type="text"]:focus:not([readonly]) + label, input[type="password"]:focus:n
     .video_wrap {
         display: none
     }
+    .destination_img{height: 378px;}
 }
 
 @media (max-width: 479px) {
@@ -1330,6 +1334,7 @@ input[type="text"]:focus:not([readonly]) + label, input[type="password"]:focus:n
     }
 	
 	.fixedgif  {display:none}
+    .destination_img {height: 140px;}
 
 }
 
@@ -1337,6 +1342,9 @@ input[type="text"]:focus:not([readonly]) + label, input[type="password"]:focus:n
     .logo img {
         width: 220px;
     }
+    .destination_img {
+    height: 275px;
+}
 }
 
 img {

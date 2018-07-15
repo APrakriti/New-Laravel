@@ -195,6 +195,9 @@
             });
         });
     </script>
+    <style type="text/css">
+        #nav-mobile.side-nav{ left: -250px !important; }
+    </style>
 @endsection
 
 @section('dynamicdata')
@@ -703,12 +706,12 @@ src="https://www.youtube.com/embed/tjWZM2hMogU">
                   <a href="#"><img src="images/dest1.jpg"/></a>
                 </div> -->
                 @foreach($destinations as $destination)
-                    <div class="col l3 m3 s6 destination_block delay-05s  fadeInUp wow animated">
+                    <div class="col l3 m3 s3 destination_block delay-05s  fadeInUp wow animated">
                         <a href="{{ route('destination.detail',$destination->slug) }}">
                             @if(file_exists('uploads/destinations/'.$destination->attachment) && $destination->attachment != '')
-                                <img src="{{ asset('uploads/destinations/'.$destination->attachment) }}"/>
+                                <img class="destination_img" src="{{ asset('uploads/destinations/'.$destination->attachment) }}"/>
                             @else
-                                <img src="{{ asset('images/special1.jpg') }}"/>
+                                <img class="destination_img" src="{{ asset('images/special1.jpg') }}"/>
                             @endif
                         </a>
                     </div>
@@ -774,4 +777,21 @@ src="https://www.youtube.com/embed/tjWZM2hMogU">
             </div>
         </div>
     </section>
+
+    <ul id="nav-mobile" class="side-nav" style="left: 0px;">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Tour packages</a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Destinations <i class="mdi-navigation-arrow-drop-down right"></i></a><ul id="dropdown2" class="dropdown-content" style="white-space: nowrap; position: absolute; top: 96px; left: 15px; opacity: 1; display: none;">
+            <li><a href="#!">Nepal</a></li>
+            <li class="divider"></li>
+            <li><a href="#!">India</a></li>
+            <li class="divider"></li>
+            <li><a href="#!">Tibet</a></li>
+          </ul>
+          
+        </li>
+        <li><a href="#">Hotels</a></li>
+        <li><a href="#">Last Minutes Deals</a></li>
+
+      </ul>
 @stop

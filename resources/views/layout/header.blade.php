@@ -21,7 +21,7 @@
                 <div class ="top_menu" id="menu">
                     <?php $mainMenus = App\Classes\Helper::getMainMenu(); 
                        $last_urll = collect(request()->segments())->last(); ?>
-                        <ul>
+                        <ul >
                       @foreach($mainMenus as $mainMenu)
                              @if($mainMenu->type =='foreigner')
                             <li>
@@ -143,6 +143,57 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ url('page/contact-us') }}">
+                        Contact Us
+                    </a>
+                </li>
+            </ul>
+
+            <ul id="nav-mobile" class="side-nav">
+                <li>
+                    <a href="{{ route('home',Session::get('bound_type')) }}">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('page/about-us') }}">
+                        About US
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-button" href="#!" data-activates="dropdown2">
+                        Destinations
+                        <i class="mdi-navigation-arrow-drop-down right">
+                        </i>
+                    </a>
+                    <ul id="dropdown2" class="dropdown-content">
+                        @foreach($destinations as $index=>$destination)
+                            <li>
+                                <a href="{{ route('destination.detail', $destination->slug) }}">
+                                    {{ $destination->heading }}
+                                </a>
+                            </li>
+                            <li class="divider">
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+                <!-- <li>
+                    <a href="#">
+                        Hotels
+                    </a>
+                </li> -->
+                <li>
+                    <a href="{{ route('last.minute.deals',Session::get('bound_type')) }}">
+                        Last Minutes Deals
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('fixed.departure',Session::get('bound_type')) }}">
+                        Fix Departure
+                    </a>
+                </li>
                 <li>
                     <a href="{{ url('page/contact-us') }}">
                         Contact Us
