@@ -53,7 +53,7 @@
 
                                                     @if($package->previous_price  && ($package->previous_price >0) && ($package->previous_price > $package->starting_price) )
 
-                                                        <br><span>{{ '$'.$package->previous_price }}</span>
+                                                        <br><span>{{ $package->currency.$package->previous_price }}</span>
                                                     @endif
 
 
