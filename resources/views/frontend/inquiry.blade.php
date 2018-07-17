@@ -124,6 +124,7 @@
                                                 </div>
                                             </div>
                                             <div class="col l6 m6 s12">
+                             @if(Session::get('bound_type') && Session::get('bound_type') == 'foreigner')
                                                 <div class="input-field">
                                                     <select id="country_id" name="country_id" class="browser-default validate">
                                                         <option value="" selected="">Select Country</option>
@@ -133,6 +134,16 @@
                                                     </select>
 
                                                 </div>
+                              @else(Session::get('bound_type') && Session::get('bound_type') == 'nepalese')
+                                               <div class="input-field">
+                                                    <select id="" name="" class="browser-default validate">
+                                                        <option value="" selected="">Select Country</option>
+                                                            <option value="Nepal">Nepal</option>
+                                                        
+                                                    </select>
+
+                                                </div>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="row">

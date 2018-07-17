@@ -119,10 +119,10 @@
                   <td>Payer Id</td>
                   <td> {{ $booking->payment->payer_id ?? "" }} </td>
                 </tr>
-                <tr>
+                <!-- <tr>
                   <td>Desc</td>
                   <td> {{ $booking->payment->description ?? "" }} </td>
-                </tr>                
+                </tr>  -->               
                 </tbody>                
               </table>
             </div>

@@ -17,11 +17,11 @@
                 <div class="col l12 m12 s12">
                     <div class="body_content">
                         <div class="breadcrumb-wrapper">
-                            <a href="{{ route('home') }}" class="breadcrumb">Home</a>
-                            <a href="{{ route('packages') }}" class="breadcrumb">Tour Packages</a>
+                            <a href="{{ route('home',Session::get('bound_type')) }}" class="breadcrumb">Home</a>
+                            <a href="{{ route('packages',Session::get('bound_type')) }}" class="breadcrumb">Tour Packages</a>
                             <a href="{{ route('package.detail', $package->slug) }}"
                                class="breadcrumb">{{ $package->heading }}</a>
-                            <a href="#!" class="breadcrumb">Online Inquery</a>
+                            <a href="#!" class="breadcrumb">Online Inquiry</a>
                         </div>
                         <div class="sub_title mgb25">
                             <h2>Online Inquiry</h2>

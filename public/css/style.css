@@ -484,7 +484,7 @@ select:focus {
     right: 30px;
     margin-top: -105px;
     text-align: center;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
     line-height: 1;
     padding-top: 28px;
@@ -661,8 +661,8 @@ select:focus {
 }
 
 .owl-theme .owl-controls .owl-page span {
-    width: 20px !important;
-    height: 20px !important;
+    width: 15px !important;
+    height: 15px !important;
     opacity: 1 !important;
     background: #fff
 }
@@ -1116,6 +1116,10 @@ input[type="text"]:focus:not([readonly]) + label, input[type="password"]:focus:n
 }
 
 .destination_img{height: 427px;}
+.spcl_img img{height: 276px;}
+.inner_banner img{ height: 296px;}
+.packagelist img{ height: 296px;}
+.fixed-departures-img{height: 296px;}
 
 
 @media (max-width: 1279px) {

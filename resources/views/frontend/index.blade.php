@@ -232,7 +232,7 @@
                 </li>
                 <li class="tab">
                     <a href="#hotel_tab">
-                        <i class="fa fa-bed"></i> Hotel
+                        <i class="fa fa-bed" aria-hidden="true"></i> Hotel
                     </a>
                 </li>
                 <li class="tab">
@@ -441,7 +441,7 @@
                         <div id="owl-demo" class="owl-carousel owl-theme">
                             @foreach($specialPackages as $package)
                                 <div class="item ">
-                                    <div class="trip_img">
+                                    <div class="trip_img spcl_img">
                                         <a href="{{ route('package.detail', $package->slug) }}">
                                             @if(count($package->coverGallery) > 0)
                                                 @foreach($package->coverGallery as $gallery)

@@ -33,7 +33,7 @@
                                 <div class="row">
                                     @foreach($chunk as $package)
                                         <div class="col l4 m6 s12 mgb25">
-                                            <div class="trip_img">
+                                            <div class="trip_img fixed-departures-img">
                                                 <a href="{{ route('package.detail', $package->slug) }}">
                                                     @if(count($package->coverGallery) > 0)
                                                         @foreach($package->coverGallery as $gallery)
