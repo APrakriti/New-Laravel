@@ -80,15 +80,6 @@
                                 <input type="text" class="form-control" id="heading" name="heading"
                                        value="{!! $banner->heading !!}" placeholder="Enter banner caption">
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="exampleInputPackage">Type</label>
-                                <select class="form-control dynamic" name="type">
-                                    <option value="">Select Type</option>
-                                         <option value="foreigner">For Foreigners</option>
-                                         <option value="nepalese">For Nepalese</option>
-                                   
-                                </select>
-                            </div>
                         </div>
 
 

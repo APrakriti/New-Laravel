@@ -14,17 +14,13 @@
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {            
-            "attachment[]": {
+            attachment: {
               validators: {
-                  notEmpty: {
-                      message: 'The attachment file is required'
-                  },
                   file: {
-                      maxFiles:10,
                       extension: 'jpeg,jpg,png',
                       type: 'image/jpeg,image/png',
                       maxSize: 1048576,   // 1024 * 1024
-                      message: 'The selected file is not valid or file size greater than 1 MB or selected more than 10 images.'
+                      message: 'The selected file is not valid'
                   }
               }
             },

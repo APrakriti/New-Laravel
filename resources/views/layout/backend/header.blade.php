@@ -2,9 +2,9 @@
     <!-- Logo -->
     <a href="{{ route('admin.dashboard') }}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>I </b>B</span>
+      <span class="logo-mini"><b>D </b>H</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>I Book</b> My Tour</span>
+      <span class="logo-lg">Project</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -19,14 +19,14 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ asset('backend/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
-              <span class="hidden-xs">{{ Auth::user()->name }}</span>
+             
+              <span class="hidden-xs">{{ Auth::user()->userType->user_type_name ?? "" }}:{{ Auth::user()->username ?? ""}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="{{ route('home') }}" class="btn btn-default btn-flat" target="_blank">Visit Website</a>
+                  <a href="#" class="btn btn-default btn-flat" target="_blank">Visit Website</a>
                 </div>
                 <div class="pull-right">
                   <a href="{{ route('admin.logout') }}" class="btn btn-default btn-flat">Sign out</a>

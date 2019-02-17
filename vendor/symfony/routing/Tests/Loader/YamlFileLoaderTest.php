@@ -11,15 +11,16 @@
 
 namespace Symfony\Component\Routing\Tests\Loader;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\Config\Resource\FileResource;
 
-class YamlFileLoaderTest extends \PHPUnit_Framework_TestCase
+class YamlFileLoaderTest extends TestCase
 {
     public function testSupports()
     {
-        $loader = new YamlFileLoader($this->getMock('Symfony\Component\Config\FileLocator'));
+        $loader = new YamlFileLoader($this->getMockBuilder('Symfony\Component\Config\FileLocator')->getMock());
 
         $this->assertTrue($loader->supports('foo.yml'), '->supports() returns true if the resource is loadable');
         $this->assertTrue($loader->supports('foo.yaml'), '->supports() returns true if the resource is loadable');
@@ -77,26 +78,6 @@ class YamlFileLoaderTest extends \PHPUnit_Framework_TestCase
         $loader = new YamlFileLoader(new FileLocator(array(__DIR__.'/../Fixtures')));
         $routeCollection = $loader->load('validpattern.yml');
         $route = $routeCollection->get('blog_show');
-
-        $this->assertInstanceOf('Symfony\Component\Routing\Route', $route);
-        $this->assertSame('/blog/{slug}', $route->getPath());
-        $this->assertSame('{locale}.example.com', $route->getHost());
-        $this->assertSame('MyBundle:Blog:show', $route->getDefault('_controller'));
-        $this->assertSame('\w+', $route->getRequirement('locale'));
-        $this->assertSame('RouteCompiler', $route->getOption('compiler_class'));
-        $this->assertEquals(array('GET', 'POST', 'PUT', 'OPTIONS'), $route->getMethods());
-        $this->assertEquals(array('https'), $route->getSchemes());
-        $this->assertEquals('context.getMethod() == "GET"', $route->getCondition());
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testLegacyRouteDefinitionLoading()
-    {
-        $loader = new YamlFileLoader(new FileLocator(array(__DIR__.'/../Fixtures')));
-        $routeCollection = $loader->load('legacy_validpattern.yml');
-        $route = $routeCollection->get('blog_show_legacy');
 
         $this->assertInstanceOf('Symfony\Component\Routing\Route', $route);
         $this->assertSame('/blog/{slug}', $route->getPath());

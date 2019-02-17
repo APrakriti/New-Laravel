@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
             'partner' => \App\Models\Partner::class,
             'project' => \App\Models\Project::class,
             'donor' => \App\Models\Donor::class,
+            'user' => User::class,
         ]);
     }
 

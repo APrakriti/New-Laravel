@@ -23,16 +23,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $countDestination = Destination::count();
-  		$countPackage = Package::count();
-        $countBooking = Booking::count();
-  		$countCustomer = User::where('is_active',1)
-                        ->where('role_id',3)->count();
+      
 
-		return view('backend.dashboard')
-					->with('countDestination', $countDestination)
-					->with('countPackage', $countPackage)
-                    ->with('countBooking', $countBooking)
-					->with('countCustomer', $countCustomer);
+		return view('backend.dashboard');
     }    
 }

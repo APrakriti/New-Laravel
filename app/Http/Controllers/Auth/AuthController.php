@@ -8,10 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
-use Input;
 
 use Auth;
-use Redirect;
 
 class AuthController extends Controller
 {
@@ -75,52 +73,74 @@ class AuthController extends Controller
      * @return Redirect
      */
     public function login(Request $request)
-    {
-        $rules = [
-            'username' => 'required | email',
+        {
+
+        $rules = array(
+            'username' => 'required | exists:users',
             'password' => 'required'
-        ];
-        $validator = Validator::make($request->only('username', 'password'), $rules);
+        );
+        $validator = Validator::make(Input::all(), $rules);
+        if($validator->passes()){
+    
+            $auth=Auth::attempt(array(
+            'username'=>Input::get('username'),
+            'password'=>Input::get('password'),
+            'is_active'=>'1'));
 
-        if ($validator->fails())
-            return redirect()->back()->withErrors($validator);
-
-
-        if (Auth::attempt([
-            'is_active' => 1,
-            'role_id' => 3,
-            'email' => $request->username,
-            'password' => $request->password
-        ])
-        ) {
-            $backUrl = Input::get('backUrl');
-
-            if ($backUrl) {
-
-                return Redirect::to($backUrl);
-
-            } else {
-
-                return redirect()->route('home');
-            }
+            if($auth)
+            {
+             $usertype = UserType::with(['modules'=> function($query){
+                $query->where('modules.is_active', '1');
+            }])->find(Auth::user()->user_type);
+          
+             // dd($usertype);
 
 
-        } else {
-
-            $checkRegister = User::where('email', $request->username)->whereNotNull('verify_token')->first();
-
-            if ($checkRegister) {
-                return redirect()->back()->withInput()->with('status', 'error')
-                    ->with('message', 'Your account has not been activated. please check your email to activate your account.');
-
-            } else {
-                return redirect()->back()->withInput()->with('status', 'error')
-                    ->with('message', 'Invalid username or password. Please try again.');
-            }
-
-
+            Session::put('modules', $usertype->modules);
+            return Redirect::route('admin.dashboard');
         }
+        else{
+                    
+                    return redirect()->back()->withInput()->with('error','Invalid username or password');      
+                }
+        }
+
+        return redirect()->back()->withInput()->with('error', 'Invalid username or password. Please try again.');
     }
+    //     $rules = [
+    //         'username' => 'required | email',
+    //         'password' => 'required'
+    //     ];
+    //     $validator = Validator::make($request->only('username', 'password'), $rules);
+
+    //     if ($validator->fails())
+    //         return redirect()->back()->withErrors($validator);
+
+
+    //     if (Auth::attempt([
+    //         'is_active' => 1,
+    //         'role_id' => 3,
+    //         'email' => $request->username,
+    //         'password' => $request->password
+    //     ])
+    //     ) {
+    //         return redirect()->route('home');
+    //     } else {
+
+    //         $checkRegister = User::where('email', $request->username)->whereNotNull('verify_token')->first();
+
+    //         if ($checkRegister) {
+    //             return redirect()->back()->withInput()->with('status', 'error')
+    //                 ->with('message', 'Your account has not been activated. please check your email to activate your account.');
+
+    //         } else {
+    //             return redirect()->back()->withInput()->with('status', 'error')
+    //                 ->with('message', 'Invalid username or password. Please try again.');
+    //         }
+
+
+    //     }
+    // }
 
     /**
      * Get user login form
@@ -129,7 +149,6 @@ class AuthController extends Controller
      */
     public function getLogin()
     {
-
         return view('frontend.login');
     }
 
@@ -140,7 +159,6 @@ class AuthController extends Controller
      */
     public function getLogout()
     {
-        
         Auth::logout();
         return redirect()->route('login');
     }

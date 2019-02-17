@@ -194,10 +194,9 @@
                   <th></th>
                   <th>S N</th>
                   <th>Package Heading</th>
-                  <th>Type</th>
                   <th>Publish</th>
                   <th>Special</th>
-                  <th>Last Minute</th>
+                  <th>Cultural Tour</th>
                   <th>Options</th>
                 </tr>
                 </thead>
@@ -206,8 +205,7 @@
                 <tr id="package_{{ $package->id }}">
                   <td><i class="fa fa-arrows"></i></td>
                   <td>{{ $index+1 }}</td>
-                  <td>{{ $package->heading }}</td> 
-                  <td>{{$package->type}} </td>               
+                  <td>{{ $package->heading }}</td>                  
                   <td>
                     @if($package->is_active == 1)
                       <a href="javascript:void(0)" class="change-status" id="{{ $package->id }}" title="Change Status"><i class="fa fa-check-square-o"></i></a>
@@ -243,7 +241,7 @@
                   <th>Package Heading</th>
                   <th>Publish</th>
                   <th>Special</th>
-                  <th>Last Minute</th>
+                  <th>Cultural Tour</th>
                   <th>Options</th>
                 </tr>
                 </tfoot>

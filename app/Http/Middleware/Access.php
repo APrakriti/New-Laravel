@@ -2,15 +2,19 @@
 
 namespace App\Http\Middleware;
 
-use App\Facades\AccessFacade;
-
-use Auth;
 use Closure;
+use Auth;
+use App\Facades\AccessFacade;
 use Illuminate\Contracts\Auth\Guard;
-use App\Models\Role;
+use App\UserType;
+
+
+/**
+* @auther Sunil Adhikari <adhikarysunil.1@gmail.com>
+*/
 
 class Access
-{    
+{
     /**
      * The Guard implementation.
      *
@@ -21,7 +25,7 @@ class Access
     /**
      * Create a new filter instance.
      *
-     * @param  Guard $access
+     * @param  Guard  $access
      * @return void
      */
     public function __construct(Guard $access)
@@ -36,17 +40,18 @@ class Access
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $module_slug)
+    public function handle($request, Closure $next, $module_slug, $action='1')
     {
-        $role = Role::with('modules')->find(Auth::user()->role_id);
-        $access_modules = [];
-        foreach ($role->modules as $key => $module) {
-            $access_modules[] = $module->slug;
-        }
-        $request->session()->put('access_modules', $access_modules);
+         $usertype = UserType::with(['modules'=> function($query){
+            $query->where('modules.is_active', '1');
+        }])->find(Auth::user()->user_type);
 
-        $flag = AccessFacade::hasAccess($module_slug);
 
+        $request->session()->put('modules', $usertype->modules);
+
+        $flag = AccessFacade::hasAccess($module_slug, $action);
+
+        
         if ($this->access->guest() || !$flag) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
@@ -57,3 +62,4 @@ class Access
         return $next($request);
     }
 }
+

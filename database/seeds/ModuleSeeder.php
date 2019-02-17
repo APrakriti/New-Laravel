@@ -15,14 +15,11 @@ class ModuleSeeder extends Seeder
         Model::unguard();
 
         $modules = [
-	            ['module' => 'Banner Management', 'slug'=>'banners'],
-	            ['module' => 'Content Management', 'slug'=>'contents'],
-	            ['module' => 'Activity Management', 'slug'=>'activities'],
-	            ['module' => 'Destination Management', 'slug'=>'destinations'],
-	            ['module' => 'Package Management', 'slug'=>'packages'],
-	            ['module' => 'Booking Management', 'slug'=>'bookings'],
-	            ['module' => 'Testimonial Management', 'slug'=>'testimonials'],
-	            ['module' => 'User Management', 'slug'=>'users']	            
+	           
+	            ['module' => 'User Management', 'slug'=>'users']	
+                 ['module' => 'UserType', 'slug'=>'user-type'],
+                ['module' => 'Configuration', 'slug'=>'configuration'],
+                ['module' => 'Modules', 'slug'=>'modules']       
         	];
 		
 		DB::table('modules')->insert($modules);

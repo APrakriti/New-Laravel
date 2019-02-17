@@ -21,7 +21,7 @@ class Response
     /**
      * Quality of displayed image
      *
-     * @var integer
+     * @var int
      */
     public $quality;
 
@@ -30,7 +30,7 @@ class Response
      *
      * @param Image   $image
      * @param string  $format
-     * @param integer $quality
+     * @param int     $quality
      */
     public function __construct(Image $image, $format = null, $quality = null)
     {
@@ -53,7 +53,7 @@ class Response
 
         if (function_exists('app') && is_a($app = app(), 'Illuminate\Foundation\Application')) {
 
-            $response = \Response::make($data);
+            $response = \Illuminate\Support\Facades\Response::make($data);
             $response->header('Content-Type', $mime);
             $response->header('Content-Length', $length);
 

@@ -30,8 +30,8 @@ class Role extends Model
     /**
      * The modules that belong to the role.
      */
-    public function modules()
-    {
-        return $this->belongsToMany('App\Models\Module', 'role_modules', 'role_id', 'module_id');
-    }
+    // public function modules()
+    // {
+    //     return $this->belongsToMany('App\Models\Module', 'role_modules', 'role_id', 'module_id');
+    // }
 }

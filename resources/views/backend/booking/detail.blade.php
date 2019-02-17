@@ -42,11 +42,11 @@
                 <tbody>
                 <tr>
                   <td>Booked By</td>
-                  <td>{{ $booking->customer->first_name .' '.$booking->customer->last_name .'('. $booking->customer->email .')' }}</td>                  
+                <td>{{ $booking->first_name ??"" .' '.$booking->last_name ?? "" .'('. $booking->email ?? "".')' }}</td>                  
                 </tr>
                 <tr>
                   <td>Package</td>
-                  <td><a href="{{ route('package.detail', $booking->package->slug) }}" target="_blank">{{ $booking->package->heading ?? "" }} </a></td>
+                  <td><a href="{{ route('package.detail', $booking->package->slug) }}" target="_blank">{{ $booking->package->heading }}</a></td>
                 </tr>
                 <tr>
                   <td>Amount</td>
@@ -56,6 +56,68 @@
                   <td>No of Travellers</td>
                   <td>{{ $booking->number_of_traveller }}</td>
                 </tr> 
+                <tr>
+                  <td>No of Children</td>
+                  <td>{{ $booking->number_of_children }}</td>
+                </tr>
+              
+                <tr>
+                  <td>Age of Children</td>
+                  <td>{{ $booking->age_of_children }}</td>
+                </tr>
+                <tr>
+                  <td>Flight</td>
+                  <td>
+                    @if($booking->flight == '0')
+                    No need
+                    @else
+                    Yes
+                      <table class="striped responsive-table" cellspacing="0" rules="all" border="1" id="" style="border-collapse:collapse;">
+                          <tr class="">
+      <th scope="col">Flight No</th><th scope="col">Fare</th><th scope="col">ETD</th><th scope="col">ETA</th><th scope="col">From</th><th scope="col">To</th>
+    </tr>
+                          @foreach($flightcheckbox as $aa)
+                          <?php $flight = App\Flight::where('id', $aa)->first(); ?>
+                           
+                         
+                          
+    <tr>
+      <td>
+ <span id="">{{ $flight->flight_no }}</span>
+ </td>
+  @if($booking->country_id == "3")
+ <td>
+ <span id=""> {{ $flight->bhutan_price }}</span>
+ </td>
+ @elseif($booking->country_id == "1")
+ <td>
+ <span id=""> {{ $flight->saarc_price }}</span>
+ </td>
+ @elseif($booking->country_id == "4")
+ <td>
+ <span id=""> {{ $flight->price }}</span>
+ </td>
+ @endif
+ <td>
+ <span id=""> {{ $flight->departure }}</span>AM
+ </td>
+ <td>
+ <span id=""> {{ $flight->arrival }}</span>
+ </td>
+ <td>
+ <span id=""> {{ $flight->from }}</span>
+ </td>
+ <td>
+ <span id=""> {{ $flight->to }}</span>
+ </td>
+    </tr>
+
+                      
+                          @endforeach
+                            </table>
+                  @endif 
+                </td>
+                </tr>
                 <tr>
                   <td>Arrival Date</td>
                   <td>{{ date_format(date_create($booking->arrival_date), 'M d,Y') }}</td>
@@ -79,6 +141,10 @@
                 <tr>
                   <td>Contact Number</td>
                   <td>{{ $booking->contact_number }}</td>
+                </tr>
+                <tr>
+                  <td>File</td>
+                  <td>{{ $booking->file }}</td>
                 </tr>                
                 </tbody>                
               </table>
@@ -93,36 +159,37 @@
                 <tbody>
                 <tr>
                   <td>Transaction Id</td>
-                  <td>{{ $booking->payment->transaction_id ?? "" }} </td>                  
+                  <td>{{ $booking->payment->transaction_id }}</td>                  
                 </tr>
                 <tr>
                   <td>Paymnet Status</td>
-                  <td>{{ $booking->payment->status ?? "" }} </td>                  
+                  <td>{{ $booking->payment->status }}</td>                  
                 </tr>
                 <tr>
                   <td>Transaction Amount</td>
-                  <td>{{ $booking->payment->transaction_amount ?? "" }} </td>
+                  <td>{{ $booking->payment->transaction_amount }}</td>
                 </tr>
                 <tr>
                   <td>Transaction Fee</td>
-                  <td>{{ $booking->payment->transaction_fee ?? "" }} </td>
+                  <td>{{ $booking->payment->transaction_fee }}</td>
                 </tr>
                 <tr>
                   <td>Paypal Email</td>
-                  <td> {{ $booking->payment->email ?? "" }} </td>
+                  <td>{{ $booking->payment->email }}</td>
                 </tr>
                 <tr>
                   <td>Paypal Customer Name</td>
-                 <td>{{ $booking->payment->first_name ?? ""}} {{$booking->payment->last_name ?? ""}} </td>
+                  <td>{{ $booking->payment->first_name .' '.$booking->payment->last_name }}</td>
                 </tr>             
                 <tr>
                   <td>Payer Id</td>
-                  <td> {{ $booking->payment->payer_id ?? "" }} </td>
+                  <td>{{ $booking->payment->payer_id }}</td>
                 </tr>
+
                 <!-- <tr>
                   <td>Desc</td>
-                  <td> {{ $booking->payment->description ?? "" }} </td>
-                </tr>  -->               
+                  <td>{{ $booking->payment->description }}</td>
+                </tr> -->                
                 </tbody>                
               </table>
             </div>

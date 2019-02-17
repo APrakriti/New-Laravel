@@ -49,7 +49,9 @@
                 @foreach($bookings as $index=>$booking)
                 <tr id="booking_{{ $booking->id }}">
                   <td>{{ $index+1 }}</td>
-                  <td>{{ $booking->customer->first_name .' '.$booking->customer->last_name .'('. $booking->customer->email .')' }}</td>                  
+                
+                    <td>{{ $booking->first_name ??"" .' '.$booking->last_name ?? "" .'('. $booking->email ?? "".')' }}</td>  
+
                   <td>{{ $booking->package->heading }}</td>
                   <td>{{ date_format(date_create($booking->created_at), 'M d,Y') }}</td>                  
                   <td>

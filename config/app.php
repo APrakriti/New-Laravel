@@ -12,8 +12,13 @@ return [
     | application. If disabled, a simple generic error page is shown.
     |
     */
+    'name' => 'Druk',
 
-    'debug' => env('APP_DEBUG'),
+    // 'env' => env('APP_ENV', 'production'),
+
+    // 'debug' => env('APP_DEBUG'),
+    'env' => env('APP_ENV', 'development'),
+     'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -115,11 +120,10 @@ return [
          */
         Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
-        Illuminate\Broadcasting\BroadcastServiceProvider::class,
+       // Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
         Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
-        Illuminate\Routing\ControllerServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
         Illuminate\Database\DatabaseServiceProvider::class,
         Illuminate\Encryption\EncryptionServiceProvider::class,
@@ -136,17 +140,22 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        
+
+       // Illuminate\Notifications\NotificationServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
+        Laravel\Tinker\TinkerServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
+       // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
         Barryvdh\Debugbar\ServiceProvider::class,
-        Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
+        //Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Netshell\Paypal\PaypalServiceProvider::class,
 
@@ -154,6 +163,7 @@ return [
          * Custom Service Providers...
          */
         App\Providers\AccessServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
     ],
 
@@ -203,6 +213,7 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+       // 'Notification' => Illuminate\Support\Facades\Notification::class,
 
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
@@ -212,6 +223,9 @@ return [
          * Custom Facades ...
          */
         'Access' => App\Facades\AccessFacade::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+
     ],
 
 ];

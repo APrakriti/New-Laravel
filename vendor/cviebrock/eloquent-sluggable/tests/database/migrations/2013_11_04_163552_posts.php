@@ -17,14 +17,13 @@ class Posts extends Migration
      */
     public function up()
     {
-
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->string('subtitle')->nullable();
             $table->string('slug')->nullable();
             $table->string('dummy')->nullable();
-            $table->integer('author_id')->nullable()->indexed();
+            $table->integer('author_id')->nullable();
             $table->softDeletes();
         });
     }

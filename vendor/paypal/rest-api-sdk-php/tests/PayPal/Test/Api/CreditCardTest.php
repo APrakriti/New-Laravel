@@ -2,7 +2,6 @@
 
 namespace PayPal\Test\Api;
 
-use PayPal\Common\PayPalModel;
 use PayPal\Api\CreditCard;
 
 /**
@@ -14,15 +13,17 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Gets Json String of Object CreditCard
+     *
      * @return string
      */
     public static function getJson()
     {
-        return '{"id":"TestSample","number":"TestSample","type":"TestSample","expire_month":123,"expire_year":123,"cvv2":"TestSample","first_name":"TestSample","last_name":"TestSample","billing_address":' .AddressTest::getJson() . ',"external_customer_id":"TestSample","state":"TestSample","valid_until":"TestSample","links":' .LinksTest::getJson() . '}';
+        return '{"id":"TestSample","number":"TestSample","type":"TestSample","expire_month":123,"expire_year":123,"cvv2":"TestSample","first_name":"TestSample","last_name":"TestSample","billing_address":' . AddressTest::getJson() . ',"external_customer_id":"TestSample","state":"TestSample","valid_until":"TestSample","links":' . LinksTest::getJson() . '}';
     }
 
     /**
      * Gets Object Instance with Json data filled in
+     *
      * @return CreditCard
      */
     public static function getObject()
@@ -33,6 +34,7 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Tests for Serialization and Deserialization Issues
+     *
      * @return CreditCard
      */
     public function testSerializationDeserialization()
@@ -76,5 +78,6 @@ class CreditCardTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($obj->getValidUntil(), "TestSample");
         $this->assertEquals($obj->getLinks(), LinksTest::getObject());
     }
+
 
 }

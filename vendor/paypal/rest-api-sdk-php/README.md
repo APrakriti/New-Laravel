@@ -2,11 +2,17 @@
 
 ![Home Image](https://raw.githubusercontent.com/wiki/paypal/PayPal-PHP-SDK/images/homepage.jpg)
 
-[![Build Status](https://travis-ci.org/paypal/PayPal-PHP-SDK.png?branch=master)](https://travis-ci.org/paypal/PayPal-PHP-SDK) [![Coverage Status](https://img.shields.io/coveralls/paypal/PayPal-PHP-SDK.svg)](https://coveralls.io/r/paypal/PayPal-PHP-SDK?branch=master)
+[![Build Status](https://travis-ci.org/paypal/PayPal-PHP-SDK.png?branch=master)](https://travis-ci.org/paypal/PayPal-PHP-SDK) 
+[![Coverage Status](https://coveralls.io/repos/paypal/PayPal-PHP-SDK/badge.svg?branch=master)](https://coveralls.io/r/paypal/PayPal-PHP-SDK?branch=master)
 
 __Welcome to PayPal PHP SDK__. This repository contains PayPal's PHP SDK and samples for REST API.
 
 > **Before starting to use the sdk, please be aware of the [existing issues and currently unavailable or upcoming features](https://github.com/paypal/rest-api-sdk-python/wiki/Existing-Issues-and-Unavailable%5CUpcoming-features) for the REST APIs. (which the sdks are based on)**
+
+## Please Note
+> **The Payment Card Industry (PCI) Council has [mandated](http://blog.pcisecuritystandards.org/migrating-from-ssl-and-early-tls) that early versions of TLS be retired from service.  All organizations that handle credit card information are required to comply with this standard. As part of this obligation, PayPal is updating its services to require TLS 1.2 for all HTTPS connections. At this time, PayPal will also require HTTP/1.1 for all connections. [Click here](https://github.com/paypal/tls-update) for more information**
+
+> **If you have the SDK v1.6.2 or higher installed, you can easily test this by running the [TLSCheck sample](sample/tls/TlsCheck.php).**
 
 ## SDK Documentation
 
@@ -21,11 +27,9 @@ __Welcome to PayPal PHP SDK__. This repository contains PayPal's PHP SDK and sam
 
 ## Latest Updates
 
-> **Seeing this error: `'Method PayPal\Api\Sale::getTransactionFee() does not exist' in paypal/vendor/paypal/rest-api-sdk-php/lib/PayPal/Common/PPReflectionUtil.php:73`, Please upgrade the SDK to latest version [v1.3.0](https://github.com/paypal/PayPal-PHP-SDK/releases/tag/v1.3.0).**
-
+- If you are running into SSL Connect Error talking to sandbox or live, please update your SDK to latest version or, follow instructions as shown [here](https://github.com/paypal/PayPal-PHP-SDK/issues/474)
 - Checkout the latest 1.0.0 release. Here are all the [ breaking Changes in v1.0.0 ](https://github.com/paypal/PayPal-PHP-SDK/wiki/Breaking-Changes---1.0.0) if you are migrating from older versions.
 - Now we have a [Github Page](http://paypal.github.io/PayPal-PHP-SDK/), that helps you find all helpful resources building applications using PayPal-PHP-SDK.
-- Introduced `DEBUG` level to logging. Deprecated `FINE`. Ability to restrict `DEBUG` level on `live` mode. [Read More](https://github.com/paypal/PayPal-PHP-SDK/wiki/Logging).
 
 
 ## Prerequisites

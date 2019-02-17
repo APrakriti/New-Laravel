@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Translation;
 
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
+
 /**
  * @author Abdellatif Ait boudad <a.aitboudad@gmail.com>
  */
@@ -36,7 +38,7 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
     public function __construct(TranslatorInterface $translator)
     {
         if (!$translator instanceof TranslatorBagInterface) {
-            throw new \InvalidArgumentException(sprintf('The Translator "%s" must implement TranslatorInterface and TranslatorBagInterface.', get_class($translator)));
+            throw new InvalidArgumentException(sprintf('The Translator "%s" must implement TranslatorInterface and TranslatorBagInterface.', get_class($translator)));
         }
 
         $this->translator = $translator;
@@ -48,7 +50,7 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
     public function trans($id, array $parameters = array(), $domain = null, $locale = null)
     {
         $trans = $this->translator->trans($id, $parameters, $domain, $locale);
-        $this->collectMessage($locale, $domain, $id, $trans);
+        $this->collectMessage($locale, $domain, $id, $trans, $parameters);
 
         return $trans;
     }
@@ -59,7 +61,7 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
     public function transChoice($id, $number, array $parameters = array(), $domain = null, $locale = null)
     {
         $trans = $this->translator->transChoice($id, $number, $parameters, $domain, $locale);
-        $this->collectMessage($locale, $domain, $id, $trans);
+        $this->collectMessage($locale, $domain, $id, $trans, $parameters, $number);
 
         return $trans;
     }
@@ -89,6 +91,20 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
     }
 
     /**
+     * Gets the fallback locales.
+     *
+     * @return array $locales The fallback locales
+     */
+    public function getFallbackLocales()
+    {
+        if ($this->translator instanceof Translator || method_exists($this->translator, 'getFallbackLocales')) {
+            return $this->translator->getFallbackLocales();
+        }
+
+        return array();
+    }
+
+    /**
      * Passes through all unknown calls onto the translator object.
      */
     public function __call($method, $args)
@@ -108,9 +124,11 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
      * @param string|null $locale
      * @param string|null $domain
      * @param string      $id
-     * @param string      $trans
+     * @param string      $translation
+     * @param array|null  $parameters
+     * @param int|null    $number
      */
-    private function collectMessage($locale, $domain, $id, $translation)
+    private function collectMessage($locale, $domain, $id, $translation, $parameters = array(), $number = null)
     {
         if (null === $domain) {
             $domain = 'messages';
@@ -142,6 +160,8 @@ class DataCollectorTranslator implements TranslatorInterface, TranslatorBagInter
             'domain' => $domain,
             'id' => $id,
             'translation' => $translation,
+            'parameters' => $parameters,
+            'transChoiceNumber' => $number,
             'state' => $state,
         );
     }

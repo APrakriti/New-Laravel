@@ -5,7 +5,7 @@
 
 .owl-theme .owl-controls{
 	bottom:15px;
-	text-align: center; position:absolute; left:40%; display:none !important
+	text-align: center;  left:45%; display:none !important
 }
 
 /* Styling Next and Prev buttons */
@@ -44,19 +44,19 @@
 	display: block;
 	width: 12px;
 	height: 12px;
-	margin: 5px 7px;
+	margin: 5px ;
 	filter: Alpha(Opacity=50);/*IE7 fix*/
 	opacity: 0.5;
 	-webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
 	border-radius: 20px;
-	background: #666;
+	background: #999;
 }
 
 .owl-theme .owl-controls .owl-page.active span,
 .owl-theme .owl-controls.clickable .owl-page:hover span{
 	filter: Alpha(Opacity=100);/*IE7 fix*/
-	opacity: 1; background:#d02727
+	opacity: 1; background:#f1491e
 }
 
 /* If PaginationNumbers is true */

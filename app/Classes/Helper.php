@@ -2,16 +2,22 @@
 namespace App\Classes;
 
 use Illuminate\Contracts\Mail\Mailer;
+use App\UserType;
+use App\Setting;
 use Mail;
-use Session;
-use App\Models\Destination;
-use App\Models\Package;
 
 class Helper
 {
-    public static function sendEmail($receiver, $subject, $content, $cc='')
-    {
-        $senderEmail    = env('NO_REPLY_EMAIL');
+
+      public static function getMainMenu($items = 3)
+     {
+        return UserType::where('is_active', '1')->take($items)->get();
+    }
+     
+
+	public static function sendEmail($receiver, $subject, $content, $cc='')
+	{
+		$senderEmail    = env('NO_REPLY_EMAIL');
         $senderName     = env('FROM_NAME');
         $sitePath       = URL('');
         $siteName       = env('SITE_NAME');
@@ -25,26 +31,22 @@ class Helper
                     );
 
         Mail::send('emails.email', $data, function ($message) use ($senderEmail, $senderName, $receiver, $subject,$cc) {
-            $message->from($senderEmail, $senderName);
+			$message->from($senderEmail, $senderName);
             $message->to($receiver);
             if($cc)
                 $message->cc($cc);
             $message->subject($subject);
         });
-    }
-    public static function getMainMenu()
+	}
+
+     public function content($slug)
     {
-        return Destination::where('is_active',1)->groupby('type')->get();
-
+        
+     return $content = Content::where('slug', $slug)
+                    ->where('is_active',1)->first();
     }
-    public static function getMainMenus()
-    {
+    public static function settings(){
 
-
-        return Package::where('is_active',1)->groupby('type')->get();
-
-    }
-    
-  
-
-}
+    $settings = Setting::pluck('value', 'slug')->toArray();
+    return Setting::pluck('value','slug');
+}}

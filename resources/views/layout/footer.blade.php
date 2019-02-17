@@ -1,11 +1,8 @@
-{{-- */ $destinations = App\Models\Destination::with('footerPackages')->where('type',Session::get('bound_type'))->where('is_active', 1)->orderBy('order_position')->take(5)->get(); /* --}}
-
-{{-- */ $packages = App\Models\Package::where('is_active', 1)->where('type',Session::get('bound_type'))->orderBy('order_position')->take(6)->get(); /* --}}
-{{-- */ $contents = App\Models\Content::where('is_active', 1)->orderBy('order_position')->take(6)->get(); /* --}}
-
 <section class="footer_destination pd">
          <div class="container">
             <div class="row">
+                <?php $destinations = App\Models\Destination::with('footerPackages')->orderBy('order_position')->get(); ?>
+
                <div class="col l12 delay-05s  fadeInUp wow animated">
                   @foreach($destinations as $destination)
                   <div class="foot_link">
@@ -35,6 +32,7 @@
                 </div>
                 <div class="footer_links">
                     <ul>
+                        <?php $packages = App\Models\Package::orderBy('order_position')->take('6')->get(); ?>
                         @foreach($packages as $package)
                         <li>
                             <a href="{{ route('package.detail', $package->slug) }}">
@@ -48,27 +46,36 @@
                 </div>
             </div>
             <div class="col l2 m6 s12 delay-05s  fadeInUp wow animated linebreak">
-                 <div class="footer_head">
+                <div class="footer_head">
                     Destinations
                 </div>
                 <div class="footer_links">
-                    @foreach($destinations as $destination)
+
                     <ul>
                        
+
+                @foreach($destinations as $index=>$destination)
+
                         <li>
-                           @if(count($destination->footerPackages) > 0)
-                        <li><a href="{{ route('destination.detail', $destination->slug) }}">{{ $destination->heading }}</a></li>
-                        @endif
+                            <a href="{{ route('destination.detail', $destination->slug) }}">
+                                {{ $destination->heading }}
+                            </a>
+                        </li>
+                      
+                        @endforeach    
+                       
+                      
                         
+                    
+                    
+                       
+                       
                         
                     </ul>
-                    @endforeach
                     <div class="clear">
                     </div>
                 </div>
-                </div>
-                
-            
+            </div>
             <div class="col l2 m6 s12 delay-05s  fadeInUp wow animated linebreak">
                 <div class="footer_head">
                      Quick Links
@@ -76,13 +83,12 @@
                 <div class="footer_links">
                     <ul>
                     <li>
-                            <a href="{{ route('home',Session::get('bound_type'))}}">
+                       <?php $contents = App\Models\Content::orderBy('order_position')->where('is_active','1')->take('6')->get(); ?>
+                            <a href="{{ route('home') }}">
                                 Home
                             </a>
                         </li>
-                         
-                        <li><a href="{{ route('testimonials.index') }}">Testimonials</a></li>
-                       
+                        <li><a href="{{ route('testimonials') }}">Testimonials</a></li>
                     @foreach($contents as $content)
                     
                         <li>
@@ -103,23 +109,23 @@
                 <div class="social_link">
                     <ul>
                         <li>
-                            <a href="https://www.facebook.com/ibookmytour/" target="_blank" >
+                            <a href="" target="_blank" >
                                 <i class="fa fa-facebook">
                                 </i>
                             </a>
                         </li>
-                        {{--<li class="twitter">--}}
-                            {{--<a href="" target="_blank" >--}}
-                                {{--<i class="fa fa-twitter">--}}
-                                {{--</i>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="googleplus">--}}
-                            {{--<a href="" target="_blank" >--}}
-                                {{--<i class="fa fa-google-plus">--}}
-                                {{--</i>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
+                        <li class="twitter">
+                            <a href="" target="_blank" >
+                                <i class="fa fa-twitter">
+                                </i>
+                            </a>
+                        </li>
+                        <li class="googleplus">
+                            <a href="" target="_blank" >
+                                <i class="fa fa-google-plus">
+                                </i>
+                            </a>
+                        </li>
                         {{--<li class="linkedin">--}}
                             {{--<a href="" target="_blank" >--}}
                                 {{--<i class="fa fa-linkedin">--}}
@@ -142,9 +148,10 @@
                     <img src="{{ asset('images/accept.png') }}"/>
                 </div>
                 <div class="copyright">
-                <span>A division of Divine International Explore and Treks </span> <br />
-                    Copyright © 2016. iBook My Tour <br />
-                    Powered By: <a href="http://www.peacenepal.com" target="_blank">Peace Nepal DOT Com</a>
+               
+                    Copyright © <?php echo date("Y");?>. Drukair Holidays <br />
+                    Powered By: <a href="http://chariot.com.sg/Web/Home/Main" target="_blank">Chariot Travels Pte. Ltd.</a>
+
                 </div>
             </div>
         </div>

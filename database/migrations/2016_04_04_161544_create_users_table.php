@@ -22,6 +22,9 @@ class CreateUsersTable extends Migration
             $table->enum('is_active', [0, 1])->default(0);
             $table->string('verify_token', 100)->nullable()->default(null);
             $table->string('password_reset_token', 100)->nullable()->default(null);
+             $table->integer('order_position')->unsigned()->nullable()->default(null);
+            $table->integer('created_by')->unsigned()->nullable()->default(null);
+            $table->integer('updated_by')->unsigned()->nullable()->default(null);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

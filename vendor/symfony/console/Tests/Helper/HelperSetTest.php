@@ -11,10 +11,11 @@
 
 namespace Symfony\Component\Console\Tests\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Command\Command;
 
-class HelperSetTest extends \PHPUnit_Framework_TestCase
+class HelperSetTest extends TestCase
 {
     public function testConstructor()
     {
@@ -63,10 +64,11 @@ class HelperSetTest extends \PHPUnit_Framework_TestCase
         $helperset = new HelperSet();
         try {
             $helperset->get('foo');
-            $this->fail('->get() throws \InvalidArgumentException when helper not found');
+            $this->fail('->get() throws InvalidArgumentException when helper not found');
         } catch (\Exception $e) {
-            $this->assertInstanceOf('\InvalidArgumentException', $e, '->get() throws \InvalidArgumentException when helper not found');
-            $this->assertContains('The helper "foo" is not defined.', $e->getMessage(), '->get() throws \InvalidArgumentException when helper not found');
+            $this->assertInstanceOf('\InvalidArgumentException', $e, '->get() throws InvalidArgumentException when helper not found');
+            $this->assertInstanceOf('Symfony\Component\Console\Exception\ExceptionInterface', $e, '->get() throws domain specific exception when helper not found');
+            $this->assertContains('The helper "foo" is not defined.', $e->getMessage(), '->get() throws InvalidArgumentException when helper not found');
         }
     }
 
@@ -107,16 +109,9 @@ class HelperSetTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * Create a generic mock for the helper interface. Optionally check for a call to setHelperSet with a specific
-     * helperset instance.
-     *
-     * @param string    $name
-     * @param HelperSet $helperset allows a mock to verify a particular helperset set is being added to the Helper
-     */
     private function getGenericMockHelper($name, HelperSet $helperset = null)
     {
-        $mock_helper = $this->getMock('\Symfony\Component\Console\Helper\HelperInterface');
+        $mock_helper = $this->getMockBuilder('\Symfony\Component\Console\Helper\HelperInterface')->getMock();
         $mock_helper->expects($this->any())
             ->method('getName')
             ->will($this->returnValue($name));

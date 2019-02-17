@@ -81,7 +81,7 @@ class SluggableServiceProvider extends ServiceProvider
      */
     public function registerCommands()
     {
-        $this->app['sluggable.table'] = $this->app->share(function ($app) {
+        $this->app['sluggable.table'] = $this->app->singleton(function ($app) {
             // Once we have the migration creator registered, we will create the command
             // and inject the creator. The creator is responsible for the actual file
             // creation of the migrations, and may be extended by these developers.

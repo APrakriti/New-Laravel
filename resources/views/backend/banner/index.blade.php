@@ -125,7 +125,6 @@
                   <th>S N</th>
                   <th>Banner Name</th>
                   <th>Attachment</th>
-                  <th>Type</th>
                   <th>Publish</th>
                   <th>Options</th>
                 </tr>
@@ -143,7 +142,6 @@
                       <img src="{{ asset('uploads/noimage.jpg') }}" style="width: 200px; height: 120px;">
                     @endif
                   </td>
-                  <td>{{$banner->type}}</td>
                   <td>
                     @if($banner->is_active == 1)
                       <a href="javascript:void(0)" class="change-status" id="{{ $banner->id }}" title="Change Status"><i class="fa fa-check-square-o"></i></a>

@@ -28,7 +28,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['tier_id','username', 'email', 'password', 'first_name', 'last_name'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -44,4 +44,13 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany('App\Models\Log','user_id');
     }
+     public function userType()
+    {
+        return $this->belongsTo('App\UserType','user_type');
+    }
+     public function tier()
+    {  
+        return $this->belongsTo('App\Tier', 'tier_id');
+      
+    } 
 }

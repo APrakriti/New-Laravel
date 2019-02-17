@@ -22,20 +22,9 @@
                     }
                 }
             },
-
-            description: {
-                validators: {
-                    notEmpty: {
-                        message: 'The description is required.'
-                    }
-                }
-            },
             
             attachment: {
               validators: {
-                  notEmpty: {
-                      message: 'The attachment is required'
-                  },
                   file: {
                       extension: 'jpeg,jpg,png',
                       type: 'image/jpeg,image/png',
@@ -46,7 +35,6 @@
             },
         }
     });
-
   });
 </script>
 @endsection
@@ -83,17 +71,7 @@
                 <div class="form-group col-md-6">
                   <label for="exampleInputTestimonial">Testimonial Name *</label>
                   <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Enter testimonial name">
-                </div>  
-                <div class="form-group col-md-6">
-                <label for="exampleInputPackage">Type</label>
-                  <select class="form-control" name="type">
-                     <option value="">Select Type</option>
-                                   
-                        <option value="foreigner">For Foreigners</option>
-                        <option value="nepalese">For Nepalese</option>
-                                   
-                                </select>
-                  </div>                       
+                </div>                        
               </div>
               <!-- /.box-body -->
               <div class="box-body">
@@ -111,6 +89,7 @@
                   </div>
                   <input type="file" name="attachment" id="attachment">
                   <p class="help-block">Valid file extensions are jpeg,jpg and png.</p>
+                   <p>Maximum file size 1024 * 1024</p>
                   </div>                               
               </div>
 
